@@ -48,3 +48,12 @@ NETLAB/
     ├── js/main.js
     └── icons/netlab-mark.svg
 ```
+
+
+## Évolution V1.1
+
+- Hero recentré sur le profil professionnel et les objectifs de stage.
+- Topologie conceptuelle interactive : sélectionner un équipement met à jour son rôle.
+- Section Projets avec filtres Réseaux / Sécurité / Systèmes.
+- Fiches détaillées ouvertes dans une boîte de dialogue accessible.
+- Les projets non terminés sont étiquetés « en construction », « en préparation » ou « à documenter ».
