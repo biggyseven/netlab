@@ -66,6 +66,7 @@
         <nav class="primary-nav" id="primary-nav" data-nav>
           <a href="#profil">Profil</a>
           <a href="#competences">Compétences</a>
+          <a href="#projets">Projets</a>
           <a href="#laboratoire">Laboratoire</a>
           <a href="#methode">Méthode</a>
         </nav>
@@ -85,17 +86,21 @@
       <section class="hero-section section-pad">
         <div class="container hero-grid">
           <div class="hero-copy" data-reveal>
-            <div class="eyebrow"><span class="eyebrow-dot"></span> PORTFOLIO PERSONNEL · RÉSEAUX & TÉLÉCOMS</div>
-            <p class="hero-kicker">Comprendre l'infrastructure. Maîtriser la connexion.</p>
-            <h1>Construire des réseaux <span>fiables et utiles.</span></h1>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> PORTFOLIO TECHNIQUE · DOUALA, CAMEROUN</div>
+            <p class="hero-kicker">KITE KADJI GUILLAUME AARON</p>
+            <h1>Réseaux & télécommunications. <span>Du concept à la maîtrise.</span></h1>
             <p class="hero-description">
-              Je suis diplômé en Réseaux et Télécommunications. Je développe mes compétences
-              en administration systèmes et réseaux à travers des laboratoires, des tests
-              et une documentation technique rigoureuse.
+              Diplômé en Réseaux et Télécommunications, je construis mon expérience pratique
+              en administration systèmes et réseaux. Ici, je documente mes apprentissages,
+              mes laboratoires et chaque compétence que je peux démontrer.
             </p>
             <div class="hero-actions">
-              <a class="button button-primary" href="#laboratoire">Explorer mes laboratoires <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
-              <a class="button button-secondary" href="#competences">Voir mes compétences</a>
+              <a class="button button-primary" href="#projets">Découvrir les projets <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+              <a class="button button-secondary" href="#profil">Mon parcours</a>
+            </div>
+            <div class="hero-credentials" aria-label="Formation académique">
+              <span><svg class="icon"><use href="#i-graduation"/></svg> Licence Réseaux & Télécommunications</span>
+              <span><svg class="icon"><use href="#i-check"/></svg> BTS Réseaux et Sécurité</span>
             </div>
             <div class="hero-meta">
               <span><i class="status-pulse"></i> En apprentissage actif</span>
@@ -106,8 +111,8 @@
 
           <div class="hero-visual" data-reveal data-reveal-delay="120">
             <div class="visual-topline">
-              <span class="mini-label">NETWORK OVERVIEW</span>
-              <span class="live-indicator"><i></i> LAB PERSONNEL</span>
+              <span class="mini-label">NETWORK INTERACTIVE MAP</span>
+              <span class="live-indicator"><i></i> TOPOLOGIE CONCEPTUELLE</span>
             </div>
             <div class="network-art" role="img" aria-label="Illustration abstraite d'un réseau reliant routeur, commutateur, serveur et postes clients">
               <div class="network-glow"></div>
@@ -142,6 +147,10 @@
                 <span><strong>CLIENT 02</strong><small>VLAN 20</small></span>
               </div>
               <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+            </div>
+            <div class="topology-inspector" aria-live="polite">
+              <span class="inspector-index">NODE / 01</span>
+              <div><strong data-topology-title>Routeur</strong><p data-topology-role>Relie des réseaux IP différents et choisit la prochaine destination des paquets.</p></div>
             </div>
             <div class="visual-footer">
               <span><b>01</b> Topologie conceptuelle</span>
@@ -237,11 +246,74 @@
         </div>
       </section>
 
+      <section class="section-pad projects-section" id="projets">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <div><p class="section-index">03 / PROJETS</p><h2>Du travail concret.<br><span>Des preuves, pas des promesses.</span></h2></div>
+            <p class="section-lead">Les projets sont présentés selon leur état réel. Les pistes et laboratoires en préparation ne sont pas affichés comme des réalisations terminées.</p>
+          </div>
+          <div class="project-toolbar" data-reveal>
+            <div class="project-filters" role="group" aria-label="Filtrer les projets">
+              <button type="button" class="project-filter is-active" data-project-filter="all" aria-pressed="true">Tous</button>
+              <button type="button" class="project-filter" data-project-filter="network" aria-pressed="false">Réseaux</button>
+              <button type="button" class="project-filter" data-project-filter="security" aria-pressed="false">Sécurité</button>
+              <button type="button" class="project-filter" data-project-filter="systems" aria-pressed="false">Systèmes</button>
+            </div>
+            <span class="project-count"><strong data-project-count>03</strong> FICHES PRÉSENTÉES</span>
+          </div>
+          <div class="projects-grid">
+            <article class="project-card" data-project-card data-category="network security systems" data-reveal>
+              <div class="project-preview project-preview-network">
+                <div class="project-preview-top"><span>LAB / 001</span><span class="project-type">INFRASTRUCTURE</span></div>
+                <div class="project-mini-topology"><span class="mini-node">WAN</span><i></i><span class="mini-node">pfSense</span><i></i><span class="mini-node">SWITCH L2</span><div class="mini-branches"><span>VLAN 10</span><span>VLAN 20</span><span>VLAN 30</span></div></div>
+                <span class="preview-caption">RÉSEAU PME · SEGMENTATION</span>
+              </div>
+              <div class="project-card-content">
+                <div class="project-card-meta"><span class="project-status status-progress"><i></i> En construction</span><span class="project-number">01</span></div>
+                <h3>Infrastructure réseau sécurisée pour une PME</h3>
+                <p>Concevoir une architecture segmentée avec pare-feu, services Linux et supervision.</p>
+                <div class="project-tags"><span>GNS3</span><span>pfSense</span><span>VLAN</span><span>Zabbix</span></div>
+                <button class="project-open" type="button" data-project-open data-title="Infrastructure réseau sécurisée pour une PME" data-status="En construction" data-summary="Laboratoire visant à concevoir une infrastructure de PME segmentée, à contrôler les flux avec pfSense et à préparer la supervision." data-tools="GNS3|pfSense|VLAN|Ubuntu Server|Zabbix" data-objectives="Établir le plan d'adressage IP|Créer les segments Administration, Utilisateurs et Serveurs|Définir les règles de filtrage|Installer et superviser les services|Documenter les tests de connectivité et de sécurité">Voir la fiche <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+              </div>
+            </article>
+            <article class="project-card" data-project-card data-category="network" data-reveal data-reveal-delay="80">
+              <div class="project-preview project-preview-ip">
+                <div class="project-preview-top"><span>ATELIER / 002</span><span class="project-type">FONDAMENTAUX</span></div>
+                <div class="ip-visual"><div class="ip-address">192.168.<b>10</b>.0/24</div><div class="subnet-bars"><i></i><i></i><i></i><i></i></div><div class="subnet-labels"><span>NETWORK</span><span>HOSTS</span><span>MASK</span></div><div class="ip-equation">IP <b>+</b> MASK <b>=</b> SUBNET</div></div>
+                <span class="preview-caption">IPv4 · CIDR · VLSM</span>
+              </div>
+              <div class="project-card-content">
+                <div class="project-card-meta"><span class="project-status status-planned"><i></i> À documenter</span><span class="project-number">02</span></div>
+                <h3>Adressage IPv4 & subnetting</h3>
+                <p>Formaliser des exercices de calcul, de découpage et de validation de sous-réseaux.</p>
+                <div class="project-tags"><span>IPv4</span><span>CIDR</span><span>VLSM</span></div>
+                <button class="project-open" type="button" data-project-open data-title="Adressage IPv4 & subnetting" data-status="À documenter" data-summary="Atelier pédagogique à construire pour démontrer le calcul des masques, des plages d'adresses et le découpage VLSM." data-tools="IPv4|CIDR|VLSM|Packet Tracer" data-objectives="Calculer les adresses réseau et broadcast|Déterminer les plages d'hôtes utilisables|Découper un réseau selon les besoins|Vérifier les configurations avec des tests">Voir la fiche <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+              </div>
+            </article>
+            <article class="project-card" data-project-card data-category="security systems" data-reveal data-reveal-delay="160">
+              <div class="project-preview project-preview-monitor">
+                <div class="project-preview-top"><span>LAB / 003</span><span class="project-type">SUPERVISION</span></div>
+                <div class="monitor-visual"><div class="monitor-header"><span>HOST AVAILABILITY</span><b>●</b></div><div class="monitor-chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 76 25 71 48 73 72 38 96 47 120 31 145 42 170 22 195 28 220 14 245 23 270 12 300 16" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></div><div class="monitor-metrics"><span>CPU <b>--%</b></span><span>RAM <b>--%</b></span><span>UPTIME <b>--</b></span></div></div>
+                <span class="preview-caption">ZABBIX · LINUX · SNMP</span>
+              </div>
+              <div class="project-card-content">
+                <div class="project-card-meta"><span class="project-status status-planned"><i></i> En préparation</span><span class="project-number">03</span></div>
+                <h3>Supervision centralisée avec Zabbix</h3>
+                <p>Préparer la surveillance de serveurs et services réseau dans un environnement de PME.</p>
+                <div class="project-tags"><span>Zabbix</span><span>Ubuntu Server</span><span>SNMP</span></div>
+                <button class="project-open" type="button" data-project-open data-title="Supervision centralisée avec Zabbix" data-status="En préparation" data-summary="Projet de laboratoire en préparation autour d'une solution open source de supervision de serveurs et services réseau." data-tools="Zabbix|Ubuntu Server|SNMP|Agent Zabbix" data-objectives="Installer le serveur Zabbix|Ajouter des hôtes Linux et Windows|Surveiller les services et ressources|Configurer des déclencheurs et notifications|Produire un rapport de supervision">Voir la fiche <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+              </div>
+            </article>
+          </div>
+          <p class="projects-note"><svg class="icon"><use href="#i-check"/></svg> Les statuts distinguent les réalisations en cours des ateliers et projets encore à documenter.</p>
+        </div>
+      </section>
+
       <section class="section-pad lab-section" id="laboratoire">
         <div class="container">
           <div class="section-heading" data-reveal>
             <div>
-              <p class="section-index">03 / LABORATOIRE</p>
+              <p class="section-index">04 / LABORATOIRE</p>
               <h2>Apprendre en <span>construisant.</span></h2>
             </div>
             <p class="section-lead">Des environnements simulés pour manipuler, tester et comprendre les mécanismes d'un réseau d'entreprise.</p>
@@ -295,7 +367,7 @@
         <div class="container">
           <div class="section-heading" data-reveal>
             <div>
-              <p class="section-index">04 / MÉTHODE</p>
+              <p class="section-index">05 / MÉTHODE</p>
               <h2>Une démarche simple.<br><span>Des preuves à chaque étape.</span></h2>
             </div>
             <p class="section-lead">Chaque laboratoire suit un processus reproductible, comme une intervention technique en entreprise.</p>
@@ -327,7 +399,7 @@
         <div class="container">
           <div class="contact-panel" data-reveal>
             <div>
-              <p class="section-index">05 / CONTACT</p>
+              <p class="section-index">06 / CONTACT</p>
               <h2>Parlons réseaux,<br><span>projets et opportunités.</span></h2>
               <p>Cette première version pose les bases du portfolio. Les coordonnées et le formulaire seront connectés depuis l'espace d'administration dans une prochaine étape.</p>
             </div>
@@ -351,6 +423,19 @@
         <span class="footer-copy">© <span data-year></span> NETLAB. Première version.</span>
       </div>
     </footer>
+
+    <dialog class="project-dialog" data-project-dialog aria-labelledby="project-dialog-title">
+      <div class="project-dialog-inner">
+        <div class="dialog-topline"><span class="mini-label">PROJECT BRIEF</span><button class="dialog-close" type="button" data-dialog-close aria-label="Fermer la fiche projet"><svg class="icon"><use href="#i-close"/></svg></button></div>
+        <span class="project-status status-progress" data-dialog-status>En construction</span>
+        <h2 id="project-dialog-title" data-dialog-title>Fiche projet</h2>
+        <p class="dialog-summary" data-dialog-summary></p>
+        <div class="dialog-tools" data-dialog-tools></div>
+        <h3>Objectifs et livrables à documenter</h3>
+        <ul class="dialog-objectives" data-dialog-objectives></ul>
+        <p class="dialog-footnote">Cette fiche décrit le périmètre prévu. Les résultats seront ajoutés après réalisation et validation des tests.</p>
+      </div>
+    </dialog>
   </div>
 </body>
 </html>
