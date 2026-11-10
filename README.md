@@ -98,3 +98,12 @@ NETLAB/
 - Navigation par fiche, responsive et compatible avec les cinq thèmes.
 - Liens vers les références officielles Netgate, Zabbix et RFC 3021.
 - Distinction explicite entre résultats de calcul vérifiés, procédures à exécuter et preuves encore à collecter.
+
+
+## Évolution V1.6 — accueil console réseau
+
+- Refonte visuelle du héros : hiérarchie typographique renforcée, fond technique discret et panneau de topologie plus structuré.
+- Ajout de trois accès rapides vers l'atelier IPv4, le laboratoire PME et la documentation Zabbix.
+- Affichage explicite des états « disponible », « en construction » et « en préparation ».
+- Ajustements responsive et compatibilité avec les cinq thèmes existants.
+- Amélioration de la sémantique accessible de la zone de topologie interactive.
