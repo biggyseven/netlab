@@ -524,3 +524,6 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .projects-grid { grid-template-columns: 1fr; }
   .project-preview { min-height: 180px; }
 }
+
+/* Keep centered topology nodes centered during hover. */
+.network-node.node-router:hover, .network-node.node-switch:hover { transform: translate(-50%, -2px); }
