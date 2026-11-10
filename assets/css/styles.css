@@ -1402,16 +1402,10 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
 
 
 /* NETLAB V1.3.2 — shared coordinate system for the main topology */
-.network-art {
-  position: relative;
-  overflow: hidden;
-}
-
 .network-lines {
   inset: 0;
   width: 100%;
   height: 100%;
-  preserveAspectRatio: none;
 }
 
 /* Each node is anchored by its centre to the matching SVG coordinate. */
@@ -1454,6 +1448,10 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
 }
 
 /* Preserve the same anchor while a device is hovered. */
-.network-node:hover {
+.network-node.node-router:hover,
+.network-node.node-switch:hover,
+.network-node.node-firewall:hover,
+.network-node.node-server:hover,
+.network-node.node-client:hover {
   transform: translate(-50%, calc(-50% - 2px));
 }
