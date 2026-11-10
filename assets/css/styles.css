@@ -1455,3 +1455,69 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
 .network-node.node-client:hover {
   transform: translate(-50%, calc(-50% - 2px));
 }
+
+
+/* NETLAB V1.3.3 — LAB 001 topology: switch is the VLAN distribution point */
+.topo-link-branch {
+  position: relative;
+  flex: 0 0 28px;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+}
+
+/* Horizontal bus spans the three branch centre-lines. */
+.topo-link-branch::before {
+  left: 16.6667%;
+  right: 16.6667%;
+  top: auto;
+  bottom: 0;
+  width: auto;
+  height: 1px;
+  transform: none;
+  background: var(--topology-branch-line);
+}
+
+/* The vertical trunk starts at the switch and meets the bus. */
+.topo-link-branch::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(var(--accent), var(--topology-branch-line));
+}
+
+.topo-branches {
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+.topo-branch {
+  min-width: 0;
+  padding-inline: 4px;
+  box-sizing: border-box;
+}
+
+.topo-small {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* Keep the shared bus aligned with the branch centres on narrow screens. */
+@media (max-width: 560px) {
+  .topo-branches {
+    gap: 0;
+  }
+  .topo-branch {
+    padding-inline: 3px;
+  }
+  .topo-link-branch::before {
+    left: 16.6667%;
+    right: 16.6667%;
+  }
+}
