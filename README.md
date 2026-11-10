@@ -57,3 +57,13 @@ NETLAB/
 - Section Projets avec filtres Réseaux / Sécurité / Systèmes.
 - Fiches détaillées ouvertes dans une boîte de dialogue accessible.
 - Les projets non terminés sont étiquetés « en construction », « en préparation » ou « à documenter ».
+
+
+## Évolution V1.2 — outil IPv4
+
+- Ajout d’un calculateur interactif IPv4/CIDR intégré au Network Lab.
+- Calcul de l’adresse réseau, du masque, du wildcard, du broadcast et de la plage d’hôtes.
+- Affichage du nombre total d’adresses et d’hôtes utilisables.
+- Gestion dédiée des préfixes `/31` (liaison point à point) et `/32` (route hôte).
+- Validation des adresses IPv4 et des préfixes saisis.
+- Calcul effectué dans le navigateur, sans envoyer les données à un serveur.
