@@ -2,31 +2,64 @@
   "use strict";
 
   const root = document.documentElement;
-  const themeToggle = document.querySelector("[data-theme-toggle]");
+  const themePicker = document.querySelector("[data-theme-picker]");
+  const themeTrigger = document.querySelector("[data-theme-trigger]");
+  const themeMenu = document.querySelector("[data-theme-menu]");
   const themeLabel = document.querySelector("[data-theme-label]");
+  const themeOptions = [...document.querySelectorAll("[data-theme-option]")];
   const menuToggle = document.querySelector("[data-menu-toggle]");
   const nav = document.querySelector("[data-nav]");
   const navLinks = [...document.querySelectorAll("[data-nav] a")];
 
+  const themeDefinitions = {
+    noc: { label: "NOC Signal", color: "#0B1420" },
+    blueprint: { label: "Blueprint Engineering", color: "#F2F6FC" },
+    observability: { label: "Observability Graphite", color: "#171A24" },
+    "classic-dark": { label: "Classique sombre", color: "#07101D" },
+    "classic-light": { label: "Classique clair", color: "#F4F8FC" }
+  };
+
+  const closeThemeMenu = () => {
+    if (!themeMenu || !themeTrigger) return;
+    themeMenu.hidden = true;
+    themeTrigger.setAttribute("aria-expanded", "false");
+  };
+
   const applyTheme = (theme, persist = false) => {
-    root.dataset.theme = theme;
-    if (themeLabel) themeLabel.textContent = theme === "dark" ? "Mode sombre" : "Mode clair";
-    if (themeToggle) {
-      themeToggle.setAttribute("aria-label", theme === "dark" ? "Activer le thème clair" : "Activer le thème sombre");
-      themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+    const selected = themeDefinitions[theme] ? theme : "noc";
+    root.dataset.theme = selected;
+    const definition = themeDefinitions[selected];
+
+    if (themeLabel) themeLabel.textContent = definition.label;
+    if (themeTrigger) {
+      themeTrigger.setAttribute("aria-label", "Choisir un thème. Thème actuel : " + definition.label);
+      themeTrigger.setAttribute("aria-expanded", "false");
     }
+    themeOptions.forEach(option => {
+      option.setAttribute("aria-pressed", String(option.dataset.themeOption === selected));
+    });
+
     const metaTheme = document.querySelector('meta[name="theme-color"]');
-    if (metaTheme) metaTheme.setAttribute("content", theme === "dark" ? "#08111f" : "#f4f8fc");
+    if (metaTheme) metaTheme.setAttribute("content", definition.color);
+
     if (persist) {
-      try { localStorage.setItem("netlab-theme", theme); } catch (_) { /* stockage indisponible */ }
+      try { localStorage.setItem("netlab-theme", selected); } catch (_) { /* stockage indisponible */ }
     }
   };
 
-  applyTheme(root.dataset.theme || "dark");
+  applyTheme(root.dataset.theme || "noc");
 
-  themeToggle?.addEventListener("click", () => {
-    applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+  themeTrigger?.addEventListener("click", () => {
+    const willOpen = themeTrigger.getAttribute("aria-expanded") !== "true";
+    if (themeMenu) themeMenu.hidden = !willOpen;
+    themeTrigger.setAttribute("aria-expanded", String(willOpen));
   });
+
+  themeOptions.forEach(option => option.addEventListener("click", () => {
+    applyTheme(option.dataset.themeOption, true);
+    closeThemeMenu();
+    themeTrigger?.focus();
+  }));
 
   const closeMenu = () => {
     nav?.classList.remove("is-open");
@@ -43,11 +76,17 @@
 
   navLinks.forEach(link => link.addEventListener("click", closeMenu));
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeMenu();
+    if (event.key === "Escape") {
+      closeMenu();
+      closeThemeMenu();
+    }
   });
   document.addEventListener("click", event => {
     if (nav?.classList.contains("is-open") && !nav.contains(event.target) && !menuToggle?.contains(event.target)) {
       closeMenu();
+    }
+    if (themeMenu && !themeMenu.hidden && themePicker && !themePicker.contains(event.target)) {
+      closeThemeMenu();
     }
   });
 
