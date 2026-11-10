@@ -113,7 +113,7 @@
         });
       });
     }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
-    ["profil", "competences", "projets", "laboratoire", "journal", "methode"].forEach(id => {
+    ["profil", "competences", "projets", "laboratoire", "journal", "methode", "ipv4", "pme", "zabbix"].forEach(id => {
       const section = document.getElementById(id);
       if (section) sectionObserver.observe(section);
     });
@@ -216,5 +216,61 @@
     });
   });
   if (topologyNodes[0]) selectTopologyNode(topologyNodes[0], 0);
+
+  // Documentation: copy command snippets with a fallback for older contexts.
+  document.querySelectorAll("[data-copy-code]").forEach(button => button.addEventListener("click", async () => {
+    const code = button.closest(".docs-code")?.querySelector("pre code");
+    if (!code) return;
+    const label = button.querySelector("[data-copy-label]");
+    const originalLabel = label?.textContent || "Copier";
+    const value = code.textContent || "";
+
+    const fallbackCopy = text => {
+      const field = document.createElement("textarea");
+      field.value = text;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.append(field);
+      field.select();
+      const copied = document.execCommand("copy");
+      field.remove();
+      if (!copied) throw new Error("Copie indisponible");
+    };
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(value);
+      else fallbackCopy(value);
+      if (label) label.textContent = "Copié";
+      button.setAttribute("aria-label", "Commande copiée");
+    } catch (_) {
+      if (label) label.textContent = "Copie indisponible";
+      button.setAttribute("aria-label", "Copie indisponible");
+    }
+
+    window.setTimeout(() => {
+      if (label) label.textContent = originalLabel;
+      button.setAttribute("aria-label", "Copier les commandes");
+    }, 1800);
+  }));
+
+  const docsLinks = [...document.querySelectorAll(".docs-sidebar a[href^='#']")];
+  if (docsLinks.length && "IntersectionObserver" in window) {
+    const docsObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        docsLinks.forEach(link => {
+          const active = link.getAttribute("href") === "#" + entry.target.id;
+          link.classList.toggle("is-active", active);
+          if (active) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-20% 0px -65% 0px", threshold: 0 });
+    ["ipv4", "pme", "zabbix"].forEach(id => {
+      const section = document.getElementById(id);
+      if (section) docsObserver.observe(section);
+    });
+  }
 
 })();
