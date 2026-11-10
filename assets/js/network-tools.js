@@ -109,6 +109,10 @@
     } catch (reason) {
       error.textContent = reason instanceof Error ? reason.message : "Impossible d’effectuer ce calcul.";
       error.hidden = false;
+      Object.values(output).forEach(element => {
+        if (element) element.textContent = "—";
+      });
+      if (note) note.textContent = "Aucun résultat : corrigez l’adresse IPv4 ou le préfixe CIDR.";
       input.setAttribute("aria-invalid", "true");
       input.focus();
     }
