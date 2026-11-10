@@ -14,10 +14,10 @@ Pour un serveur local :
 
 ```bash
 cd NETLAB
-python -m http.server 8000
+python -m http.server 8001
 ```
 
-Puis visite http://localhost:8000.
+Puis visite http://localhost:8001.
 
 ## Contenu de cette étape
 
