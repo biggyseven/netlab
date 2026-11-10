@@ -75,6 +75,35 @@
   --success: #168d69;
   --warning: #a66a19;
   --shadow: 0 24px 70px rgba(31, 64, 96, .10);
+  --danger: #c34e54;
+  --page-glow: rgba(40, 120, 229, .08);
+  --selection: rgba(8, 127, 174, .16);
+  --primary-gradient: linear-gradient(110deg, #087fae, #2369d8);
+  --primary-ink: #ffffff;
+  --primary-shadow: rgba(8, 127, 174, .15);
+  --primary-shadow-hover: rgba(8, 127, 174, .23);
+  --success-halo: rgba(22, 141, 105, .12);
+  --hero-surface-tint: #dceaf5;
+  --hero-grid-line: rgba(28, 126, 190, .10);
+  --network-glow: rgba(8, 127, 174, .12);
+  --network-line: rgba(8, 127, 174, .60);
+  --network-line-muted: rgba(35, 105, 216, .26);
+  --network-node-border: rgba(28, 126, 190, .26);
+  --orbit-line: rgba(28, 126, 190, .12);
+  --profile-note-glow: rgba(8, 127, 174, .10);
+  --warning-bg: rgba(166, 106, 25, .08);
+  --warning-border: rgba(166, 106, 25, .23);
+  --lab-glow: rgba(8, 127, 174, .10);
+  --topology-line-fade: rgba(8, 127, 174, .14);
+  --topology-branch-line: rgba(8, 127, 174, .40);
+  --contact-glow: rgba(8, 127, 174, .10);
+  --contact-orbit-glow: rgba(8, 127, 174, .12);
+  --project-glow: rgba(8, 127, 174, .09);
+  --project-grid-line: rgba(28, 126, 190, .13);
+  --project-ip-glow: rgba(35, 105, 216, .12);
+  --project-monitor-glow: rgba(22, 141, 105, .10);
+  --dialog-shadow: rgba(31, 64, 96, .22);
+  --dialog-backdrop: rgba(18, 36, 58, .45);
 }
 
 * { box-sizing: border-box; }
@@ -1151,7 +1180,7 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
 }
 @media (max-width: 600px) {
   .theme-picker-trigger { width: 36px; min-width: 36px; height: 36px; min-height: 36px; }
-  .theme-menu { right: -44px; }
+  .theme-menu { right: 0; }
 }
 
 /* Theme-aware charts and technical data */
