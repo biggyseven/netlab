@@ -20,6 +20,7 @@
     })();
   </script>
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/network-tools.js" defer></script>
 </head>
 <body>
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -359,6 +360,62 @@
               <div class="topology-legend"><span><i class="legend-cyan"></i> Liaison réseau</span><span><i class="legend-blue"></i> Équipement</span></div>
             </div>
           </article>
+
+          <section class="subnet-tool" aria-labelledby="subnet-tool-title" data-subnet-tool>
+            <div class="subnet-tool-intro">
+              <div class="subnet-tool-heading">
+                <p class="mini-label">OUTIL INTERACTIF · IPv4</p>
+                <h3 id="subnet-tool-title">Calculateur de sous-réseau</h3>
+                <p>Entrez une adresse IPv4 avec son préfixe CIDR pour obtenir immédiatement les paramètres du sous-réseau.</p>
+              </div>
+              <form class="subnet-form" data-subnet-form novalidate>
+                <label for="subnet-cidr">Adresse IPv4 / préfixe</label>
+                <div class="subnet-input-row">
+                  <input id="subnet-cidr" name="subnet" type="text" value="192.168.10.25/24" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="subnet-help subnet-error">
+                  <button class="button button-primary" type="submit">Calculer <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+                </div>
+                <p class="subnet-help" id="subnet-help">Exemple : 192.168.10.25/24 · Préfixe accepté : /0 à /32.</p>
+                <p class="subnet-error" id="subnet-error" data-subnet-error role="alert" hidden></p>
+              </form>
+            </div>
+
+            <div class="subnet-results" data-subnet-results aria-live="polite" aria-label="Résultats du calcul">
+              <article class="subnet-metric subnet-metric-primary">
+                <span>Adresse réseau</span>
+                <strong data-subnet-network>192.168.10.0</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Masque de sous-réseau</span>
+                <strong data-subnet-mask>255.255.255.0</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Adresse de broadcast</span>
+                <strong data-subnet-broadcast>192.168.10.255</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Wildcard</span>
+                <strong data-subnet-wildcard>0.0.0.255</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Première adresse utilisable</span>
+                <strong data-subnet-first>192.168.10.1</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Dernière adresse utilisable</span>
+                <strong data-subnet-last>192.168.10.254</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Nombre total d’adresses</span>
+                <strong data-subnet-total>256</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Hôtes utilisables</span>
+                <strong data-subnet-usable>254</strong>
+              </article>
+            </div>
+            <p class="subnet-note" data-subnet-note>Préfixe /24 · 256 adresses au total · 254 hôtes utilisables dans un sous-réseau IPv4 classique.</p>
+          </section>
+
           <p class="lab-disclaimer">Schéma conceptuel de démonstration. La configuration et les tests seront documentés au fur et à mesure de leur réalisation.</p>
         </div>
       </section>
