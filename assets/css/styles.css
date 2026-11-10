@@ -662,3 +662,331 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .subnet-metric { min-height: 78px; padding: 11px; }
   .subnet-metric strong { font-size: 10px; }
 }
+
+
+/* NETLAB responsive correction — header, hero and intro */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+  .hero-copy {
+    width: 100%;
+    max-width: 760px;
+    min-width: 0;
+  }
+  .hero-copy h1 {
+    max-width: 760px;
+  }
+  .hero-visual {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+  }
+  .hero-visual .network-art {
+    height: clamp(290px, 42vw, 350px);
+  }
+  .intro-strip-inner {
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+  }
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    min-height: 70px;
+    gap: 12px;
+  }
+  .brand {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .brand-copy {
+    min-width: 0;
+  }
+  .brand-copy small {
+    max-width: 190px;
+    overflow-wrap: anywhere;
+  }
+  .menu-toggle {
+    display: inline-flex;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+  }
+  .header-actions {
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+  .header-contact {
+    display: none;
+  }
+  .theme-toggle {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+    padding: 0;
+  }
+  .theme-toggle [data-theme-label] {
+    display: none;
+  }
+  .primary-nav {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-width: 0;
+    padding: 9px 18px 17px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .primary-nav.is-open {
+    display: flex;
+  }
+  .primary-nav a {
+    padding: 13px 5px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .primary-nav a:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  html,
+  body {
+    max-width: 100%;
+  }
+  .page-shell,
+  main,
+  .hero-section,
+  .hero-grid,
+  .hero-copy,
+  .hero-visual,
+  .intro-strip,
+  .intro-strip-inner {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .container {
+    width: calc(100% - 32px);
+  }
+  .header-inner {
+    min-height: 64px;
+    gap: 8px;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .brand-mark {
+    flex: 0 0 31px;
+    width: 31px;
+    height: 31px;
+  }
+  .brand-copy strong {
+    font-size: 12px;
+  }
+  .brand-copy small {
+    max-width: 145px;
+    font-size: 7px;
+    line-height: 1.35;
+  }
+  .menu-toggle,
+  .theme-toggle {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+  }
+  .hero-section {
+    padding: 48px 0 42px;
+  }
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(34px, 9.5vw, 49px);
+    line-height: 1.08;
+    overflow-wrap: break-word;
+  }
+  .eyebrow {
+    flex-wrap: wrap;
+    gap: 7px;
+    font-size: 8px;
+    letter-spacing: .06em;
+    line-height: 1.6;
+  }
+  .hero-kicker {
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: .07em;
+    overflow-wrap: anywhere;
+  }
+  .hero-description {
+    max-width: 100%;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    margin-top: 22px;
+  }
+  .hero-actions > .button {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+  .hero-credentials {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+    margin-top: 19px;
+  }
+  .hero-credentials span {
+    min-width: 0;
+    max-width: 100%;
+    align-items: flex-start;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+  .hero-meta {
+    gap: 8px;
+    margin-top: 22px;
+    font-size: 8px;
+    line-height: 1.6;
+  }
+  .hero-visual {
+    min-height: 0;
+    padding: 14px 11px 12px;
+    border-radius: 14px;
+  }
+  .visual-topline,
+  .visual-footer {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 12px;
+  }
+  .visual-topline > *,
+  .visual-footer > * {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .mini-label,
+  .live-indicator {
+    font-size: 7px;
+    letter-spacing: .06em;
+  }
+  .hero-visual .network-art {
+    width: 100%;
+    height: 270px;
+  }
+  .network-lines {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .network-node {
+    min-width: 0;
+    max-width: calc(50% - 5px);
+    gap: 5px;
+    padding: 7px 6px;
+    border-radius: 8px;
+  }
+  .network-node > span:last-child {
+    min-width: 0;
+  }
+  .network-node strong {
+    font-size: 6.5px;
+    letter-spacing: .03em;
+    overflow-wrap: anywhere;
+  }
+  .network-node small {
+    font-size: 6.5px;
+    overflow-wrap: anywhere;
+  }
+  .node-router,
+  .node-switch {
+    left: 50%;
+  }
+  .node-firewall {
+    top: 58%;
+    left: 0;
+  }
+  .node-server {
+    top: 58%;
+    right: 0;
+  }
+  .node-client {
+    top: 81%;
+    min-width: 0;
+    max-width: calc(50% - 5px);
+  }
+  .node-client-a {
+    left: 0;
+  }
+  .node-client-b {
+    right: 0;
+  }
+  .orbit-one {
+    width: 210px;
+    height: 210px;
+  }
+  .orbit-two {
+    width: 260px;
+    height: 260px;
+  }
+  .topology-inspector {
+    grid-template-columns: minmax(56px, .28fr) minmax(0, 1fr);
+    gap: 8px;
+    min-height: 0;
+    padding: 9px;
+  }
+  .inspector-index {
+    font-size: 7px;
+  }
+  .topology-inspector strong {
+    overflow-wrap: anywhere;
+  }
+  .topology-inspector p {
+    font-size: 8px;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .visual-footer {
+    font-size: 7px;
+    letter-spacing: .04em;
+  }
+  .intro-strip-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding-block: 17px;
+  }
+  .intro-strip p {
+    max-width: 100%;
+    font-size: 10px;
+    line-height: 1.7;
+  }
+  .intro-tags {
+    max-width: 100%;
+    gap: 6px;
+  }
+  .intro-tags span {
+    font-size: 8px;
+  }
+}
