@@ -67,3 +67,13 @@ NETLAB/
 - Gestion dédiée des préfixes `/31` (liaison point à point) et `/32` (route hôte).
 - Validation des adresses IPv4 et des préfixes saisis.
 - Calcul effectué dans le navigateur, sans envoyer les données à un serveur.
+
+
+## Évolution V1.3 — système de thèmes
+
+- Trois nouvelles ambiances : NOC Signal, Blueprint Engineering et Observability Graphite.
+- Conservation des anciennes palettes sombre et claire.
+- Sélecteur de thèmes accessible depuis l’en-tête, utilisable au clavier et sur mobile.
+- Préférence mémorisée dans le navigateur, avec migration des anciennes valeurs `dark` et `light`.
+- Palette commune aux surfaces, textes, boutons, états, topologies, cartes et visualisations de données.
+- NOC Signal devient le thème par défaut pour les nouvelles visites.
