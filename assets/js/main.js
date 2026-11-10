@@ -84,4 +84,98 @@
 
   const year = document.querySelector("[data-year]");
   if (year) year.textContent = new Date().getFullYear();
+
+
+  // Project filters
+  const projectFilters = [...document.querySelectorAll("[data-project-filter]")];
+  const projectCards = [...document.querySelectorAll("[data-project-card]")];
+  const projectCount = document.querySelector("[data-project-count]");
+  const filterProjects = filter => {
+    let visible = 0;
+    projectCards.forEach(card => {
+      const categories = (card.dataset.category || "").split(/\s+/);
+      const show = filter === "all" || categories.includes(filter);
+      card.hidden = !show;
+      if (show) visible += 1;
+    });
+    if (projectCount) projectCount.textContent = String(visible).padStart(2, "0");
+  };
+  projectFilters.forEach(button => button.addEventListener("click", () => {
+    const filter = button.dataset.projectFilter || "all";
+    projectFilters.forEach(item => {
+      const active = item === button;
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    filterProjects(filter);
+  }));
+  filterProjects("all");
+
+  // Project detail dialog
+  const projectDialog = document.querySelector("[data-project-dialog]");
+  const dialogTitle = document.querySelector("[data-dialog-title]");
+  const dialogStatus = document.querySelector("[data-dialog-status]");
+  const dialogSummary = document.querySelector("[data-dialog-summary]");
+  const dialogTools = document.querySelector("[data-dialog-tools]");
+  const dialogObjectives = document.querySelector("[data-dialog-objectives]");
+  document.querySelectorAll("[data-project-open]").forEach(button => button.addEventListener("click", () => {
+    if (!projectDialog) return;
+    if (dialogTitle) dialogTitle.textContent = button.dataset.title || "Fiche projet";
+    if (dialogStatus) {
+      dialogStatus.textContent = button.dataset.status || "État non précisé";
+      const planned = button.closest(".project-card")?.querySelector(".project-status")?.classList.contains("status-planned");
+      dialogStatus.className = "project-status " + (planned ? "status-planned" : "status-progress");
+    }
+    if (dialogSummary) dialogSummary.textContent = button.dataset.summary || "";
+    if (dialogTools) {
+      dialogTools.replaceChildren();
+      (button.dataset.tools || "").split("|").filter(Boolean).forEach(value => {
+        const tag = document.createElement("span"); tag.textContent = value; dialogTools.append(tag);
+      });
+    }
+    if (dialogObjectives) {
+      dialogObjectives.replaceChildren();
+      (button.dataset.objectives || "").split("|").filter(Boolean).forEach(value => {
+        const item = document.createElement("li"); item.textContent = value; dialogObjectives.append(item);
+      });
+    }
+    projectDialog.showModal();
+  }));
+  document.querySelector("[data-dialog-close]")?.addEventListener("click", () => projectDialog?.close());
+  projectDialog?.addEventListener("click", event => { if (event.target === projectDialog) projectDialog.close(); });
+
+  // Interactive role descriptions for the conceptual topology
+  const topologyInfo = {
+    "node-router": ["Routeur", "Relie des réseaux IP différents et choisit la prochaine destination des paquets."],
+    "node-switch": ["Commutateur (switch)", "Connecte les équipements d'un même réseau local. Les VLAN permettent de séparer les domaines logiques."],
+    "node-firewall": ["Pare-feu pfSense", "Applique des règles de filtrage entre les zones réseau et peut assurer le NAT."],
+    "node-server": ["Serveur", "Héberge les services internes. Le laboratoire prévu utilisera Ubuntu Server pour la supervision."],
+    "node-client-a": ["Poste administration", "Poste du VLAN Administration. Son accès aux outils dépend des règles de sécurité."],
+    "node-client-b": ["Poste utilisateur", "Poste du VLAN Utilisateurs. Son accès aux serveurs est limité aux services nécessaires."]
+  };
+  const topologyNodes = [...document.querySelectorAll(".network-node")];
+  const topologyTitle = document.querySelector("[data-topology-title]");
+  const topologyRole = document.querySelector("[data-topology-role]");
+  const topologyIndex = document.querySelector(".inspector-index");
+  const selectTopologyNode = (node, index) => {
+    topologyNodes.forEach(item => {
+      const selected = item === node;
+      item.setAttribute("aria-pressed", String(selected));
+      item.setAttribute("role", "button");
+      item.setAttribute("tabindex", "0");
+    });
+    const key = [...node.classList].find(className => topologyInfo[className]);
+    const info = topologyInfo[key] || ["Équipement réseau", ""];
+    if (topologyTitle) topologyTitle.textContent = info[0];
+    if (topologyRole) topologyRole.textContent = info[1];
+    if (topologyIndex) topologyIndex.textContent = "NODE / " + String(index + 1).padStart(2, "0");
+  };
+  topologyNodes.forEach((node, index) => {
+    node.addEventListener("click", () => selectTopologyNode(node, index));
+    node.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectTopologyNode(node, index); }
+    });
+  });
+  if (topologyNodes[0]) selectTopologyNode(topologyNodes[0], 0);
+
 })();
