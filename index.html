@@ -73,6 +73,7 @@
           <a href="#competences">Compétences</a>
           <a href="#projets">Projets</a>
           <a href="#laboratoire">Laboratoire</a>
+          <a href="#journal">Journal</a>
           <a href="#methode">Méthode</a>
         </nav>
 
@@ -454,11 +455,61 @@
         </div>
       </section>
 
+      <section class="section-pad journal-section" id="journal">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <div>
+              <p class="section-index">05 / JOURNAL TECHNIQUE</p>
+              <h2>Le réseau se comprend.<br><span>Il se documente.</span></h2>
+            </div>
+            <p class="section-lead">Notes de conception, exercices interactifs et retours de laboratoire. Chaque statut distingue ce qui est déjà disponible de ce qui reste à tester ou à documenter.</p>
+          </div>
+
+          <div class="journal-grid">
+            <article class="journal-card" data-reveal>
+              <div class="journal-card-head">
+                <span class="journal-overline">ATELIER / IPV4</span>
+                <span class="journal-status journal-status-ready"><i></i> OUTIL DISPONIBLE</span>
+              </div>
+              <div class="journal-icon"><svg class="icon"><use href="#i-terminal"/></svg></div>
+              <h3>Calculer un sous-réseau IPv4</h3>
+              <p>Un calculateur CIDR intégré permet d'obtenir l'adresse réseau, le masque, le broadcast et la plage d'hôtes. Les préfixes particuliers /31 et /32 sont également pris en charge.</p>
+              <div class="journal-tags"><span>IPv4</span><span>CIDR</span><span>Subnetting</span></div>
+              <a class="journal-link" href="#subnet-tool-title">Ouvrir l'atelier <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            </article>
+
+            <article class="journal-card" data-reveal data-reveal-delay="80">
+              <div class="journal-card-head">
+                <span class="journal-overline">LAB / 001</span>
+                <span class="journal-status journal-status-progress"><i></i> EN CONSTRUCTION</span>
+              </div>
+              <div class="journal-icon"><svg class="icon"><use href="#i-network"/></svg></div>
+              <h3>Segmenter une infrastructure de PME</h3>
+              <p>La conception présente le chemin WAN, pfSense et switch L2, puis trois segments Administration, Utilisateurs et Serveurs. La configuration et les tests de connectivité restent à documenter.</p>
+              <div class="journal-tags"><span>GNS3</span><span>pfSense</span><span>VLAN</span></div>
+              <a class="journal-link" href="#laboratoire">Voir le laboratoire <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            </article>
+
+            <article class="journal-card" data-reveal data-reveal-delay="160">
+              <div class="journal-card-head">
+                <span class="journal-overline">NOTE / 003</span>
+                <span class="journal-status journal-status-planned"><i></i> EN PRÉPARATION</span>
+              </div>
+              <div class="journal-icon"><svg class="icon"><use href="#i-activity"/></svg></div>
+              <h3>Préparer la supervision avec Zabbix</h3>
+              <p>Le périmètre envisagé couvre les hôtes Linux et Windows, la disponibilité des services, les ressources système et les alertes. Les résultats seront ajoutés après les essais.</p>
+              <div class="journal-tags"><span>Zabbix</span><span>Ubuntu Server</span><span>SNMP / Agent</span></div>
+              <a class="journal-link" href="#projets">Voir le projet <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section-pad method-section" id="methode">
         <div class="container">
           <div class="section-heading" data-reveal>
             <div>
-              <p class="section-index">05 / MÉTHODE</p>
+              <p class="section-index">06 / MÉTHODE</p>
               <h2>Une démarche simple.<br><span>Des preuves à chaque étape.</span></h2>
             </div>
             <p class="section-lead">Chaque laboratoire suit un processus reproductible, comme une intervention technique en entreprise.</p>
@@ -490,7 +541,7 @@
         <div class="container">
           <div class="contact-panel" data-reveal>
             <div>
-              <p class="section-index">06 / CONTACT</p>
+              <p class="section-index">07 / CONTACT</p>
               <h2>Parlons réseaux,<br><span>projets et opportunités.</span></h2>
               <p>Cette première version pose les bases du portfolio. Les coordonnées et le formulaire seront connectés depuis l'espace d'administration dans une prochaine étape.</p>
             </div>
