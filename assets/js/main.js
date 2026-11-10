@@ -113,7 +113,7 @@
         });
       });
     }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
-    ["profil", "competences", "laboratoire", "methode"].forEach(id => {
+    ["profil", "competences", "projets", "laboratoire", "journal", "methode"].forEach(id => {
       const section = document.getElementById(id);
       if (section) sectionObserver.observe(section);
     });
