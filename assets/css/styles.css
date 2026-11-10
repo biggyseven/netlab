@@ -1188,3 +1188,214 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
 .monitor-chart svg .chart-secondary { stroke: var(--chart-series-2); }
 .monitor-chart svg .chart-tertiary { stroke: var(--chart-series-3); }
 .subnet-metric-primary { border-color: var(--border-strong); }
+
+
+/* NETLAB V1.3.1 — heading and diagram collision fixes */
+/* Give the hero copy and the conceptual topology independent space. */
+@media (max-width: 1180px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+  .hero-copy {
+    width: 100%;
+    max-width: 780px;
+    min-width: 0;
+  }
+  .hero-copy h1 {
+    max-width: 760px;
+    text-wrap: balance;
+  }
+  .hero-visual {
+    width: 100%;
+    max-width: 900px;
+    min-width: 0;
+    margin-inline: auto;
+  }
+  .hero-visual .network-art {
+    height: clamp(300px, 36vw, 360px);
+  }
+}
+
+/* Keep a balanced two-column hero only when both columns have real room. */
+@media (min-width: 1181px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+    gap: clamp(28px, 3.2vw, 46px);
+  }
+  .hero-copy,
+  .hero-visual {
+    min-width: 0;
+  }
+  .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(39px, 4.35vw, 59px);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+}
+
+/* The project intro is its own grid, not a flex row that can squeeze the title. */
+.projects-section .section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(250px, .8fr);
+  align-items: end;
+  gap: clamp(20px, 3.8vw, 48px);
+}
+.projects-section .section-heading > div,
+.projects-section .section-heading > p {
+  min-width: 0;
+}
+.projects-section .section-heading h2 {
+  max-width: 720px;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.projects-section .section-lead {
+  max-width: 390px;
+  width: 100%;
+}
+.projects-grid {
+  align-items: stretch;
+}
+.project-card,
+.project-card-content {
+  min-width: 0;
+}
+.project-card h3 {
+  min-height: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.project-card-content > p {
+  min-height: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* Separate technical drawings from their captions inside each project tile. */
+.project-preview {
+  min-width: 0;
+  min-height: 220px;
+  padding: 14px 14px 36px;
+  isolation: isolate;
+}
+.project-preview-top {
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 5px 12px;
+}
+.project-preview-top > span {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.project-mini-topology {
+  width: min(100%, 250px);
+  margin: 12px auto 22px;
+}
+.mini-node {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.mini-branches {
+  min-width: 0;
+  gap: 4px;
+}
+.mini-branches span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.preview-caption {
+  right: 14px;
+  bottom: 10px;
+  max-width: calc(100% - 28px);
+  white-space: normal;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.ip-visual {
+  width: 100%;
+  min-width: 0;
+  padding-top: 21px;
+}
+.ip-address {
+  max-width: 100%;
+  font-size: clamp(13px, 1.7vw, 20px);
+  letter-spacing: .025em;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+.subnet-bars,
+.subnet-labels {
+  width: min(82%, 240px);
+}
+.subnet-labels {
+  gap: 5px;
+  font-size: clamp(5px, .62vw, 7px);
+}
+.ip-equation {
+  margin-top: 13px;
+  font-size: clamp(6px, .7vw, 8px);
+  text-align: center;
+}
+.monitor-visual {
+  width: min(100%, 300px);
+  margin: 15px auto 0;
+}
+.monitor-header,
+.monitor-metrics {
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 5px 9px;
+}
+.monitor-header > *,
+.monitor-metrics > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .projects-section .section-heading {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .projects-section .section-lead {
+    max-width: 620px;
+  }
+  .project-preview {
+    min-height: 215px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(34px, 9.5vw, 48px);
+  }
+  .hero-visual .network-art {
+    height: 270px;
+  }
+  .projects-section .section-heading h2 {
+    font-size: clamp(29px, 8vw, 36px);
+  }
+  .project-preview {
+    min-height: 220px;
+  }
+  .ip-address {
+    font-size: clamp(14px, 5vw, 19px);
+  }
+  .subnet-labels {
+    font-size: 6px;
+  }
+  .ip-equation {
+    font-size: 7px;
+  }
+  .project-card h3 {
+    font-size: 16px;
+    line-height: 1.35;
+  }
+}
