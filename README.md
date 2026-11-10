@@ -78,3 +78,12 @@ NETLAB/
 - Préférence mémorisée dans le navigateur, avec migration des anciennes valeurs `dark` et `light`.
 - Palette commune aux surfaces, textes, boutons, états, topologies, cartes et visualisations de données.
 - NOC Signal devient le thème par défaut pour les nouvelles visites.
+
+
+## Évolution V1.4 — journal technique
+
+- Ajout d’une section publique « Journal technique » accessible depuis la navigation.
+- Présentation de trois sujets avec des statuts transparents : outil IPv4 disponible, laboratoire PME en construction et supervision Zabbix en préparation.
+- Liens directs vers l’atelier IPv4, le laboratoire et la fiche projet.
+- Mise en page responsive et compatible avec les cinq thèmes visuels.
+- Les contenus en cours ne sont pas présentés comme des réalisations validées.
