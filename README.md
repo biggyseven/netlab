@@ -42,6 +42,7 @@ Les niveaux et projets présentés sont des éléments de départ. Ils doivent �
 ```
 NETLAB/
 ├── index.html
+├── documentation.html
 ├── README.md
 └── assets/
     ├── css/styles.css
@@ -87,3 +88,13 @@ NETLAB/
 - Liens directs vers l’atelier IPv4, le laboratoire et la fiche projet.
 - Mise en page responsive et compatible avec les cinq thèmes visuels.
 - Les contenus en cours ne sont pas présentés comme des réalisations validées.
+
+
+## Évolution V1.5 — documentation technique
+
+- Création d'une page dédiée aux fiches IPv4/CIDR, infrastructure PME et supervision Zabbix.
+- Procédures ordonnées, tableaux de référence, commandes Windows/Linux/Cisco et matrices de vérification.
+- Boutons de copie des commandes avec retour de confirmation.
+- Navigation par fiche, responsive et compatible avec les cinq thèmes.
+- Liens vers les références officielles Netgate, Zabbix et RFC 3021.
+- Distinction explicite entre résultats de calcul vérifiés, procédures à exécuter et preuves encore à collecter.
