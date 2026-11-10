@@ -367,25 +367,26 @@
               </div>
               <a class="text-link" href="#contact">Suivre l'évolution du laboratoire <svg class="icon"><use href="#i-arrow-right"/></svg></a>
             </div>
-            <div class="lab-visual" aria-label="Schéma simplifié de l'infrastructure du laboratoire">
+            <div class="lab-visual" role="img" aria-label="Topologie logique : Internet relié au pare-feu pfSense, puis au switch L2 qui distribue les VLAN Administration, Utilisateurs et Serveurs">
               <div class="lab-visual-header"><span>TOPOLOGIE LOGIQUE</span><span>SIMULATION</span></div>
               <div class="topology">
                 <div class="topo-node topo-internet"><span>WAN</span><small>Internet</small></div>
-                <div class="topo-link topo-link-vertical"></div>
+                <div class="topo-link topo-link-vertical" aria-hidden="true"></div>
                 <div class="topo-node topo-firewall"><svg class="icon"><use href="#i-shield"/></svg><span>pfSense</span><small>Firewall / NAT</small></div>
-                <div class="topo-link topo-link-branch"></div>
+                <div class="topo-link topo-link-vertical" aria-hidden="true"></div>
                 <div class="topo-node topo-switch"><svg class="icon"><use href="#i-layers"/></svg><span>Switch L2</span><small>VLAN 10 / 20 / 30</small></div>
+                <div class="topo-link topo-link-branch" aria-hidden="true"></div>
                 <div class="topo-branches">
                   <div class="topo-branch">
-                    <div class="topo-link"></div>
+                    <div class="topo-link" aria-hidden="true"></div>
                     <div class="topo-node topo-small"><svg class="icon"><use href="#i-cpu"/></svg><span>ADMIN</span><small>192.168.10.0/24</small></div>
                   </div>
                   <div class="topo-branch">
-                    <div class="topo-link"></div>
+                    <div class="topo-link" aria-hidden="true"></div>
                     <div class="topo-node topo-small"><svg class="icon"><use href="#i-cpu"/></svg><span>USERS</span><small>192.168.20.0/24</small></div>
                   </div>
                   <div class="topo-branch">
-                    <div class="topo-link"></div>
+                    <div class="topo-link" aria-hidden="true"></div>
                     <div class="topo-node topo-small"><svg class="icon"><use href="#i-server"/></svg><span>SERVERS</span><small>192.168.30.0/24</small></div>
                   </div>
                 </div>
