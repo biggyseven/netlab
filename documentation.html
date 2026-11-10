@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="fr" data-theme="noc">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Documentation technique NETLAB : IPv4, segmentation VLAN, pfSense, GNS3 et supervision Zabbix.">
+  <meta name="theme-color" content="#0B1420">
+  <title>Documentation technique — NETLAB</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/netlab-mark.svg">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>
+    (() => {
+      const supported = ["noc", "blueprint", "observability", "classic-dark", "classic-light"];
+      const legacy = { dark: "classic-dark", light: "classic-light" };
+      try {
+        const saved = legacy[localStorage.getItem("netlab-theme")] || localStorage.getItem("netlab-theme");
+        document.documentElement.dataset.theme = supported.includes(saved) ? saved : "noc";
+      } catch (_) { document.documentElement.dataset.theme = "noc"; }
+    })();
+  </script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="5" rx="1"/><rect x="16" y="17" width="6" height="5" rx="1"/><path d="M12 7v5M5 17v-3h14v3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/><path d="M7 7h.01M7 17h.01M11 7h6m-6 10h6"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m7 9 3 3-3 3m6 0h4"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5Z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18a3 3 0 0 0 3-3A8.5 8.5 0 0 0 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  </svg>
+  <div class="page-shell">
+    <header class="site-header docs-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="index.html#top" aria-label="NETLAB, retour à l'accueil">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M24 5v37M17 42h14M12 31a17 17 0 0 1 0-24M36 7a17 17 0 0 1 0 24M17 27a10 10 0 0 1 0-16M31 11a10 10 0 0 1 0 16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="24" cy="5" r="3" fill="currentColor"/><circle cx="24" cy="22" r="3.2" fill="currentColor"/></svg></span>
+          <span class="brand-copy"><strong>NETLAB</strong><small>Documentation technique</small></span>
+        </a>
+        <button class="icon-button menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="docs-nav" data-menu-toggle><svg class="icon icon-menu"><use href="#i-menu"/></svg><svg class="icon icon-close"><use href="#i-close"/></svg></button>
+        <nav class="primary-nav" id="docs-nav" data-nav aria-label="Navigation de la documentation">
+          <a href="#ipv4">IPv4 / CIDR</a><a href="#pme">Réseau PME</a><a href="#zabbix">Zabbix</a><a href="index.html#journal">Journal</a>
+        </nav>
+        <div class="header-actions">
+          <div class="theme-picker" data-theme-picker>
+            <button class="theme-toggle theme-picker-trigger" type="button" data-theme-trigger aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu" aria-label="Choisir un thème. Thème actuel : NOC Signal"><svg class="icon"><use href="#i-palette"/></svg><span data-theme-label>NOC Signal</span><svg class="icon theme-picker-chevron"><use href="#i-chevron-down"/></svg></button>
+            <div class="theme-menu" id="theme-menu" data-theme-menu hidden role="group" aria-label="Thèmes visuels NETLAB">
+              <p class="theme-menu-heading">IDENTITÉS NETLAB</p>
+              <button class="theme-option" type="button" data-theme-option="noc" aria-pressed="true"><span class="theme-swatch theme-swatch-noc" aria-hidden="true"><i></i><i></i><i></i></span><span class="theme-option-copy"><strong>NOC Signal</strong><small>Supervision · cyan et vert</small></span><svg class="icon theme-option-check"><use href="#i-check"/></svg></button>
+              <button class="theme-option" type="button" data-theme-option="blueprint" aria-pressed="false"><span class="theme-swatch theme-swatch-blueprint" aria-hidden="true"><i></i><i></i><i></i></span><span class="theme-option-copy"><strong>Blueprint Engineering</strong><small>Plans · bleu et turquoise</small></span><svg class="icon theme-option-check"><use href="#i-check"/></svg></button>
+              <button class="theme-option" type="button" data-theme-option="observability" aria-pressed="false"><span class="theme-swatch theme-swatch-observability" aria-hidden="true"><i></i><i></i><i></i></span><span class="theme-option-copy"><strong>Observability Graphite</strong><small>Données · violet et bleu</small></span><svg class="icon theme-option-check"><use href="#i-check"/></svg></button>
+              <div class="theme-menu-divider"></div><p class="theme-menu-heading">MODES CLASSIQUES</p>
+              <button class="theme-option theme-option-compact" type="button" data-theme-option="classic-dark" aria-pressed="false"><span class="theme-swatch theme-swatch-classic-dark" aria-hidden="true"></span><span class="theme-option-copy"><strong>Classique sombre</strong><small>Ancienne palette NETLAB</small></span><svg class="icon theme-option-check"><use href="#i-check"/></svg></button>
+              <button class="theme-option theme-option-compact" type="button" data-theme-option="classic-light" aria-pressed="false"><span class="theme-swatch theme-swatch-classic-light" aria-hidden="true"></span><span class="theme-option-copy"><strong>Classique clair</strong><small>Ancienne palette lumineuse</small></span><svg class="icon theme-option-check"><use href="#i-check"/></svg></button>
+            </div>
+          </div>
+          <a class="button button-small button-secondary" href="index.html#journal">Retour portfolio</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="docs-hero">
+        <div class="container docs-hero-inner">
+          <p class="docs-kicker"><span></span> KNOWLEDGE BASE / NETLAB</p>
+          <h1>Des procédures claires.<br><span>Des preuves vérifiables.</span></h1>
+          <p class="docs-hero-lead">Fiches de travail pour reproduire les exercices, comprendre les choix techniques et consigner les résultats. Une procédure décrit ce qu'il faut faire ; seul un test exécuté permet de déclarer un résultat validé.</p>
+          <div class="docs-overview"><div><strong>03</strong><span>Fiches techniques</span></div><div><strong>02</strong><span>Environnements réseau & système</span></div><div><strong>0</strong><span>Résultat de laboratoire inventé</span></div></div>
+        </div>
+      </section>
+
+      <div class="container docs-layout">
+        <aside class="docs-sidebar" aria-label="Sommaire des fiches">
+          <p class="docs-sidebar-label">SOMMAIRE</p>
+          <a href="#ipv4"><span>01</span> IPv4 & CIDR</a>
+          <a href="#pme"><span>02</span> Infrastructure PME</a>
+          <a href="#zabbix"><span>03</span> Supervision Zabbix</a>
+          <a href="index.html#journal"><span>↗</span> Journal technique</a>
+          <div class="docs-sidebar-note">Les commandes sont des modèles. Remplace les adresses d'exemple par celles de ton laboratoire.</div>
+        </aside>
+
+        <div class="docs-main">
+          <article class="docs-sheet" id="ipv4" data-reveal>
+            <div class="docs-sheet-top"><span class="docs-sheet-index">FICHE / 001 · ADRESSAGE</span><span class="docs-status docs-status-ready"><i></i> OUTIL DISPONIBLE</span></div>
+            <h2>Adressage IPv4 et calcul CIDR</h2>
+            <p class="docs-sheet-lead">Déterminer le réseau auquel appartient une adresse, déduire le masque et identifier la plage utilisable sans calculer chaque bit à la main.</p>
+            <div class="docs-facts"><div><span>Environnement</span><strong>Calculateur NETLAB · Windows / Linux</strong></div><div><span>Prérequis</span><strong>Adresse IPv4 et préfixe CIDR</strong></div><div><span>État</span><strong>Calculateur testé · captures à ajouter</strong></div></div>
+
+            <section class="docs-section">
+              <h3><span>01</span> Objectif et principe</h3>
+              <p>Un préfixe CIDR indique le nombre de bits réservés à la partie réseau. Pour <code>192.168.10.25/24</code>, les 24 premiers bits représentent le réseau et les 8 bits restants la partie hôte.</p>
+              <p>Le calcul produit l'adresse réseau, le masque, le broadcast, le wildcard et la plage d'adresses utilisables. Les cas /31 et /32 suivent un traitement particulier.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>02</span> Procédure et valeurs de référence</h3>
+              <ol class="docs-steps">
+                <li>Ouvrir le <a href="index.html#subnet-tool-title">calculateur IPv4 de NETLAB</a>.</li>
+                <li>Saisir une adresse avec son préfixe, par exemple <code>192.168.10.25/24</code>.</li>
+                <li>Cliquer sur <strong>Calculer</strong>, puis lire le réseau, le masque, le broadcast et la plage d'hôtes.</li>
+                <li>Comparer les valeurs à ce tableau, puis recommencer avec /30, /31 et /32.</li>
+              </ol>
+              <div class="docs-result-table"><table>
+                <thead><tr><th>Entrée</th><th>Réseau</th><th>Broadcast</th><th>Hôtes utilisables</th></tr></thead>
+                <tbody>
+                  <tr><td><code>192.168.10.25/24</code></td><td>192.168.10.0</td><td>192.168.10.255</td><td>192.168.10.1 à .254 (254)</td></tr>
+                  <tr><td><code>10.0.5.5/30</code></td><td>10.0.5.4</td><td>10.0.5.7</td><td>10.0.5.5 à .6 (2)</td></tr>
+                  <tr><td><code>10.0.5.5/31</code></td><td>10.0.5.4</td><td>10.0.5.5</td><td>Les deux adresses (2)</td></tr>
+                  <tr><td><code>10.0.5.5/32</code></td><td>10.0.5.5</td><td>10.0.5.5</td><td>10.0.5.5 (1)</td></tr>
+                </tbody>
+              </table></div>
+              <p class="docs-caption">Valeurs de référence pour contrôler le calculateur, pas des mesures prises sur un réseau actif.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>03</span> Commandes de vérification</h3>
+              <p>Après avoir configuré une interface avec une adresse issue de l'exercice, comparer l'adresse et la route réellement appliquées au système.</p>
+              <div class="docs-code"><div class="docs-code-head"><span>WINDOWS · CMD / POWERSHELL</span><button type="button" data-copy-code aria-label="Copier les commandes Windows"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>ipconfig /all
+route print
+ping -n 4 192.168.10.1</code></pre></div>
+              <div class="docs-code"><div class="docs-code-head"><span>LINUX · TERMINAL</span><button type="button" data-copy-code aria-label="Copier les commandes Linux"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>ip -br address
+ip route
+ping -c 4 192.168.10.1</code></pre></div>
+              <p class="docs-caption">Remplacer <code>192.168.10.1</code> par la passerelle réelle. Un ping peut être bloqué par un pare-feu et ne prouve pas, à lui seul, une panne IP.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>04</span> Contrôle et preuves à conserver</h3>
+              <ul class="docs-checklist">
+                <li>Comparer les sorties /24, /30, /31 et /32 au tableau de référence.</li>
+                <li>Vérifier qu'une adresse mal formée et un préfixe supérieur à /32 déclenchent une erreur.</li>
+                <li>Capturer le calcul /24 complet et un cas particulier /31.</li>
+                <li>Ajouter une capture de <code>ipconfig /all</code> ou <code>ip -br address</code> après une configuration réelle.</li>
+              </ul>
+              <div class="docs-note"><strong>État des essais :</strong> les cas limites du moteur de calcul ont été contrôlés. Les captures d'une configuration réseau réelle restent à ajouter.</div>
+            </section>
+          </article>
+
+          <article class="docs-sheet" id="pme" data-reveal>
+            <div class="docs-sheet-top"><span class="docs-sheet-index">FICHE / 002 · INFRASTRUCTURE</span><span class="docs-status docs-status-progress"><i></i> À RÉALISER DANS GNS3</span></div>
+            <h2>Construire un réseau PME segmenté</h2>
+            <p class="docs-sheet-lead">Mettre en place une passerelle sécurisée, transporter plusieurs VLAN sur un trunk 802.1Q et contrôler les communications entre zones.</p>
+            <div class="docs-facts"><div><span>Environnement</span><strong>GNS3 · pfSense · switch manageable</strong></div><div><span>Segments</span><strong>Administration · Utilisateurs · Serveurs</strong></div><div><span>État</span><strong>Topologie conceptuelle · configuration à prouver</strong></div></div>
+
+            <section class="docs-section">
+              <h3><span>01</span> Plan d'adressage proposé</h3>
+              <div class="docs-result-table"><table>
+                <thead><tr><th>Zone</th><th>VLAN</th><th>Sous-réseau</th><th>Passerelle prévue</th></tr></thead>
+                <tbody>
+                  <tr><td>Administration</td><td>10</td><td>192.168.10.0/24</td><td>192.168.10.1</td></tr>
+                  <tr><td>Utilisateurs</td><td>20</td><td>192.168.20.0/24</td><td>192.168.20.1</td></tr>
+                  <tr><td>Serveurs</td><td>30</td><td>192.168.30.0/24</td><td>192.168.30.1</td></tr>
+                </tbody>
+              </table></div>
+              <p class="docs-caption">Plan de départ. Les passerelles seront portées par les interfaces VLAN de pfSense dans une architecture router-on-a-stick.</p>
+              <div class="docs-callout"><strong>Point d'architecture important</strong><p>Le switch L2 transporte les VLAN, mais n'effectue pas le routage entre eux. Le port relié à pfSense doit être un trunk 802.1Q. Les VLAN sont créés et assignés dans pfSense, qui porte les passerelles et applique les règles inter-VLAN.</p></div>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>02</span> Construire et câbler dans GNS3</h3>
+              <ol class="docs-steps">
+                <li>Ajouter un nœud NAT ou Cloud pour représenter l'accès WAN du laboratoire.</li>
+                <li>Relier le WAN de pfSense au nœud externe, puis son interface LAN au switch manageable.</li>
+                <li>Ajouter trois postes de test et un serveur Ubuntu, puis les raccorder aux ports d'accès prévus.</li>
+                <li>Vérifier que chaque lien est connecté et que les interfaces utilisées existent sur les appliances choisies.</li>
+              </ol>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>03</span> Créer les VLAN et le trunk</h3>
+              <ol class="docs-steps">
+                <li>Sur le switch, créer les VLAN 10, 20 et 30.</li>
+                <li>Configurer le port vers pfSense en trunk et autoriser les VLAN 10, 20 et 30 avec le marquage 802.1Q.</li>
+                <li>Configurer les ports des postes en access, chacun dans son VLAN.</li>
+                <li>Dans pfSense, ouvrir <strong>Interfaces → Assignments → VLANs</strong>, créer les trois VLAN sur l'interface physique parent puis les assigner.</li>
+                <li>Attribuer les passerelles prévues (.1/24). Activer le DHCP seulement sur les segments qui doivent distribuer des adresses automatiquement.</li>
+              </ol>
+              <div class="docs-code"><div class="docs-code-head"><span>EXEMPLE · CISCO IOS UNIQUEMENT</span><button type="button" data-copy-code aria-label="Copier la configuration Cisco"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>vlan 10
+ name ADMIN
+vlan 20
+ name USERS
+vlan 30
+ name SERVERS
+!
+interface GigabitEthernet0/1
+ description TRUNK_VERS_PFSENSE
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+!
+interface GigabitEthernet0/2
+ description POSTE_ADMIN
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+!
+interface GigabitEthernet0/3
+ description POSTE_USERS
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+!
+interface GigabitEthernet0/4
+ description SERVEUR
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast</code></pre></div>
+              <p class="docs-caption">Exemple à adapter au modèle et aux ports disponibles. Les appliances Ethernet switch de GNS3 n'acceptent pas nécessairement la syntaxe Cisco IOS.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>04</span> Définir les règles de sécurité</h3>
+              <ul class="docs-checklist">
+                <li>Administration : autoriser uniquement les flux nécessaires à l'administration des équipements.</li>
+                <li>Utilisateurs : autoriser la sortie Internet requise, sans accès libre au VLAN Administration.</li>
+                <li>Serveurs : autoriser seulement les services nécessaires depuis les segments autorisés.</li>
+                <li>Appliquer le moindre privilège et vérifier l'ordre des règles sur chaque interface pfSense.</li>
+              </ul>
+              <p>Les règles pfSense sont évaluées sur l'interface où le trafic entre. Une règle sur le VLAN Utilisateurs ne remplace pas les contrôles sur les autres interfaces.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>05</span> Vérifications à exécuter</h3>
+              <div class="docs-code"><div class="docs-code-head"><span>CISCO IOS · DIAGNOSTIC</span><button type="button" data-copy-code aria-label="Copier les commandes Cisco"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>show vlan brief
+show interfaces trunk
+show mac address-table dynamic</code></pre></div>
+              <div class="docs-code"><div class="docs-code-head"><span>POSTE WINDOWS · DIAGNOSTIC</span><button type="button" data-copy-code aria-label="Copier les commandes Windows"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>ipconfig /all
+ping -n 4 192.168.20.1
+tracert -d 1.1.1.1
+nslookup example.com</code></pre></div>
+              <div class="docs-result-table"><table>
+                <thead><tr><th>Test</th><th>Résultat attendu</th><th>État</th></tr></thead>
+                <tbody>
+                  <tr><td>Poste → passerelle de son VLAN</td><td>Réponse si interface et lien actifs</td><td>À tester</td></tr>
+                  <tr><td>Utilisateurs → Administration</td><td>Bloqué selon la politique définie</td><td>À tester</td></tr>
+                  <tr><td>Utilisateurs → service serveur autorisé</td><td>Autorisé uniquement sur le port prévu</td><td>À tester</td></tr>
+                  <tr><td>Poste → Internet</td><td>DNS et accès fonctionnels selon NAT/règles</td><td>À tester</td></tr>
+                </tbody>
+              </table></div>
+              <p class="docs-caption">Un ping bloqué ne suffit pas à prouver la segmentation. Vérifier les règles, les journaux pfSense et le test du service autorisé.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>06</span> Captures à intégrer au portfolio</h3>
+              <ul class="docs-checklist"><li>Vue GNS3 avec chaque liaison visible et chaque interface identifiée.</li><li>Résumé des VLAN et du trunk côté switch.</li><li>Interfaces VLAN et règles pfSense sans information sensible.</li><li>Test autorisé réussi et test interdit bloqué, avec journaux correspondants.</li></ul>
+              <div class="docs-note"><strong>État des résultats :</strong> les tests sont à exécuter dans GNS3. Aucun résultat de connectivité n'est déclaré validé à ce stade.</div>
+            </section>
+          </article>
+
+          <article class="docs-sheet" id="zabbix" data-reveal>
+            <div class="docs-sheet-top"><span class="docs-sheet-index">FICHE / 003 · SUPERVISION</span><span class="docs-status docs-status-planned"><i></i> EN PRÉPARATION</span></div>
+            <h2>Superviser les hôtes avec Zabbix</h2>
+            <p class="docs-sheet-lead">Déployer une supervision centralisée pour suivre la disponibilité, les ressources et les services d'un petit réseau d'entreprise.</p>
+            <div class="docs-facts"><div><span>Environnement</span><strong>Ubuntu Server · Zabbix · Agent 2</strong></div><div><span>Cibles prévues</span><strong>Linux · Windows · équipements SNMP</strong></div><div><span>État</span><strong>Procédure préparatoire · installation à valider</strong></div></div>
+
+            <section class="docs-section">
+              <h3><span>01</span> Architecture et flux</h3>
+              <p>Le serveur Zabbix et son interface Web sont hébergés sur Ubuntu Server. Les agents sont installés sur les machines suivies. Dans le plan NETLAB, le serveur de supervision est placé dans le VLAN 30, avec des règles limitées aux hôtes supervisés.</p>
+              <div class="docs-result-table"><table>
+                <thead><tr><th>Flux</th><th>Port par défaut</th><th>Utilisation</th></tr></thead>
+                <tbody>
+                  <tr><td>Serveur → agent</td><td>TCP 10050</td><td>Contrôles passifs</td></tr>
+                  <tr><td>Agent → serveur</td><td>TCP 10051</td><td>Contrôles actifs</td></tr>
+                  <tr><td>Navigateur → interface Web</td><td>TCP 80 / 443</td><td>Consultation du frontend</td></tr>
+                  <tr><td>Équipement → collecteur SNMP trap</td><td>UDP 162</td><td>Traps SNMP, si déployés</td></tr>
+                </tbody>
+              </table></div>
+              <p class="docs-caption">Ouvrir uniquement les flux réellement utilisés et limiter les sources aux adresses des composants concernés. Les ports peuvent être modifiés.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>02</span> Préparer le serveur</h3>
+              <ol class="docs-steps">
+                <li>Créer une VM Ubuntu Server avec une adresse stable dans le VLAN Serveurs.</li>
+                <li>Définir le nom d'hôte, la passerelle et le DNS, puis vérifier la connectivité IP.</li>
+                <li>Choisir une version Zabbix compatible avec la version d'Ubuntu et la base de données retenue.</li>
+                <li>Utiliser le guide officiel pour sélectionner le dépôt et les paquets adaptés, puis installer serveur, frontend, base de données et agent.</li>
+                <li>Consigner la version choisie et les paramètres réellement installés.</li>
+              </ol>
+              <div class="docs-note"><strong>Important :</strong> les commandes d'installation dépendent de la version et de la distribution. Cette fiche renvoie au guide officiel plutôt que de figer une commande susceptible de devenir obsolète.</div>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>03</span> Déclarer les agents</h3>
+              <ol class="docs-steps">
+                <li>Installer Zabbix Agent 2 sur les machines Linux et Windows ciblées, avec une version compatible avec le serveur.</li>
+                <li>Configurer le serveur autorisé, la destination active et le nom d'hôte.</li>
+                <li>Dans l'interface Web, créer l'hôte, renseigner son interface et choisir un modèle adapté au système.</li>
+                <li>Attendre la collecte, puis contrôler la disponibilité de l'agent et les dernières données reçues.</li>
+              </ol>
+              <div class="docs-code"><div class="docs-code-head"><span>EXTRAIT · ZABBIX_AGENT2.CONF</span><button type="button" data-copy-code aria-label="Copier les paramètres de l'agent"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>Server=&lt;IP_SERVEUR_ZABBIX&gt;
+ServerActive=&lt;IP_SERVEUR_ZABBIX&gt;:10051
+Hostname=&lt;NOM_HOTE_IDENTIQUE_DANS_ZABBIX&gt;</code></pre></div>
+              <p class="docs-caption">Remplacer les valeurs entre chevrons. Pour les contrôles passifs, limiter Server à l'adresse du serveur ou du proxy autorisé. Hostname doit correspondre au nom de l'hôte dans l'interface.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>04</span> Contrôler les services et les ports</h3>
+              <div class="docs-code"><div class="docs-code-head"><span>UBUNTU SERVER · SERVICES</span><button type="button" data-copy-code aria-label="Copier les commandes Ubuntu"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>sudo systemctl status zabbix-server
+sudo systemctl status zabbix-agent2
+sudo journalctl -u zabbix-server -n 50 --no-pager
+sudo journalctl -u zabbix-agent2 -n 50 --no-pager
+sudo ss -lntup | grep -E '10050|10051'</code></pre></div>
+              <div class="docs-code"><div class="docs-code-head"><span>WINDOWS · POWERSHELL</span><button type="button" data-copy-code aria-label="Copier les commandes PowerShell"><svg class="icon"><use href="#i-check"/></svg><span data-copy-label>Copier</span></button></div><pre><code>Get-Service -Name "*Zabbix*"
+Test-NetConnection -ComputerName &lt;IP_AGENT&gt; -Port 10050
+Test-NetConnection -ComputerName &lt;IP_SERVEUR_ZABBIX&gt; -Port 10051</code></pre></div>
+              <p class="docs-caption">Le test TCP 10050 se lance du serveur vers l'agent pour un contrôle passif. Le test TCP 10051 se lance de l'agent vers le serveur pour un contrôle actif. N'exécuter que le test correspondant au mode configuré.</p>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>05</span> Valider la collecte et les alertes</h3>
+              <ul class="docs-checklist"><li>L'hôte apparaît disponible dans l'interface Zabbix.</li><li>Les dernières données affichent des valeurs récentes pour CPU, mémoire et disponibilité.</li><li>Un déclencheur de test passe à l'état attendu lors d'un événement contrôlé.</li><li>Une notification est reçue par le canal configuré après un test volontaire.</li><li>Les règles pfSense n'exposent pas les ports Zabbix aux réseaux non autorisés.</li></ul>
+            </section>
+
+            <section class="docs-section">
+              <h3><span>06</span> Captures à intégrer au portfolio</h3>
+              <ul class="docs-checklist"><li>Tableau de bord avec hôtes déclarés.</li><li>Écran Latest data avec valeurs récentes.</li><li>État d'un agent Linux et d'un agent Windows.</li><li>Événement de déclencheur et preuve de réception d'une notification.</li></ul>
+              <div class="docs-note"><strong>État des résultats :</strong> installation, agents, collecte et notifications restent à réaliser et à capturer. Aucun hôte n'est annoncé comme supervisé avant les essais.</div>
+            </section>
+          </article>
+
+          <section class="docs-references">
+            <p class="docs-sidebar-label">RÉFÉRENCES TECHNIQUES</p>
+            <a href="https://docs.netgate.com/pfsense/en/latest/vlan/configuration.html" target="_blank" rel="noopener noreferrer">Netgate · Configuration des VLAN dans pfSense <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            <a href="https://docs.netgate.com/pfsense/en/latest/recipes/switch-vlan-configuration.html" target="_blank" rel="noopener noreferrer">Netgate · Configuration des switches et trunks <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            <a href="https://www.zabbix.com/documentation/current/en/manual/installation/requirements" target="_blank" rel="noopener noreferrer">Zabbix · Ports et exigences réseau <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            <a href="https://www.rfc-editor.org/rfc/rfc3021.html" target="_blank" rel="noopener noreferrer">RFC 3021 · Préfixes /31 sur liaisons point à point <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand footer-brand" href="index.html#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M24 5v37M17 42h14M12 31a17 17 0 0 1 0-24M36 7a17 17 0 0 1 0 24M17 27a10 10 0 0 1 0-16M31 11a10 10 0 0 1 0 16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="24" cy="5" r="3" fill="currentColor"/><circle cx="24" cy="22" r="3.2" fill="currentColor"/></svg></span><span class="brand-copy"><strong>NETLAB</strong><small>Understand. Build. Secure. Connect.</small></span></a>
+        <p>Documentation technique · Réseaux & Télécommunications</p>
+        <span class="footer-copy">© <span data-year></span> NETLAB</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
