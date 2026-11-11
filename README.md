@@ -173,3 +173,14 @@ NETLAB/
 - Les statuts de conception et les mentions de topologie non testée sont conservés afin de ne pas confondre maquette et réalisation.
 - Le contact reste à compléter avec des coordonnées validées avant publication.
 
+## Évolution V2.3 — fiches projets structurées
+
+- Transformation des fenêtres de détail en dossiers techniques structurés : contexte, objectif, domaine, environnement, démarche, état des preuves et prochaine étape.
+- Contenus spécifiques pour les trois entrées : infrastructure PME, atelier IPv4/CIDR et supervision Zabbix.
+- L'atelier IPv4 est présenté comme un outil disponible, avec des preuves et exercices encore à enrichir.
+- Les statuts des projets distinguent explicitement les travaux en construction, les outils disponibles et les projets en préparation.
+- Suppression de la courbe de métriques illustrative sur la carte Zabbix ; l'aperçu indique désormais qu'aucune mesure réelle n'est publiée.
+- Liens depuis chaque dossier vers la fiche documentaire correspondante.
+- Les dossiers utilisent des attributs de données et des nœuds texte, sans injecter de HTML arbitraire.
+- Les résultats, tests et métriques non documentés ne sont pas présentés comme validés.
+
