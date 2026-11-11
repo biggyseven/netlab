@@ -213,6 +213,7 @@
   const projectButtons = [...document.querySelectorAll("[data-project-open]")];
   const projectHash = button => "#project-" + button.dataset.projectId;
   let activeProjectButton = null;
+  let projectReturnUrl = null;
 
   const renderProject = button => {
     if (!projectDialog || !button) return;
@@ -260,7 +261,10 @@
   projectButtons.forEach(button => button.addEventListener("click", () => {
     if (!button.dataset.projectId) return;
     const hash = projectHash(button);
-    if (window.location.hash !== hash) window.history.pushState({ netlabProject: true }, "", hash);
+    if (window.location.hash !== hash) {
+      projectReturnUrl = window.location.pathname + window.location.search + window.location.hash;
+      window.history.pushState({ netlabProject: true }, "", hash);
+    }
     renderProject(button);
   }));
 
@@ -275,7 +279,11 @@
 
   projectDialog?.addEventListener("close", () => {
     const isProjectRoute = projectButtons.some(button => button.dataset.projectId && window.location.hash === projectHash(button));
-    if (isProjectRoute) window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search);
+    if (isProjectRoute) {
+      const returnUrl = projectReturnUrl || (window.location.pathname + window.location.search);
+      window.history.replaceState(window.history.state, "", returnUrl);
+      projectReturnUrl = null;
+    }
   });
 
   document.querySelector("[data-dialog-close]")?.addEventListener("click", () => projectDialog?.close());
