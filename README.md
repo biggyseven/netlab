@@ -150,3 +150,14 @@ NETLAB/
 - Mise en page responsive, compatible avec les cinq thèmes et utilisable au clavier.
 - Cette politique est illustrative et ne décrit pas une configuration réellement déployée ou testée.
 
+## Évolution V2.1 — chemin de flux et suivi personnel du laboratoire
+
+- Ajout d'une représentation visuelle du chemin simulé : VLAN source, pfSense, switch L2 et VLAN destination.
+- Mise en évidence visuelle du passage autorisé, du point de blocage ou du contournement de la passerelle pour un trafic au sein du même VLAN.
+- Mise à jour dynamique des libellés et sous-réseaux selon les VLAN sélectionnés.
+- Ajout d'un suivi de réalisation du LAB 001 en six étapes : adressage, VLAN, trunk, filtrage, tests et supervision.
+- Progression calculée automatiquement avec barre, compteur, message de statut et réinitialisation.
+- État du suivi conservé dans le stockage local du navigateur, sans compte utilisateur ni synchronisation serveur.
+- Les cases représentent des déclarations de progression faites manuellement. Elles ne constituent pas une preuve technique et doivent être cochées uniquement après réalisation et test.
+- Interface responsive et navigation clavier prises en charge.
+
