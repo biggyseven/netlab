@@ -125,30 +125,63 @@
   if (year) year.textContent = new Date().getFullYear();
 
 
-  // Project filters
+  // Project filters and text search
   const projectFilters = [...document.querySelectorAll("[data-project-filter]")];
   const projectCards = [...document.querySelectorAll("[data-project-card]")];
   const projectCount = document.querySelector("[data-project-count]");
-  const filterProjects = filter => {
+  const projectTotal = document.querySelector("[data-project-total]");
+  const projectSearch = document.querySelector("[data-project-search]");
+  const projectEmpty = document.querySelector("[data-project-empty]");
+  const projectReset = document.querySelector("[data-project-reset]");
+  let activeProjectFilter = "all";
+
+  const normalizeSearchText = value => (value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("fr")
+    .trim();
+
+  const filterProjects = () => {
+    const query = normalizeSearchText(projectSearch?.value || "");
     let visible = 0;
+
     projectCards.forEach(card => {
       const categories = (card.dataset.category || "").split(/\s+/);
-      const show = filter === "all" || categories.includes(filter);
+      const matchesCategory = activeProjectFilter === "all" || categories.includes(activeProjectFilter);
+      const searchableContent = normalizeSearchText(card.textContent + " " + (card.dataset.category || ""));
+      const matchesQuery = !query || searchableContent.includes(query);
+      const show = matchesCategory && matchesQuery;
       card.hidden = !show;
       if (show) visible += 1;
     });
+
     if (projectCount) projectCount.textContent = String(visible).padStart(2, "0");
+    if (projectTotal) projectTotal.textContent = "/ " + String(projectCards.length).padStart(2, "0") + " PROJETS";
+    if (projectEmpty) projectEmpty.hidden = visible !== 0;
   };
+
   projectFilters.forEach(button => button.addEventListener("click", () => {
-    const filter = button.dataset.projectFilter || "all";
+    activeProjectFilter = button.dataset.projectFilter || "all";
     projectFilters.forEach(item => {
       const active = item === button;
       item.classList.toggle("is-active", active);
       item.setAttribute("aria-pressed", String(active));
     });
-    filterProjects(filter);
+    filterProjects();
   }));
-  filterProjects("all");
+  projectSearch?.addEventListener("input", filterProjects);
+  projectReset?.addEventListener("click", () => {
+    if (projectSearch) projectSearch.value = "";
+    activeProjectFilter = "all";
+    projectFilters.forEach(item => {
+      const active = item.dataset.projectFilter === "all";
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    filterProjects();
+    projectSearch?.focus();
+  });
+  filterProjects();
 
   // Project detail dialog
   const projectDialog = document.querySelector("[data-project-dialog]");
@@ -216,6 +249,23 @@
     });
   });
   if (topologyNodes[0]) selectTopologyNode(topologyNodes[0], 0);
+
+
+  // Interactive VLAN inspector for the conceptual PME topology
+  const vlanNodes = [...document.querySelectorAll("[data-vlan-node]")];
+  const vlanTitle = document.querySelector("[data-vlan-title]");
+  const vlanRole = document.querySelector("[data-vlan-role]");
+  const vlanSubnet = document.querySelector("[data-vlan-subnet]");
+
+  const selectVlan = node => {
+    vlanNodes.forEach(item => item.setAttribute("aria-pressed", String(item === node)));
+    if (vlanTitle) vlanTitle.textContent = node.dataset.title || "Segment VLAN";
+    if (vlanRole) vlanRole.textContent = node.dataset.role || "";
+    if (vlanSubnet) vlanSubnet.textContent = "SOUS-RÉSEAU PRÉVU · " + (node.dataset.subnet || "À définir");
+  };
+
+  vlanNodes.forEach(node => node.addEventListener("click", () => selectVlan(node)));
+  if (vlanNodes[0]) selectVlan(vlanNodes[0]);
 
   // Documentation: copy command snippets with a fallback for older contexts.
   document.querySelectorAll("[data-copy-code]").forEach(button => button.addEventListener("click", async () => {
