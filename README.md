@@ -240,3 +240,32 @@ python scripts/validate_site.py
 ```
 
 Le même ensemble de contrôles est exécuté automatiquement par GitHub Actions lors d'un push sur la branche de travail ou d'une pull request vers `main`.
+
+## Évolution V3.0 — galerie de preuves techniques
+
+- Galerie intégrée dans chacun des trois dossiers projet, sans ajouter une page indépendante vide.
+- Catalogue embarqué dans `index.html` : médias publiés et preuves encore attendues sont séparés.
+- Une capture n'apparaît comme preuve publiée qu'après ajout du fichier local et de ses métadonnées (`src`, `alt`, `title`, `caption`, `category`).
+- Les emplacements en attente décrivent les éléments à produire pour GNS3/pfSense, IPv4/CIDR et Zabbix. Ils ne constituent pas des résultats de test.
+- Aucune image de démonstration ni métrique fictive n'est utilisée.
+- Le validateur contrôle la cohérence des projets, la structure du catalogue, les métadonnées obligatoires et l'existence des médias locaux référencés.
+
+### Ajouter une preuve réelle
+
+1. Enregistrer la capture dans `assets/evidence/<identifiant-projet>/` (PNG, JPG ou WebP).
+2. Masquer les mots de passe, tokens, clés, données personnelles et informations d'infrastructure qui ne doivent pas être publiques.
+3. Ajouter l'entrée du média dans le tableau `media` du catalogue `netlab-evidence-catalog` dans `index.html`.
+4. Renseigner un texte alternatif descriptif, un titre, une légende et une catégorie. Retirer de `pending` l'élément désormais documenté.
+5. Lancer les contrôles locaux avant le commit.
+
+Les captures doivent provenir de l'environnement réellement exécuté. Ne pas retoucher un résultat pour le faire paraître concluant ; recadrer pour la lisibilité et masquer uniquement les informations sensibles.
+
+Structure des preuves :
+
+```
+assets/
+└── evidence/
+    ├── infrastructure-pme/
+    ├── ipv4-cidr/
+    └── zabbix-supervision/
+```
