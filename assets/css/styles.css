@@ -2074,3 +2074,334 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .visual-footer { gap: 8px; font-size: 7px; }
   .hero-signal-card { border-radius: 12px; }
 }
+
+
+/* NETLAB V1.7 — projets explorables et Network Lab interactif */
+.project-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 15px 22px;
+  margin: 0 0 24px;
+}
+.project-toolbar-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 290px);
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.project-filters { gap: 6px; }
+.project-filter {
+  min-height: 36px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .02em;
+}
+.project-search {
+  display: flex;
+  min-width: 0;
+  min-height: 39px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 11px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--muted);
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.project-search:focus-within {
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.project-search .icon { width: 15px; height: 15px; color: var(--accent); }
+.project-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: 10px var(--font);
+}
+.project-search input::placeholder { color: var(--muted); opacity: .85; }
+.project-search input:focus-visible { outline: 0; }
+.project-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding-bottom: 8px;
+  font-size: 8px;
+}
+.project-count strong { font-size: 15px; }
+.project-count span { color: var(--muted); }
+.projects-grid { gap: 17px; }
+.project-card {
+  border-radius: 16px;
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--dialog-shadow) 12%, transparent);
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 48px color-mix(in srgb, var(--dialog-shadow) 22%, transparent);
+}
+.project-preview {
+  min-height: 205px;
+  padding: 16px;
+  border-bottom-color: var(--border-strong);
+}
+.project-preview::after { opacity: .26; background-size: 22px 22px; }
+.project-preview-top { font-size: 8px; }
+.project-type { padding: 4px 7px; border: 1px solid var(--border); border-radius: 5px; background: color-mix(in srgb, var(--surface) 72%, transparent); }
+.project-card-content { padding: 21px 20px 20px; }
+.project-card-meta { margin-bottom: 15px; }
+.project-status { padding: 6px 9px; font-size: 8px; }
+.project-card h3 {
+  min-height: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.project-card-content > p {
+  min-height: 64px;
+  margin-bottom: 17px;
+  font-size: 10px;
+}
+.project-tags { margin-top: auto; margin-bottom: 20px; }
+.project-tags span {
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface-3) 68%, transparent);
+}
+.project-open {
+  width: 100%;
+  min-height: 38px;
+  justify-content: space-between;
+  padding: 8px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+.project-open:hover { border-color: var(--border-strong); background: var(--accent-soft); }
+.projects-empty {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 34px 20px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 14px;
+  background: var(--surface);
+  text-align: center;
+}
+.projects-empty[hidden] { display: none; }
+.projects-empty-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.projects-empty > strong { font-size: 13px; }
+.projects-empty > p { margin: 0; color: var(--muted); font-size: 10px; }
+.project-reset {
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.project-reset:hover { background: var(--accent-soft); }
+
+/* Featured lab layout */
+.featured-lab {
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  border-radius: 20px;
+}
+.lab-content { padding: clamp(24px, 3.2vw, 38px); }
+.lab-label-row { margin-bottom: 25px; }
+.lab-content h3 { max-width: 470px; font-size: clamp(24px, 2.8vw, 34px); }
+.lab-description { font-size: 11px; }
+.lab-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 20px 0 25px;
+}
+.lab-facts > div {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+  padding: 11px 10px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-2);
+}
+.lab-facts strong {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.lab-facts span { color: var(--muted); font-size: 8px; line-height: 1.4; }
+.lab-objectives-block { margin: 0 0 24px; }
+.lab-objectives-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--text-soft);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: .09em;
+}
+.lab-objectives-heading small { color: var(--warning); font-size: 7px; }
+.lab-objectives { gap: 10px; margin-bottom: 0; }
+.lab-objectives div { align-items: flex-start; font-size: 10px; line-height: 1.55; }
+.lab-objectives .icon { flex: 0 0 14px; color: var(--accent); margin-top: 1px; }
+.lab-visual {
+  min-width: 0;
+  min-height: 520px;
+  padding: 22px clamp(15px, 2.5vw, 28px);
+  border-left: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse at 50% 42%, var(--lab-glow), transparent 65%),
+    linear-gradient(var(--hero-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
+    var(--bg-soft);
+  background-size: auto, 28px 28px, 28px 28px, auto;
+}
+.lab-visual-header {
+  align-items: center;
+  gap: 10px;
+  font-size: 8px;
+  letter-spacing: .1em;
+}
+.lab-visual-header span:last-child {
+  padding: 5px 7px;
+  border: 1px solid var(--warning-border);
+  border-radius: 5px;
+  background: var(--warning-bg);
+  color: var(--warning);
+  font-size: 7px;
+}
+.topology { max-width: 480px; }
+.topo-node { border-radius: 11px; }
+.topo-link-branch::before { width: calc(100% - 85px); }
+.topo-branches { gap: 9px; }
+.topo-vlan-button {
+  appearance: none;
+  min-width: 0;
+  padding: 12px 7px;
+  color: var(--text);
+  font-family: var(--font);
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.topo-vlan-button:hover,
+.topo-vlan-button[aria-pressed="true"] {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--surface-3) 85%, var(--accent-soft));
+  box-shadow: 0 0 0 3px var(--accent-soft), 0 12px 25px rgba(0,0,0,.13);
+}
+.topo-vlan-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.topo-vlan-button > span { font-size: 8px; }
+.topo-vlan-button small { font-size: 7px; }
+.topology-legend {
+  flex-wrap: wrap;
+  gap: 9px 17px;
+  margin-top: 18px;
+  font-size: 7px;
+}
+.legend-vlan { background: var(--success); }
+.vlan-inspector {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 7px 14px;
+  margin-top: 13px;
+  padding: 13px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+}
+.vlan-inspector-heading { display: grid; gap: 4px; min-width: 0; }
+.vlan-inspector-heading > span {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: .09em;
+}
+.vlan-inspector-heading strong { color: var(--accent); font-size: 10px; }
+.vlan-inspector p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 8px;
+  line-height: 1.6;
+}
+.vlan-subnet {
+  grid-column: 1 / -1;
+  width: fit-content;
+  max-width: 100%;
+  padding: 5px 7px;
+  border-radius: 5px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 7px;
+  overflow-wrap: anywhere;
+}
+.lab-disclaimer {
+  margin-top: 13px;
+  text-align: left;
+  line-height: 1.7;
+}
+@media (max-width: 900px) {
+  .project-toolbar { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .project-toolbar-main { grid-template-columns: minmax(0, 1fr) minmax(210px, 280px); }
+  .project-count { justify-self: end; padding-bottom: 0; }
+  .featured-lab { grid-template-columns: minmax(0, 1fr); }
+  .lab-visual { min-height: 520px; border-left: 0; border-top: 1px solid var(--border); }
+  .lab-content { padding: 28px; }
+}
+@media (max-width: 680px) {
+  .project-toolbar-main { grid-template-columns: minmax(0, 1fr); }
+  .project-search { width: 100%; }
+  .project-count { justify-self: start; }
+  .projects-grid { grid-template-columns: minmax(0, 1fr); }
+  .project-preview { min-height: 210px; }
+  .lab-facts { gap: 6px; }
+  .lab-facts > div { padding: 9px 7px; }
+  .lab-facts strong { font-size: 10px; }
+  .lab-visual { min-height: 545px; padding-inline: 12px; }
+  .topo-branches { gap: 5px; }
+  .topo-vlan-button { padding: 10px 4px; }
+  .topo-vlan-button > span { font-size: 7px; }
+  .topo-vlan-button small { font-size: 6px; }
+  .vlan-inspector { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .vlan-subnet { grid-column: auto; }
+  .topology-legend { justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-reset,
+  .topo-vlan-button { transition: none !important; }
+}
