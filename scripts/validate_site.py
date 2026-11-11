@@ -246,6 +246,17 @@ def main() -> int:
             ERRORS.append("index.html: données structurées Person absentes.")
         if home.evidence_catalog is None:
             ERRORS.append("index.html: catalogue de preuves absent ou invalide.")
+        html_source = (ROOT / "index.html").read_text(encoding="utf-8")
+        for marker in (
+            'data-evidence-lightbox',
+            'data-evidence-lightbox-image',
+            'data-evidence-lightbox-close',
+        ):
+            if marker not in html_source:
+                ERRORS.append(f"index.html: composant de consultation agrandie manquant ({marker}).")
+        js_source = (ROOT / "assets/js/main.js").read_text(encoding="utf-8")
+        if "openEvidenceLightbox" not in js_source or 'data-evidence-lightbox-close' not in js_source:
+            ERRORS.append("main.js: interactions de consultation agrandie absentes.")
         else:
             if set(home.evidence_catalog) != set(home.project_ids):
                 ERRORS.append("index.html: le catalogue de preuves doit couvrir exactement les trois projets.")
@@ -297,6 +308,7 @@ def main() -> int:
     print(" - liens et ressources locales vérifiés")
     print(" - identifiants, routes projets et visuels cohérents")
     print(" - catalogue de preuves, médias locaux et éléments à collecter contrôlés")
+    print(" - aperçu agrandi, fermeture accessible et structure de la lightbox contrôlés")
     print(" - métadonnées Open Graph / Twitter et JSON-LD contrôlés")
     print(" - structure CSS et présence des scripts vérifiées")
     return 0
