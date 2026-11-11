@@ -3165,8 +3165,6 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .flow-path-caption { font-size: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .flow-path-step,
-  .lab-tracker-progress span,
-  .lab-tracker-check::after { transition: none !important; }
+  .flow-path-step { transition: none !important; }
 }
 
