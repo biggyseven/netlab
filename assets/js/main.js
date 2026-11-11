@@ -204,6 +204,19 @@
   const proofGallery = document.querySelector("[data-proof-gallery]");
   const proofPendingWrap = document.querySelector("[data-proof-pending-wrap]");
   const proofPending = document.querySelector("[data-proof-pending]");
+  const evidenceLightbox = document.querySelector("[data-evidence-lightbox]");
+  const evidenceLightboxTitle = document.querySelector("[data-evidence-lightbox-title]");
+  const evidenceLightboxImage = document.querySelector("[data-evidence-lightbox-image]");
+  const evidenceLightboxCaption = document.querySelector("[data-evidence-lightbox-caption]");
+  const openEvidenceLightbox = (item, trigger) => {
+    if (!evidenceLightbox || !evidenceLightboxImage || !item?.src) return;
+    evidenceLightboxTitle.textContent = item.title || "Capture technique";
+    evidenceLightboxImage.src = item.src;
+    evidenceLightboxImage.alt = item.alt || item.title || "Preuve technique NETLAB";
+    evidenceLightboxCaption.textContent = item.caption || "";
+    if (!evidenceLightbox.open) evidenceLightbox.showModal();
+    trigger?.setAttribute("aria-haspopup", "dialog");
+  };
   let evidenceCatalog = {};
   try {
     const catalogNode = document.querySelector("#netlab-evidence-catalog");
@@ -252,11 +265,31 @@
       media.forEach(item => {
         const figure = document.createElement("figure");
         figure.className = "proof-gallery-card";
+        const imageTrigger = document.createElement("button");
+        imageTrigger.type = "button";
+        imageTrigger.className = "proof-image-trigger";
+        imageTrigger.setAttribute("aria-label", "Agrandir la preuve : " + (item.title || "Capture technique"));
+        imageTrigger.setAttribute("aria-haspopup", "dialog");
         const image = document.createElement("img");
         image.src = item.src;
         image.alt = item.alt || item.title || "Preuve technique NETLAB";
         image.loading = "lazy";
         image.decoding = "async";
+        image.addEventListener("error", () => {
+          imageTrigger.disabled = true;
+          imageTrigger.classList.add("is-unavailable");
+          const fallback = document.createElement("span");
+          fallback.className = "proof-image-fallback";
+          fallback.textContent = "Fichier de preuve indisponible";
+          image.replaceWith(fallback);
+        }, { once: true });
+        imageTrigger.addEventListener("click", () => openEvidenceLightbox(item, imageTrigger));
+        imageTrigger.append(image);
+        const zoomLabel = document.createElement("span");
+        zoomLabel.className = "proof-image-zoom-label";
+        zoomLabel.setAttribute("aria-hidden", "true");
+        zoomLabel.textContent = "Agrandir ↗";
+        imageTrigger.append(zoomLabel);
         const caption = document.createElement("figcaption");
         const meta = document.createElement("div");
         meta.className = "proof-gallery-meta";
@@ -274,7 +307,7 @@
         const description = document.createElement("p");
         description.textContent = item.caption || "";
         caption.append(meta, heading, description);
-        figure.append(image, caption);
+        figure.append(imageTrigger, caption);
         proofGallery.append(figure);
       });
     }
@@ -378,6 +411,16 @@
   });
 
   document.querySelector("[data-dialog-close]")?.addEventListener("click", () => projectDialog?.close());
+  document.querySelector("[data-evidence-lightbox-close]")?.addEventListener("click", () => evidenceLightbox?.close());
+  evidenceLightbox?.addEventListener("click", event => {
+    if (event.target === evidenceLightbox) evidenceLightbox.close();
+  });
+  evidenceLightbox?.addEventListener("close", () => {
+    if (projectDialog?.open) {
+      const focusedProof = proofGallery?.querySelector(".proof-image-trigger:not(:disabled)");
+      focusedProof?.focus({ preventScroll: true });
+    }
+  });
   projectDialog?.addEventListener("click", event => { if (event.target === projectDialog) projectDialog.close(); });
 
   const copyProjectLinkButton = document.querySelector("[data-copy-project-link]");
