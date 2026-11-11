@@ -2601,3 +2601,13 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .lab-visual .topo-vlan-button > span { font-size: 7px; }
   .lab-visual .topo-vlan-button small { font-size: 6px; }
 }
+
+/* NETLAB V1.8.1 — connector joins start at the exact grid boundaries */
+.lab-visual .topo-branch-bus::after {
+  top: 0;
+}
+@media (max-width: 680px) {
+  .lab-visual .topo-branch-bus::after {
+    top: 0;
+  }
+}
