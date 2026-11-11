@@ -328,7 +328,10 @@
             <article class="project-card" data-project-card data-category="network security systems" data-reveal>
               <div class="project-preview project-preview-network">
                 <div class="project-preview-top"><span>LAB / 001</span><span class="project-type">INFRASTRUCTURE</span></div>
-                <div class="project-mini-topology"><span class="mini-node">WAN</span><i></i><span class="mini-node">pfSense</span><i></i><span class="mini-node">SWITCH L2</span><div class="mini-branches"><span>VLAN 10</span><span>VLAN 20</span><span>VLAN 30</span></div></div>
+                <div class="project-mini-topology" aria-label="Schéma conceptuel WAN, pfSense, switch L2 et trois VLAN">
+                  <div class="mini-core"><span class="mini-node">WAN</span><i></i><span class="mini-node">pfSense</span><i></i><span class="mini-node">SWITCH L2</span></div>
+                  <div class="mini-branches"><span>VLAN 10</span><span>VLAN 20</span><span>VLAN 30</span></div>
+                </div>
                 <span class="preview-caption">RÉSEAU PME · SEGMENTATION</span>
               </div>
               <div class="project-card-content">
@@ -337,7 +340,7 @@
                 <p>Concevoir une architecture segmentée avec pare-feu, services Linux et supervision.</p>
                 <div class="project-tags"><span>GNS3</span><span>pfSense</span><span>VLAN</span><span>Zabbix</span></div>
                 <button class="project-open" type="button" data-project-open
-                  data-title="Infrastructure réseau sécurisée pour une PME"
+                  data-visual="network" data-title="Infrastructure réseau sécurisée pour une PME"
                   data-status="En construction" data-status-class="status-progress"
                   data-domain="Architecture réseau & sécurité"
                   data-environment="GNS3 · pfSense · Switch L2 · Ubuntu Server · VMware"
@@ -363,7 +366,7 @@
                 <p>Calculateur CIDR disponible. Les exercices détaillés et les preuves pédagogiques restent à enrichir.</p>
                 <div class="project-tags"><span>IPv4</span><span>CIDR</span><span>VLSM</span></div>
                 <button class="project-open" type="button" data-project-open
-                  data-title="Atelier de calcul IPv4 & CIDR"
+                  data-visual="ipv4" data-title="Atelier de calcul IPv4 & CIDR"
                   data-status="Outil disponible · preuves à enrichir" data-status-class="status-ready"
                   data-domain="Fondamentaux réseau · outil pédagogique"
                   data-environment="HTML · CSS · JavaScript · calcul local dans le navigateur"
@@ -389,7 +392,7 @@
                 <p>Préparer la surveillance de serveurs et services réseau dans un environnement de PME.</p>
                 <div class="project-tags"><span>Zabbix</span><span>Ubuntu Server</span><span>SNMP</span></div>
                 <button class="project-open" type="button" data-project-open
-                  data-title="Supervision centralisée avec Zabbix"
+                  data-visual="zabbix" data-title="Supervision centralisée avec Zabbix"
                   data-status="En préparation" data-status-class="status-planned"
                   data-domain="Systèmes · supervision & observabilité"
                   data-environment="Ubuntu Server · Zabbix Server · Agents Linux/Windows (cible)"
@@ -700,33 +703,90 @@
 
     <dialog class="project-dialog" data-project-dialog aria-labelledby="project-dialog-title">
       <div class="project-dialog-inner">
-        <div class="dialog-topline"><span class="mini-label">DOSSIER TECHNIQUE · NETLAB</span><button class="dialog-close" type="button" data-dialog-close aria-label="Fermer le dossier projet"><svg class="icon"><use href="#i-close"/></svg></button></div>
-        <span class="project-status status-progress" data-dialog-status><i></i> En construction</span>
-        <h2 id="project-dialog-title" data-dialog-title>Dossier projet</h2>
-        <p class="dialog-summary" data-dialog-summary></p>
-        <div class="dialog-overview">
-          <div><span>DOMAINE</span><strong data-dialog-domain></strong></div>
-          <div><span>ENVIRONNEMENT</span><strong data-dialog-environment></strong></div>
+        <div class="dialog-topline">
+          <span class="mini-label">DOSSIER TECHNIQUE <i></i> NETLAB / PROJETS</span>
+          <button class="dialog-close" type="button" data-dialog-close aria-label="Fermer le dossier projet"><svg class="icon"><use href="#i-close"/></svg></button>
         </div>
-        <section class="dialog-dossier-section">
-          <p class="mini-label">01 / CONTEXTE</p>
-          <p data-dialog-context></p>
-          <h3>Objectif technique</h3>
-          <p data-dialog-goal></p>
-        </section>
-        <section class="dialog-dossier-section">
-          <p class="mini-label">02 / ENVIRONNEMENT TECHNIQUE</p>
-          <div class="dialog-tools" data-dialog-tools></div>
-        </section>
-        <section class="dialog-dossier-section">
-          <p class="mini-label">03 / DÉMARCHE ET LIVRABLES</p>
-          <ol class="dialog-objectives" data-dialog-objectives></ol>
-        </section>
-        <section class="dialog-proof-section">
-          <p class="mini-label">04 / VALIDATION ET PREUVES</p>
-          <p data-dialog-evidence></p>
-        </section>
-        <section class="dialog-dossier-section dialog-next-step">
+
+        <div class="dialog-hero">
+          <div class="dialog-hero-copy">
+            <p class="dialog-project-index" data-dialog-index>PROJET / 01</p>
+            <span class="project-status status-progress" data-dialog-status><i></i> En construction</span>
+            <h2 id="project-dialog-title" data-dialog-title>Dossier projet</h2>
+            <p class="dialog-summary" data-dialog-summary></p>
+            <div class="dialog-overview">
+              <div><span>DOMAINE</span><strong data-dialog-domain></strong></div>
+              <div><span>ENVIRONNEMENT</span><strong data-dialog-environment></strong></div>
+            </div>
+          </div>
+
+          <div class="dialog-visual" data-dialog-visual data-visual="network" role="img" aria-label="Aperçu conceptuel de l'infrastructure PME">
+            <div class="dialog-art dialog-art-network" data-dialog-art="network">
+              <div class="art-topline"><span>ARCHITECTURE LOGIQUE</span><span>CONCEPT</span></div>
+              <div class="art-network-core">
+                <span class="art-node">WAN / INTERNET</span>
+                <i></i>
+                <span class="art-node art-node-firewall">pfSense <small>ROUTAGE · FILTRAGE</small></span>
+                <i></i>
+                <span class="art-node">SWITCH L2</span>
+                <div class="art-branch-line"></div>
+                <div class="art-vlans">
+                  <span><b>10</b> ADMIN</span>
+                  <span><b>20</b> USERS</span>
+                  <span><b>30</b> SERVERS</span>
+                </div>
+              </div>
+              <p class="art-footnote">TRUNK 802.1Q ENVISAGÉ · NON TESTÉ</p>
+            </div>
+
+            <div class="dialog-art dialog-art-ipv4" data-dialog-art="ipv4" hidden>
+              <div class="art-topline"><span>LECTURE D'ADRESSAGE</span><span>EXEMPLE</span></div>
+              <div class="art-ip-address">192.168.10.25<span>/24</span></div>
+              <div class="art-ip-octets"><b>192</b><b>168</b><b>10</b><b>25</b></div>
+              <div class="art-ip-meta">
+                <div><span>RÉSEAU</span><strong>192.168.10.0</strong></div>
+                <div><span>BROADCAST</span><strong>192.168.10.255</strong></div>
+                <div><span>MASQUE</span><strong>255.255.255.0</strong></div>
+                <div><span>HÔTES CLASSIQUES</span><strong>254</strong></div>
+              </div>
+              <p class="art-footnote">CAS PÉDAGOGIQUE · /24</p>
+            </div>
+
+            <div class="dialog-art dialog-art-zabbix" data-dialog-art="zabbix" hidden>
+              <div class="art-topline"><span>SUPERVISION ENVISAGÉE</span><span>NO DATA</span></div>
+              <div class="art-host-list">
+                <div><span class="art-host-icon">L</span><strong>Ubuntu Server</strong><small>HÔTE À INTÉGRER</small><b>--</b></div>
+                <div><span class="art-host-icon">W</span><strong>Windows</strong><small>AGENT À CONFIGURER</small><b>--</b></div>
+                <div><span class="art-host-icon">N</span><strong>Équipement réseau</strong><small>SNMP À ÉTUDIER</small><b>--</b></div>
+              </div>
+              <div class="art-no-data"><span></span> AUCUNE MÉTRIQUE COLLECTÉE</div>
+              <p class="art-footnote">VISUEL DE PRÉSENTATION · PAS DE MESURE RÉELLE</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dialog-dossier-grid">
+          <section class="dialog-dossier-section">
+            <p class="mini-label">01 / CONTEXTE</p>
+            <p data-dialog-context></p>
+            <h3>Objectif technique</h3>
+            <p data-dialog-goal></p>
+          </section>
+          <section class="dialog-dossier-section">
+            <p class="mini-label">02 / ENVIRONNEMENT TECHNIQUE</p>
+            <div class="dialog-tools" data-dialog-tools></div>
+          </section>
+          <section class="dialog-dossier-section dialog-deliverables">
+            <p class="mini-label">03 / DÉMARCHE ET LIVRABLES</p>
+            <ol class="dialog-objectives" data-dialog-objectives></ol>
+          </section>
+          <section class="dialog-proof-section">
+            <p class="mini-label">04 / VALIDATION ET PREUVES</p>
+            <p data-dialog-evidence></p>
+          </section>
+        </div>
+
+        <section class="dialog-next-step">
           <p class="mini-label">05 / PROCHAINE ÉTAPE</p>
           <p data-dialog-next></p>
         </section>
