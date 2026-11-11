@@ -139,3 +139,14 @@ NETLAB/
 - Schéma du laboratoire agrandi sur ultralarge tout en conservant l'alignement des connecteurs.
 - Contenu de documentation maintenu dans une largeur de lecture contrôlée.
 - Les règles mobiles et tablette existantes restent inchangées.
+
+## Évolution V2.0 — simulateur pédagogique de flux inter-VLAN
+
+- Ajout d'un simulateur local permettant de choisir un VLAN source, un VLAN destination et un service.
+- Évaluation de la demande selon une politique d'exemple explicitée dans l'interface.
+- Distinction entre flux autorisé par l'exemple, flux refusé par défaut et communication locale au même VLAN.
+- Règles de démonstration : ADMIN vers USERS (SSH/RDP/ICMP), ADMIN vers SERVERS (DNS/HTTPS/SSH/ICMP), USERS vers SERVERS (DNS/HTTPS), autres nouvelles connexions inter-VLAN refusées.
+- Calcul entièrement exécuté dans le navigateur : aucun paquet réseau n'est envoyé et aucune règle n'est poussée vers pfSense.
+- Mise en page responsive, compatible avec les cinq thèmes et utilisable au clavier.
+- Cette politique est illustrative et ne décrit pas une configuration réellement déployée ou testée.
+
