@@ -2420,3 +2420,184 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
 }
 .topology-legend { width: 100%; }
 .vlan-inspector { width: 100%; }
+
+
+/* NETLAB V1.8 — deterministic topology connectors for LAB 001 */
+/* Use one shared grid coordinate system for the switch, bus and VLAN branch centres. */
+.lab-visual .topology-pme {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto 28px auto;
+  align-items: stretch;
+  width: 100%;
+  max-width: 480px;
+  margin: 22px auto 18px;
+  gap: 0;
+}
+.lab-visual .topo-core {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  width: min(100%, 230px);
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  margin: 0;
+  padding: 0;
+}
+.lab-visual .topo-core .topo-node {
+  flex: 0 0 auto;
+  width: min(100%, 154px);
+  min-width: 0;
+  min-height: 64px;
+  margin: 0;
+}
+.lab-visual .topo-core .topo-internet {
+  width: min(100%, 108px);
+  min-height: 48px;
+}
+.lab-visual .topo-core .topo-switch {
+  width: min(100%, 154px);
+}
+.lab-visual .topo-link-vertical {
+  flex: 0 0 24px;
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--accent), var(--topology-line-fade));
+}
+.lab-visual .topo-trunk-link {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+}
+.lab-visual .topo-trunk-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--accent), var(--topology-branch-line));
+}
+.lab-visual .topo-trunk-link span {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  padding: 5px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: .04em;
+  text-align: center;
+  white-space: nowrap;
+}
+.lab-visual .topo-branch-bus {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: 100%;
+  height: 28px;
+  min-width: 0;
+}
+.lab-visual .topo-branch-bus::before {
+  content: "";
+  position: absolute;
+  right: 16.6667%;
+  bottom: 0;
+  left: 16.6667%;
+  height: 2px;
+  background: var(--topology-branch-line);
+}
+.lab-visual .topo-branch-bus::after {
+  content: "";
+  position: absolute;
+  top: -28px;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--accent), var(--topology-branch-line));
+}
+.lab-visual .topo-branches {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+  gap: 0;
+  margin: 0;
+}
+.lab-visual .topo-branch {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0 5px;
+}
+.lab-visual .topo-branch-drop {
+  display: block;
+  width: 2px;
+  height: 26px;
+  flex: 0 0 26px;
+  background: linear-gradient(to bottom, var(--topology-branch-line), var(--accent));
+}
+.lab-visual .topo-vlan-button {
+  display: flex;
+  width: 100%;
+  max-width: 142px;
+  min-width: 0;
+  min-height: 98px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 10px 5px;
+  border-radius: 10px;
+  text-align: center;
+}
+.lab-visual .topo-vlan-button > span {
+  font-size: 8px;
+  line-height: 1.4;
+}
+.lab-visual .topo-vlan-button small {
+  font-size: 7px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.lab-visual .topology-legend {
+  width: 100%;
+  justify-content: center;
+  gap: 8px 15px;
+}
+.lab-visual .vlan-inspector { width: 100%; }
+
+@media (max-width: 680px) {
+  .lab-visual .topology-pme {
+    grid-template-rows: auto 25px auto;
+    margin-top: 18px;
+  }
+  .lab-visual .topo-core { width: min(100%, 210px); }
+  .lab-visual .topo-core .topo-node { min-height: 58px; }
+  .lab-visual .topo-core .topo-internet { min-height: 46px; }
+  .lab-visual .topo-trunk-link { height: 36px; flex-basis: 36px; }
+  .lab-visual .topo-trunk-link span { font-size: 6px; padding-inline: 5px; }
+  .lab-visual .topo-branch-bus { height: 25px; }
+  .lab-visual .topo-branch-bus::after { top: -25px; }
+  .lab-visual .topo-branch-drop { height: 22px; flex-basis: 22px; }
+  .lab-visual .topo-branch { padding-inline: 3px; }
+  .lab-visual .topo-vlan-button { min-height: 90px; padding: 8px 3px; }
+  .lab-visual .topo-vlan-button > span { font-size: 7px; }
+  .lab-visual .topo-vlan-button small { font-size: 6px; }
+}
