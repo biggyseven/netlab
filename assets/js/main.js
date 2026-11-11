@@ -267,6 +267,78 @@
   vlanNodes.forEach(node => node.addEventListener("click", () => selectVlan(node)));
   if (vlanNodes[0]) selectVlan(vlanNodes[0]);
 
+  // Local educational simulator for example inter-VLAN firewall rules.
+  const flowSimulator = document.querySelector("[data-flow-simulator]");
+  if (flowSimulator) {
+    const flowForm = flowSimulator.querySelector("[data-flow-form]");
+    const flowSource = flowSimulator.querySelector("[data-flow-source]");
+    const flowDestination = flowSimulator.querySelector("[data-flow-destination]");
+    const flowService = flowSimulator.querySelector("[data-flow-service]");
+    const flowResult = flowSimulator.querySelector("[data-flow-result]");
+    const flowKicker = flowSimulator.querySelector("[data-flow-kicker]");
+    const flowVerdict = flowSimulator.querySelector("[data-flow-verdict]");
+    const flowExplanation = flowSimulator.querySelector("[data-flow-explanation]");
+    const flowDetail = flowSimulator.querySelector("[data-flow-detail]");
+
+    const serviceLabels = {
+      dns: "DNS · TCP/UDP 53",
+      https: "HTTPS · TCP 443",
+      ssh: "SSH · TCP 22",
+      rdp: "RDP · TCP 3389",
+      icmp: "ICMP · Echo"
+    };
+    const exampleRules = {
+      "10>20": ["ssh", "rdp", "icmp"],
+      "10>30": ["dns", "https", "ssh", "icmp"],
+      "20>30": ["dns", "https"]
+    };
+    const networkLabel = value => ({
+      "10": "VLAN 10 · Administration",
+      "20": "VLAN 20 · Utilisateurs",
+      "30": "VLAN 30 · Serveurs"
+    }[value] || "VLAN inconnu");
+
+    flowForm?.addEventListener("submit", event => {
+      event.preventDefault();
+      if (!flowSource || !flowDestination || !flowService || !flowResult) return;
+
+      const source = flowSource.value;
+      const destination = flowDestination.value;
+      const service = flowService.value;
+      const key = source + ">" + destination;
+      const sameNetwork = source === destination;
+      const allowed = Boolean(exampleRules[key]?.includes(service));
+      const sourceLabel = networkLabel(source);
+      const destinationLabel = networkLabel(destination);
+      const serviceLabel = serviceLabels[service] || service.toUpperCase();
+
+      let state = "blocked";
+      let kicker = "POLITIQUE PAR DÉFAUT";
+      let verdict = "Flux bloqué";
+      let explanation = "Aucune règle d'autorisation n'est définie pour ce nouveau flux. Dans cette politique pédagogique, le refus par défaut s'applique.";
+
+      if (sameNetwork) {
+        state = "local";
+        kicker = "TRAJET LOCAL";
+        verdict = "Pas de routage inter-VLAN";
+        explanation = "La source et la destination appartiennent au même VLAN. Le trafic reste dans le réseau local et ne passe pas par la passerelle inter-VLAN, sous réserve de la segmentation L2.";
+      } else if (allowed) {
+        state = "allowed";
+        kicker = "RÈGLE D'AUTORISATION TROUVÉE";
+        verdict = "Flux autorisé par l'exemple";
+        explanation = "La politique de démonstration autorise " + serviceLabel + " de " + sourceLabel + " vers " + destinationLabel + ". Cette décision est une simulation locale, pas un test de paquets.";
+      } else {
+        explanation = "Aucune règle d'autorisation ne couvre " + serviceLabel + " de " + sourceLabel + " vers " + destinationLabel + ". Le nouveau flux est donc refusé par défaut dans cet exemple.";
+      }
+
+      flowResult.dataset.state = state;
+      if (flowKicker) flowKicker.textContent = kicker;
+      if (flowVerdict) flowVerdict.textContent = verdict;
+      if (flowExplanation) flowExplanation.textContent = explanation;
+      if (flowDetail) flowDetail.textContent = sourceLabel + " → " + destinationLabel + " · " + serviceLabel;
+    });
+  }
+
   // Documentation: copy command snippets with a fallback for older contexts.
   document.querySelectorAll("[data-copy-code]").forEach(button => button.addEventListener("click", async () => {
     const code = button.closest(".docs-code")?.querySelector("pre code");
