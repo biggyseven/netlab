@@ -210,3 +210,11 @@ NETLAB/
 - Les états ont été clarifiés : la segmentation VLAN reste en conception avec validation GNS3 à effectuer ; sécurité et supervision restent en étude préparatoire.
 - Les libellés évitent de présenter les simulations et procédures comme des validations de déploiement.
 - Les cartes adoptent une structure verticale cohérente afin d'aligner les états et liens même lorsque les descriptions ont des longueurs différentes.
+
+## Évolution V2.7 — métadonnées de partage et référencement
+
+- Ajout de titres et descriptions distincts pour l'accueil et la documentation.
+- Ajout des métadonnées Open Graph (type, langue, nom du site, titre et description) et des cartes Twitter de type summary.
+- Ajout de données structurées Schema.org : profil Person sur l'accueil et WebPage sur la documentation.
+- Les données structurées restent limitées aux informations confirmées du profil et aux domaines présentés dans le portfolio.
+- Aucune URL canonique, adresse e-mail, image de partage ou présence sociale n'est inventée : ces éléments seront ajoutés lorsque leurs adresses publiques seront confirmées.
