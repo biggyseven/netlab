@@ -3854,3 +3854,41 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .proof-gallery { grid-template-columns: minmax(0, 1fr); }
   .proof-pending-item { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
+
+
+/* NETLAB V3.1 — contact professionnel et accès publics */
+.contact-side { min-width: 250px; }
+.contact-side-label { max-width: 290px; line-height: 1.7; }
+.contact-actions { display: grid; width: min(100%, 278px); gap: 9px; }
+.contact-actions .button { width: 100%; justify-content: center; white-space: normal; text-align: center; }
+.contact-actions .button .icon { flex: 0 0 14px; }
+.contact-actions .button-secondary { background: var(--surface-2); }
+.contact-actions .button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 900px) {
+  .contact-panel { flex-direction: column; align-items: flex-start; }
+  .contact-side {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 76px minmax(0, 1fr);
+    align-items: center;
+    justify-items: start;
+    gap: 12px 18px;
+  }
+  .contact-orbit { grid-column: 1; grid-row: 1 / span 2; }
+  .contact-side-label { grid-column: 2; text-align: left; align-self: end; }
+  .contact-actions {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .contact-actions .button { width: auto; }
+}
+@media (max-width: 560px) {
+  .contact-side { grid-template-columns: minmax(0, 1fr); gap: 13px; }
+  .contact-orbit { grid-column: 1; grid-row: auto; }
+  .contact-side-label { grid-column: 1; grid-row: auto; }
+  .contact-actions { grid-column: 1; grid-row: auto; display: grid; width: 100%; }
+  .contact-actions .button { width: 100%; }
+}
