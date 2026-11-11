@@ -276,3 +276,12 @@ assets/
 - Le texte précise que les coordonnées directes seront ajoutées après confirmation d'une adresse professionnelle publique ; aucun e-mail ni téléphone n'est inventé.
 - Les deux accès sont des liens externes ouverts dans un nouvel onglet avec les attributs de sécurité appropriés.
 - Mise en page adaptative pour écrans larges, tablettes et mobiles, avec états de focus visibles.
+
+## Évolution V3.2 — consultation agrandie des preuves
+
+- Chaque capture publiée peut être ouverte en grand depuis sa carte, au clavier ou au pointeur.
+- Ajout d'une boîte de dialogue dédiée : image adaptée à l'écran, titre et légende conservés.
+- Fermeture par le bouton, la touche Échap ou un clic sur l'arrière-plan.
+- Retour du focus vers la galerie après fermeture.
+- Si un fichier référencé ne charge pas, la carte affiche un état indisponible au lieu d'une image cassée.
+- Le validateur vérifie la présence des éléments essentiels de la visionneuse.
