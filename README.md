@@ -161,3 +161,15 @@ NETLAB/
 - Les cases représentent des déclarations de progression faites manuellement. Elles ne constituent pas une preuve technique et doivent être cochées uniquement après réalisation et test.
 - Interface responsive et navigation clavier prises en charge.
 
+## Évolution V2.2 — recentrage du portfolio
+
+- Repositionnement de l'accueil autour du titre « Administrateur réseaux junior » et d'une présentation professionnelle explicite.
+- Réécriture de l'introduction pour mettre en avant le parcours, les projets et les preuves techniques.
+- Remplacement des accès rapides centrés sur des outils par trois entrées : projets techniques, laboratoires réseau et documentation.
+- Retrait du suivi personnel local de la vitrine publique ; il ne sera réintroduit que dans un éventuel espace privé.
+- Retrait du journal éditorial provisoire tant que des notes techniques réelles et datées ne sont pas publiables.
+- Navigation simplifiée et numérotation des sections ajustée.
+- Correction du parcours conceptuel inter-VLAN : VLAN source → switch L2 → trunk 802.1Q / pfSense → switch L2 → VLAN destination. Le trafic au sein d'un même VLAN reste commuté localement.
+- Les statuts de conception et les mentions de topologie non testée sont conservés afin de ne pas confondre maquette et réalisation.
+- Le contact reste à compléter avec des coordonnées validées avant publication.
+
