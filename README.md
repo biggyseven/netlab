@@ -118,3 +118,13 @@ NETLAB/
 - Sélection interactive des VLAN 10, 20 et 30 pour afficher leur rôle et leur sous-réseau prévu.
 - Mise en évidence du trunk 802.1Q envisagé et renvoi vers la fiche technique.
 - Les éléments conceptuels restent distingués des configurations et tests réels.
+
+
+## Évolution V1.8 — correction des liaisons du laboratoire PME
+
+- Reconstruction du schéma LAB 001 sur une grille à trois colonnes avec centres de branche calculés par la grille.
+- Liaison verticale continue WAN → pfSense → trunk 802.1Q → switch L2.
+- Bus horizontal raccordé au point de sortie du switch, avec trois descentes verticales alignées sur VLAN 10, 20 et 30.
+- Suppression des anciennes largeurs de connecteur contradictoires qui pouvaient décaler les extrémités.
+- Ajustements dédiés aux petits écrans.
+- Le dessin reste conceptuel jusqu'à la réalisation et aux tests réels dans GNS3.
