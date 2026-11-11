@@ -3892,3 +3892,97 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .contact-actions { grid-column: 1; grid-row: auto; display: grid; width: 100%; }
   .contact-actions .button { width: 100%; }
 }
+
+
+/* NETLAB V3.2 — consultation agrandie et robuste des preuves */
+.proof-gallery-card { display: flex; flex-direction: column; }
+.proof-image-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: var(--bg-soft);
+  color: var(--text);
+  cursor: zoom-in;
+  text-align: left;
+}
+.proof-image-trigger img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  transition: transform .28s ease, opacity .2s ease;
+}
+.proof-image-zoom-label {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 9px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  color: var(--text-soft);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: .04em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.proof-image-trigger:hover img { transform: scale(1.025); }
+.proof-image-trigger:hover .proof-image-zoom-label,
+.proof-image-trigger:focus-visible .proof-image-zoom-label { opacity: 1; transform: translateY(0); }
+.proof-image-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.proof-image-trigger:disabled { cursor: not-allowed; }
+.proof-image-trigger.is-unavailable { display: grid; min-height: 145px; place-items: center; }
+.proof-image-trigger.is-unavailable .proof-image-zoom-label { display: none; }
+.proof-image-fallback { padding: 20px; color: var(--muted); font-size: 9px; text-align: center; }
+
+.evidence-lightbox {
+  width: min(1180px, calc(100% - 32px));
+  max-width: none;
+  max-height: min(94vh, 1100px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 30px 100px var(--dialog-shadow);
+}
+.evidence-lightbox::backdrop { background: var(--dialog-backdrop); backdrop-filter: blur(8px); }
+.evidence-lightbox-inner { display: grid; gap: 16px; padding: clamp(16px, 2.5vw, 28px); }
+.evidence-lightbox-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.evidence-lightbox-toolbar .mini-label { margin: 0 0 5px; color: var(--accent); }
+.evidence-lightbox-toolbar h2 { margin: 0; font-size: clamp(16px, 2vw, 22px); }
+.evidence-lightbox-close { flex: 0 0 36px; }
+.evidence-lightbox-figure { display: grid; gap: 10px; margin: 0; }
+.evidence-lightbox-figure img {
+  display: block;
+  width: 100%;
+  max-height: min(72vh, 820px);
+  object-fit: contain;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg-soft);
+}
+.evidence-lightbox-figure figcaption { color: var(--text-soft); font-size: 10px; line-height: 1.7; }
+.evidence-lightbox-hint { margin: 0; color: var(--muted); font-family: var(--mono); font-size: 8px; }
+.evidence-lightbox button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (hover: none) {
+  .proof-image-zoom-label { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proof-image-trigger img, .proof-image-zoom-label { transition: none; }
+}
+@media (max-width: 600px) {
+  .evidence-lightbox { width: calc(100% - 16px); max-height: 96vh; border-radius: 12px; }
+  .evidence-lightbox-inner { padding: 14px; }
+  .evidence-lightbox-figure img { max-height: 76vh; }
+}
