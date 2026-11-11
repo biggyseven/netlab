@@ -433,25 +433,30 @@
             </div>
             <div class="lab-visual" role="group" aria-label="Topologie logique conceptuelle interactive : sélectionnez un VLAN pour afficher son rôle et son sous-réseau">
               <div class="lab-visual-header"><span>TOPOLOGIE LOGIQUE</span><span>MAQUETTE · NON TESTÉE</span></div>
-              <div class="topology">
-                <div class="topo-node topo-internet"><span>WAN</span><small>Internet</small></div>
-                <div class="topo-link topo-link-vertical" aria-hidden="true"></div>
-                <div class="topo-node topo-firewall"><svg class="icon"><use href="#i-shield"/></svg><span>pfSense</span><small>Firewall / NAT</small></div>
-                <div class="topo-link topo-link-vertical" aria-hidden="true"></div>
-                <span class="topo-connection-note">TRUNK 802.1Q ENVISAGÉ</span>
-                <div class="topo-node topo-switch"><svg class="icon"><use href="#i-layers"/></svg><span>Switch L2</span><small>VLAN 10 / 20 / 30</small></div>
-                <div class="topo-link topo-link-branch" aria-hidden="true"></div>
-                <div class="topo-branches">
+              <div class="topology topology-pme">
+                <div class="topo-core">
+                  <div class="topo-node topo-internet"><span>WAN</span><small>Internet</small></div>
+                  <div class="topo-link topo-link-vertical" aria-hidden="true"></div>
+                  <div class="topo-node topo-firewall"><svg class="icon"><use href="#i-shield"/></svg><span>pfSense</span><small>Passerelle / Firewall</small></div>
+                  <div class="topo-trunk-link" aria-label="Liaison trunk 802.1Q envisagée entre pfSense et le switch">
+                    <span>TRUNK 802.1Q ENVISAGÉ</span>
+                  </div>
+                  <div class="topo-node topo-switch"><svg class="icon"><use href="#i-layers"/></svg><span>Switch L2</span><small>Distribution des VLAN</small></div>
+                </div>
+
+                <div class="topo-branch-bus" aria-hidden="true"></div>
+
+                <div class="topo-branches" aria-label="Segments réseau prévus">
                   <div class="topo-branch">
-                    <div class="topo-link" aria-hidden="true"></div>
+                    <span class="topo-branch-drop" aria-hidden="true"></span>
                     <button class="topo-node topo-small topo-vlan-button" type="button" data-vlan-node data-title="VLAN 10 · Administration" data-subnet="192.168.10.0/24" data-role="Segment destiné aux postes d'administration et aux opérations de gestion du laboratoire." aria-pressed="true"><svg class="icon"><use href="#i-cpu"/></svg><span>VLAN 10 · ADMIN</span><small>192.168.10.0/24</small></button>
                   </div>
                   <div class="topo-branch">
-                    <div class="topo-link" aria-hidden="true"></div>
+                    <span class="topo-branch-drop" aria-hidden="true"></span>
                     <button class="topo-node topo-small topo-vlan-button" type="button" data-vlan-node data-title="VLAN 20 · Utilisateurs" data-subnet="192.168.20.0/24" data-role="Segment prévu pour les postes utilisateurs. Les accès aux autres réseaux seront définis par les règles de filtrage." aria-pressed="false"><svg class="icon"><use href="#i-cpu"/></svg><span>VLAN 20 · USERS</span><small>192.168.20.0/24</small></button>
                   </div>
                   <div class="topo-branch">
-                    <div class="topo-link" aria-hidden="true"></div>
+                    <span class="topo-branch-drop" aria-hidden="true"></span>
                     <button class="topo-node topo-small topo-vlan-button" type="button" data-vlan-node data-title="VLAN 30 · Serveurs" data-subnet="192.168.30.0/24" data-role="Segment réservé aux serveurs et services internes, avec des accès à limiter selon les besoins." aria-pressed="false"><svg class="icon"><use href="#i-server"/></svg><span>VLAN 30 · SERVERS</span><small>192.168.30.0/24</small></button>
                   </div>
                 </div>
