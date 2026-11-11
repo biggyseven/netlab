@@ -738,6 +738,86 @@
       </div>
     </footer>
 
+    <script id="netlab-evidence-catalog" type="application/json">
+    {
+      "infrastructure-pme": {
+        "media": [],
+        "pending": [
+          {
+            "category": "Architecture",
+            "title": "Topologie GNS3 complète",
+            "detail": "Vue d'ensemble du laboratoire avec équipements, interfaces et liaisons réellement configurés."
+          },
+          {
+            "category": "Commutation",
+            "title": "VLAN et trunk",
+            "detail": "Sortie de commande ou configuration montrant les VLAN et le trunk effectivement actifs."
+          },
+          {
+            "category": "Sécurité",
+            "title": "Interfaces et règles pfSense",
+            "detail": "Interfaces et règles appliquées, après masquage des informations sensibles."
+          },
+          {
+            "category": "Tests",
+            "title": "Flux autorisés et bloqués",
+            "detail": "Résultats datés des tests, accompagnés si possible des journaux correspondants."
+          }
+        ]
+      },
+      "ipv4-cidr": {
+        "media": [],
+        "pending": [
+          {
+            "category": "Cas /24",
+            "title": "Calcul d'un sous-réseau classique",
+            "detail": "Adresse de départ, préfixe, réseau, broadcast, masque et plage d'hôtes visibles."
+          },
+          {
+            "category": "Cas /31",
+            "title": "Liaison point à point",
+            "detail": "Cas /31 expliqué, avec le traitement spécifique des deux adresses."
+          },
+          {
+            "category": "Cas /32",
+            "title": "Route hôte",
+            "detail": "Cas /32 illustrant une seule adresse et son usage."
+          },
+          {
+            "category": "Validation",
+            "title": "Entrée invalide ou limite",
+            "detail": "Comportement du calculateur face à une adresse ou un préfixe incorrect."
+          }
+        ]
+      },
+      "zabbix-supervision": {
+        "media": [],
+        "pending": [
+          {
+            "category": "Inventaire",
+            "title": "Hôtes enregistrés",
+            "detail": "Liste réelle des hôtes disponibles dans Zabbix, avec adresses sensibles masquées."
+          },
+          {
+            "category": "Collecte",
+            "title": "Latest data",
+            "detail": "Valeurs CPU, mémoire ou disponibilité avec horodatage visible."
+          },
+          {
+            "category": "Agents",
+            "title": "Agents Linux et Windows",
+            "detail": "État réel des agents et dernière communication avec le serveur."
+          },
+          {
+            "category": "Alertes",
+            "title": "Déclencheur et notification",
+            "detail": "Événement de test et notification reçue, sans token ni identifiant privé."
+          }
+        ]
+      }
+    }
+    </script>
+
     <dialog class="project-dialog" data-project-dialog aria-labelledby="project-dialog-title">
       <div class="project-dialog-inner">
         <div class="dialog-topline">
@@ -822,9 +902,17 @@
             <p class="mini-label">03 / DÉMARCHE ET LIVRABLES</p>
             <ol class="dialog-objectives" data-dialog-objectives></ol>
           </section>
-          <section class="dialog-proof-section">
-            <p class="mini-label">04 / VALIDATION ET PREUVES</p>
+          <section class="dialog-proof-section" aria-labelledby="dialog-proof-title">
+            <div class="dialog-proof-heading">
+              <p class="mini-label" id="dialog-proof-title">04 / GALERIE DE PREUVES</p>
+              <span class="proof-count" data-proof-count>0 média publié</span>
+            </div>
             <p data-dialog-evidence></p>
+            <div class="proof-gallery" data-proof-gallery aria-live="polite"></div>
+            <div class="proof-pending-wrap" data-proof-pending-wrap hidden>
+              <p class="mini-label">ÉLÉMENTS À COLLECTER</p>
+              <ul class="proof-pending-list" data-proof-pending></ul>
+            </div>
           </section>
         </div>
 
