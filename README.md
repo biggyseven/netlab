@@ -184,3 +184,13 @@ NETLAB/
 - Les dossiers utilisent des attributs de données et des nœuds texte, sans injecter de HTML arbitraire.
 - Les résultats, tests et métriques non documentés ne sont pas présentés comme validés.
 
+## Évolution V2.4 — présentation visuelle éditoriale des projets
+
+- Refonte des aperçus de cartes avec une composition réseau horizontale, des sous-réseaux lisibles et des niveaux de lecture renforcés.
+- Dossiers détaillés dotés d'un en-tête éditorial en deux colonnes, d'un résumé, du statut et des informations de cadrage.
+- Visuel technique contextuel selon le projet : topologie conceptuelle PME, exemple IPv4/CIDR ou périmètre Zabbix sans métriques.
+- Le schéma réseau indique explicitement que le trunk 802.1Q reste envisagé et non testé.
+- L'exemple IPv4 affiché est un cas pédagogique /24 cohérent avec les paramètres indiqués.
+- L'aperçu Zabbix n'affiche aucune valeur de mesure et reste marqué « no data ».
+- Mise en page détaillée organisée en colonnes sur écran large et empilée sur mobile.
+- Les visuels sont construits en HTML/CSS et ne sont pas présentés comme des captures d'écran d'environnements réellement déployés.
