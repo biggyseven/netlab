@@ -218,3 +218,11 @@ NETLAB/
 - Ajout de données structurées Schema.org : profil Person sur l'accueil et WebPage sur la documentation.
 - Les données structurées restent limitées aux informations confirmées du profil et aux domaines présentés dans le portfolio.
 - Aucune URL canonique, adresse e-mail, image de partage ou présence sociale n'est inventée : ces éléments seront ajoutés lorsque leurs adresses publiques seront confirmées.
+
+## Évolution V2.8 — contrôle qualité automatisé
+
+- Ajout d'un workflow GitHub Actions déclenché sur les pushes de `main` et de `feature/netlab-v1-1`, sur les pull requests vers `main` et à la demande.
+- Vérification de la syntaxe de `main.js` et `network-tools.js` avec Node.js.
+- Script Python sans dépendance externe pour contrôler les pages HTML, les identifiants dupliqués, les liens et ressources locaux, les routes de dossiers projets et les liens entre illustrations.
+- Vérification des métadonnées Open Graph / Twitter Card, des données structurées JSON-LD et de la structure CSS.
+- Les contrôles sont statiques : ils ne remplacent pas les essais visuels dans un navigateur réel.
