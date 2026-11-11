@@ -267,7 +267,74 @@
   vlanNodes.forEach(node => node.addEventListener("click", () => selectVlan(node)));
   if (vlanNodes[0]) selectVlan(vlanNodes[0]);
 
-  // Local educational simulator for example inter-VLAN firewall rules.
+
+
+  // LAB 001 progress tracker, stored only in this browser.
+  const labTracker = document.querySelector("[data-lab-tracker]");
+  if (labTracker) {
+    const taskInputs = [...labTracker.querySelectorAll("[data-lab-task]")];
+    const progressBar = labTracker.querySelector("[data-lab-progress]");
+    const progressFill = labTracker.querySelector("[data-lab-progress-fill]");
+    const progressCount = labTracker.querySelector("[data-lab-progress-count]");
+    const progressStatus = labTracker.querySelector("[data-lab-progress-status]");
+    const resetButton = labTracker.querySelector("[data-lab-progress-reset]");
+    const storageKey = "netlab-lab001-progress-v1";
+
+    const readProgress = () => {
+      try {
+        const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
+        return stored && typeof stored === "object" && !Array.isArray(stored) ? stored : {};
+      } catch (_) {
+        return {};
+      }
+    };
+
+    const saveProgress = () => {
+      const state = {};
+      taskInputs.forEach(input => { state[input.dataset.labTask] = input.checked; });
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(state));
+        if (progressStatus) progressStatus.textContent = "Suivi enregistré dans ce navigateur.";
+      } catch (_) {
+        if (progressStatus) progressStatus.textContent = "Stockage indisponible : le suivi restera temporaire.";
+      }
+    };
+
+    const renderProgress = () => {
+      const completed = taskInputs.filter(input => input.checked).length;
+      const total = taskInputs.length;
+      if (progressCount) progressCount.textContent = completed + " / " + total;
+      if (progressBar) {
+        progressBar.setAttribute("aria-valuenow", String(completed));
+        progressBar.setAttribute("aria-valuetext", completed + " étape(s) marquée(s) sur " + total);
+      }
+      if (progressFill) progressFill.style.width = (total ? completed / total * 100 : 0) + "%";
+      if (progressStatus && completed === total) {
+        progressStatus.textContent = "Toutes les étapes sont marquées. Vérifie que les preuves de test sont conservées.";
+      } else if (progressStatus && completed === 0) {
+        progressStatus.textContent = "Aucune étape marquée pour le moment.";
+      } else if (progressStatus) {
+        progressStatus.textContent = completed + " étape(s) marquée(s) comme réalisée(s).";
+      }
+    };
+
+    const saved = readProgress();
+    taskInputs.forEach(input => {
+      input.checked = saved[input.dataset.labTask] === true;
+      input.addEventListener("change", () => {
+        saveProgress();
+        renderProgress();
+      });
+    });
+    resetButton?.addEventListener("click", () => {
+      taskInputs.forEach(input => { input.checked = false; });
+      saveProgress();
+      renderProgress();
+    });
+    renderProgress();
+  }
+
+    // Local educational simulator for example inter-VLAN firewall rules.
   const flowSimulator = document.querySelector("[data-flow-simulator]");
   if (flowSimulator) {
     const flowForm = flowSimulator.querySelector("[data-flow-form]");
@@ -279,6 +346,13 @@
     const flowVerdict = flowSimulator.querySelector("[data-flow-verdict]");
     const flowExplanation = flowSimulator.querySelector("[data-flow-explanation]");
     const flowDetail = flowSimulator.querySelector("[data-flow-detail]");
+    const flowPath = flowSimulator.querySelector("[data-flow-path]");
+    const flowPathCaption = flowSimulator.querySelector("[data-flow-path-caption]");
+    const flowPathSteps = [...flowSimulator.querySelectorAll("[data-flow-step]")];
+    const flowSourceLabel = flowSimulator.querySelector("[data-flow-source-label]");
+    const flowSourceSubnet = flowSimulator.querySelector("[data-flow-source-subnet]");
+    const flowDestinationLabel = flowSimulator.querySelector("[data-flow-destination-label]");
+    const flowDestinationSubnet = flowSimulator.querySelector("[data-flow-destination-subnet]");
 
     const serviceLabels = {
       dns: "DNS · TCP/UDP 53",
@@ -291,6 +365,11 @@
       "10>20": ["ssh", "rdp", "icmp"],
       "10>30": ["dns", "https", "ssh", "icmp"],
       "20>30": ["dns", "https"]
+    };
+    const networkDetails = {
+      "10": { label: "VLAN 10 · ADMIN", subnet: "192.168.10.0/24" },
+      "20": { label: "VLAN 20 · USERS", subnet: "192.168.20.0/24" },
+      "30": { label: "VLAN 30 · SERVERS", subnet: "192.168.30.0/24" }
     };
     const networkLabel = value => ({
       "10": "VLAN 10 · Administration",
@@ -336,6 +415,44 @@
       if (flowVerdict) flowVerdict.textContent = verdict;
       if (flowExplanation) flowExplanation.textContent = explanation;
       if (flowDetail) flowDetail.textContent = sourceLabel + " → " + destinationLabel + " · " + serviceLabel;
+
+      const sourceInfo = networkDetails[source] || { label: "VLAN inconnu", subnet: "À définir" };
+      const destinationInfo = networkDetails[destination] || { label: "VLAN inconnu", subnet: "À définir" };
+      if (flowSourceLabel) flowSourceLabel.textContent = sourceInfo.label;
+      if (flowSourceSubnet) flowSourceSubnet.textContent = sourceInfo.subnet;
+      if (flowDestinationLabel) flowDestinationLabel.textContent = destinationInfo.label;
+      if (flowDestinationSubnet) flowDestinationSubnet.textContent = destinationInfo.subnet;
+
+      if (flowPath) {
+        flowPath.dataset.state = state;
+        flowPathSteps.forEach(step => {
+          const name = step.dataset.flowStep;
+          let stepState = "inactive";
+          if (state === "allowed") stepState = "active";
+          else if (state === "blocked") {
+            if (name === "source") stepState = "active";
+            if (name === "gateway") stepState = "blocked";
+          } else if (state === "local") {
+            if (name === "source" || name === "switch" || name === "destination") stepState = "active";
+            if (name === "gateway") stepState = "bypassed";
+          }
+          step.dataset.status = stepState;
+        });
+        flowPath.querySelectorAll("[data-flow-link]").forEach((link, index) => {
+          const active = state === "allowed" ||
+            (state === "blocked" && index === 0) ||
+            (state === "local" && index === 2);
+          link.dataset.status = active ? "active" : "inactive";
+        });
+      }
+      if (flowPathCaption) {
+        const captions = {
+          allowed: "Chemin accepté par la politique d'exemple : source → pfSense → switch → destination.",
+          blocked: "Arrêt simulé au niveau du filtrage pfSense : le segment de destination n'est pas atteint.",
+          local: "Même VLAN : commutation locale, la passerelle pfSense est contournée."
+        };
+        flowPathCaption.textContent = captions[state] || "Le chemin s'actualisera après l'analyse du flux.";
+      }
     });
   }
 
