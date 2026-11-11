@@ -186,6 +186,9 @@
   // Project detail dossiers
   const projectDialog = document.querySelector("[data-project-dialog]");
   const dialogTitle = document.querySelector("[data-dialog-title]");
+  const dialogIndex = document.querySelector("[data-dialog-index]");
+  const dialogVisual = document.querySelector("[data-dialog-visual]");
+  const dialogArtPanels = [...document.querySelectorAll("[data-dialog-art]")];
   const dialogStatus = document.querySelector("[data-dialog-status]");
   const dialogSummary = document.querySelector("[data-dialog-summary]");
   const dialogDomain = document.querySelector("[data-dialog-domain]");
@@ -210,6 +213,18 @@
   document.querySelectorAll("[data-project-open]").forEach(button => button.addEventListener("click", () => {
     if (!projectDialog) return;
     if (dialogTitle) dialogTitle.textContent = button.dataset.title || "Dossier projet";
+    const visualKey = ["network", "ipv4", "zabbix"].includes(button.dataset.visual) ? button.dataset.visual : "network";
+    const visualLabels = {
+      network: "Aperçu conceptuel de l'infrastructure PME",
+      ipv4: "Exemple pédagogique d'adressage IPv4",
+      zabbix: "Périmètre de supervision envisagé, sans métriques collectées"
+    };
+    if (dialogIndex) dialogIndex.textContent = "PROJET / " + String([...document.querySelectorAll("[data-project-open]")].indexOf(button) + 1).padStart(2, "0");
+    if (dialogVisual) {
+      dialogVisual.dataset.visual = visualKey;
+      dialogVisual.setAttribute("aria-label", visualLabels[visualKey]);
+    }
+    dialogArtPanels.forEach(panel => { panel.hidden = panel.dataset.dialogArt !== visualKey; });
     if (dialogStatus) {
       const allowedStatusClasses = ["status-progress", "status-planned", "status-ready"];
       const statusClass = allowedStatusClasses.includes(button.dataset.statusClass) ? button.dataset.statusClass : "status-planned";
