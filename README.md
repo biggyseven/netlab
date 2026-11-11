@@ -1,5 +1,7 @@
 # NETLAB — première interface
 
+[![NETLAB quality checks](https://github.com/biggyseven/netlab/actions/workflows/quality-checks.yml/badge.svg?branch=feature%2Fnetlab-v1-1)](https://github.com/biggyseven/netlab/actions/workflows/quality-checks.yml?query=branch%3Afeature%2Fnetlab-v1-1)
+
 Première maquette codée du portfolio Réseaux & Télécommunications NETLAB.
 
 ## Aperçu local
@@ -226,3 +228,15 @@ NETLAB/
 - Script Python sans dépendance externe pour contrôler les pages HTML, les identifiants dupliqués, les liens et ressources locaux, les routes de dossiers projets et les liens entre illustrations.
 - Vérification des métadonnées Open Graph / Twitter Card, des données structurées JSON-LD et de la structure CSS.
 - Les contrôles sont statiques : ils ne remplacent pas les essais visuels dans un navigateur réel.
+
+### Lancer les contrôles depuis le poste local
+
+Depuis la racine du dépôt :
+
+```bash
+node --check assets/js/main.js
+node --check assets/js/network-tools.js
+python scripts/validate_site.py
+```
+
+Le même ensemble de contrôles est exécuté automatiquement par GitHub Actions lors d'un push sur la branche de travail ou d'une pull request vers `main`.
