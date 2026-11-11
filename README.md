@@ -128,3 +128,14 @@ NETLAB/
 - Suppression des anciennes largeurs de connecteur contradictoires qui pouvaient décaler les extrémités.
 - Ajustements dédiés aux petits écrans.
 - Le dessin reste conceptuel jusqu'à la réalisation et aux tests réels dans GNS3.
+
+
+## Évolution V1.9 — écrans larges et ultralarges
+
+- Conteneur principal progressif selon les largeurs 1440, 1920, 2560 et 3200 px.
+- Largeur maximale portée à 2520 px sur les écrans ultralarges de 3440 px.
+- Largeurs dédiées aux grilles de projets, compétences, journal et méthode pour conserver des cartes équilibrées.
+- Hero et accès rapides élargis sans étirer excessivement les blocs de texte.
+- Schéma du laboratoire agrandi sur ultralarge tout en conservant l'alignement des connecteurs.
+- Contenu de documentation maintenu dans une largeur de lecture contrôlée.
+- Les règles mobiles et tablette existantes restent inchangées.
