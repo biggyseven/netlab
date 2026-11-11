@@ -203,3 +203,10 @@ NETLAB/
 - Ajout d'une action « Partager le dossier » qui copie l'URL exacte de la fiche ouverte.
 - Fermeture de la fenêtre et nettoyage de l'URL lors d'une fermeture manuelle, sans casser la navigation historique.
 - Aucun service externe ni backend requis : le routage repose sur l'URL et JavaScript côté navigateur.
+
+## Évolution V2.6 — compétences reliées aux ressources
+
+- Chaque carte de compétence propose un accès direct à un outil, un laboratoire ou une fiche documentaire associée.
+- Les états ont été clarifiés : la segmentation VLAN reste en conception avec validation GNS3 à effectuer ; sécurité et supervision restent en étude préparatoire.
+- Les libellés évitent de présenter les simulations et procédures comme des validations de déploiement.
+- Les cartes adoptent une structure verticale cohérente afin d'aligner les états et liens même lorsque les descriptions ont des longueurs différentes.
