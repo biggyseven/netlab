@@ -200,6 +200,17 @@
   const dialogTools = document.querySelector("[data-dialog-tools]");
   const dialogObjectives = document.querySelector("[data-dialog-objectives]");
   const dialogDocLink = document.querySelector("[data-dialog-doc-link]");
+  const proofCount = document.querySelector("[data-proof-count]");
+  const proofGallery = document.querySelector("[data-proof-gallery]");
+  const proofPendingWrap = document.querySelector("[data-proof-pending-wrap]");
+  const proofPending = document.querySelector("[data-proof-pending]");
+  let evidenceCatalog = {};
+  try {
+    const catalogNode = document.querySelector("#netlab-evidence-catalog");
+    evidenceCatalog = JSON.parse(catalogNode?.textContent || "{}");
+  } catch (_) {
+    evidenceCatalog = {};
+  }
   const renderDossierList = (container, values, tagName = "li") => {
     if (!container) return;
     container.replaceChildren();
@@ -208,6 +219,85 @@
       item.textContent = value;
       container.append(item);
     });
+  };
+
+  const renderEvidenceGallery = projectId => {
+    if (!proofGallery) return;
+    const entry = evidenceCatalog[projectId] || {};
+    const media = Array.isArray(entry.media) ? entry.media : [];
+    const pending = Array.isArray(entry.pending) ? entry.pending : [];
+    if (proofCount) {
+      const mediaLabel = media.length > 1 ? "médias publiés" : "média publié";
+      const pendingLabel = pending.length > 1 ? "preuves à collecter" : "preuve à collecter";
+      proofCount.textContent = media.length + " " + mediaLabel + " · " + pending.length + " " + pendingLabel;
+    }
+
+    proofGallery.replaceChildren();
+    if (!media.length) {
+      const empty = document.createElement("div");
+      empty.className = "proof-gallery-empty";
+      const marker = document.createElement("span");
+      marker.className = "proof-gallery-empty-mark";
+      marker.setAttribute("aria-hidden", "true");
+      marker.textContent = "0";
+      const copy = document.createElement("div");
+      const title = document.createElement("strong");
+      title.textContent = "Aucune capture publiée pour ce projet";
+      const detail = document.createElement("p");
+      detail.textContent = "La galerie accueillera uniquement des éléments issus d'une configuration ou d'un test réellement exécuté.";
+      copy.append(title, detail);
+      empty.append(marker, copy);
+      proofGallery.append(empty);
+    } else {
+      media.forEach(item => {
+        const figure = document.createElement("figure");
+        figure.className = "proof-gallery-card";
+        const image = document.createElement("img");
+        image.src = item.src;
+        image.alt = item.alt || item.title || "Preuve technique NETLAB";
+        image.loading = "lazy";
+        image.decoding = "async";
+        const caption = document.createElement("figcaption");
+        const meta = document.createElement("div");
+        meta.className = "proof-gallery-meta";
+        const category = document.createElement("span");
+        category.textContent = item.category || "Preuve";
+        meta.append(category);
+        if (item.date) {
+          const date = document.createElement("time");
+          date.dateTime = item.date;
+          date.textContent = item.date;
+          meta.append(date);
+        }
+        const heading = document.createElement("strong");
+        heading.textContent = item.title || "Capture technique";
+        const description = document.createElement("p");
+        description.textContent = item.caption || "";
+        caption.append(meta, heading, description);
+        figure.append(image, caption);
+        proofGallery.append(figure);
+      });
+    }
+
+    if (proofPendingWrap) proofPendingWrap.hidden = pending.length === 0;
+    if (proofPending) {
+      proofPending.replaceChildren();
+      pending.forEach(item => {
+        const row = document.createElement("li");
+        row.className = "proof-pending-item";
+        const category = document.createElement("span");
+        category.className = "proof-pending-category";
+        category.textContent = item.category || "À documenter";
+        const copy = document.createElement("div");
+        const heading = document.createElement("strong");
+        heading.textContent = item.title || "Preuve à collecter";
+        const detail = document.createElement("p");
+        detail.textContent = item.detail || "";
+        copy.append(heading, detail);
+        row.append(category, copy);
+        proofPending.append(row);
+      });
+    }
   };
 
   const projectButtons = [...document.querySelectorAll("[data-project-open]")];
@@ -247,6 +337,7 @@
     if (dialogContext) dialogContext.textContent = button.dataset.context || "";
     if (dialogGoal) dialogGoal.textContent = button.dataset.goal || "";
     if (dialogEvidence) dialogEvidence.textContent = button.dataset.evidence || "Éléments de preuve à ajouter après réalisation.";
+    renderEvidenceGallery(button.dataset.projectId || "");
     if (dialogNext) dialogNext.textContent = button.dataset.next || "Étape suivante à définir.";
     if (dialogTools) renderDossierList(dialogTools, button.dataset.tools || "", "span");
     if (dialogObjectives) renderDossierList(dialogObjectives, button.dataset.objectives || "");
