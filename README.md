@@ -107,3 +107,14 @@ NETLAB/
 - Affichage explicite des états « disponible », « en construction » et « en préparation ».
 - Ajustements responsive et compatibilité avec les cinq thèmes existants.
 - Amélioration de la sémantique accessible de la zone de topologie interactive.
+
+
+## Évolution V1.7 — projets et Network Lab interactifs
+
+- Recherche textuelle des projets par nom, technologie ou domaine, combinée aux filtres Réseaux / Sécurité / Systèmes.
+- Compteur de résultats et état vide avec remise à zéro des filtres.
+- Harmonisation des cartes de projets avec l'identité visuelle de l'accueil.
+- Nouvelle lecture du laboratoire PME : objectifs explicitement à réaliser, périmètre VLAN et mention claire de maquette non testée.
+- Sélection interactive des VLAN 10, 20 et 30 pour afficher leur rôle et leur sous-réseau prévu.
+- Mise en évidence du trunk 802.1Q envisagé et renvoi vers la fiche technique.
+- Les éléments conceptuels restent distingués des configurations et tests réels.
