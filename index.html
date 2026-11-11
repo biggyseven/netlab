@@ -336,7 +336,19 @@
                 <h3>Infrastructure réseau sécurisée pour une PME</h3>
                 <p>Concevoir une architecture segmentée avec pare-feu, services Linux et supervision.</p>
                 <div class="project-tags"><span>GNS3</span><span>pfSense</span><span>VLAN</span><span>Zabbix</span></div>
-                <button class="project-open" type="button" data-project-open data-title="Infrastructure réseau sécurisée pour une PME" data-status="En construction" data-summary="Laboratoire visant à concevoir une infrastructure de PME segmentée, à contrôler les flux avec pfSense et à préparer la supervision." data-tools="GNS3|pfSense|VLAN|Ubuntu Server|Zabbix" data-objectives="Établir le plan d'adressage IP|Créer les segments Administration, Utilisateurs et Serveurs|Définir les règles de filtrage|Installer et superviser les services|Documenter les tests de connectivité et de sécurité">Voir la fiche <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+                <button class="project-open" type="button" data-project-open
+                  data-title="Infrastructure réseau sécurisée pour une PME"
+                  data-status="En construction" data-status-class="status-progress"
+                  data-domain="Architecture réseau & sécurité"
+                  data-environment="GNS3 · pfSense · Switch L2 · Ubuntu Server · VMware"
+                  data-summary="Laboratoire de conception visant à segmenter un réseau de PME, contrôler les communications entre zones et préparer la supervision."
+                  data-context="Une petite entreprise doit séparer les postes d'administration, les utilisateurs et les serveurs afin de limiter les accès et de mieux organiser son réseau."
+                  data-goal="Concevoir puis mettre en œuvre une architecture segmentée avec un point de routage et de filtrage centralisé."
+                  data-tools="GNS3|pfSense|Switch L2|VLAN 802.1Q|Ubuntu Server|Zabbix (phase ultérieure)"
+                  data-objectives="Finaliser le plan d'adressage et les passerelles|Construire la topologie et créer les VLAN 10, 20 et 30|Valider le trunk et le routage inter-VLAN|Appliquer des règles de filtrage minimales|Tester les flux autorisés et refusés|Préparer l'installation de la supervision"
+                  data-evidence="Le schéma actuellement publié est conceptuel. La topologie GNS3, les règles pfSense et les tests de connectivité ne sont pas encore présentés comme validés. Les captures et résultats seront ajoutés après exécution."
+                  data-next="Construire LAB 001 dans GNS3, vérifier d'abord la connectivité des liens et des VLAN, puis tester les passerelles et les règles une par une."
+                  data-doc-link="documentation.html#pme">Ouvrir le dossier technique <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
               </div>
             </article>
             <article class="project-card" data-project-card data-category="network" data-reveal data-reveal-delay="80">
@@ -346,25 +358,49 @@
                 <span class="preview-caption">IPv4 · CIDR · VLSM</span>
               </div>
               <div class="project-card-content">
-                <div class="project-card-meta"><span class="project-status status-planned"><i></i> À documenter</span><span class="project-number">02</span></div>
-                <h3>Adressage IPv4 & subnetting</h3>
-                <p>Formaliser des exercices de calcul, de découpage et de validation de sous-réseaux.</p>
+                <div class="project-card-meta"><span class="project-status status-ready"><i></i> Outil disponible</span><span class="project-number">02</span></div>
+                <h3>Atelier de calcul IPv4 & CIDR</h3>
+                <p>Calculateur CIDR disponible. Les exercices détaillés et les preuves pédagogiques restent à enrichir.</p>
                 <div class="project-tags"><span>IPv4</span><span>CIDR</span><span>VLSM</span></div>
-                <button class="project-open" type="button" data-project-open data-title="Adressage IPv4 & subnetting" data-status="À documenter" data-summary="Atelier pédagogique à construire pour démontrer le calcul des masques, des plages d'adresses et le découpage VLSM." data-tools="IPv4|CIDR|VLSM|Packet Tracer" data-objectives="Calculer les adresses réseau et broadcast|Déterminer les plages d'hôtes utilisables|Découper un réseau selon les besoins|Vérifier les configurations avec des tests">Voir la fiche <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+                <button class="project-open" type="button" data-project-open
+                  data-title="Atelier de calcul IPv4 & CIDR"
+                  data-status="Outil disponible · preuves à enrichir" data-status-class="status-ready"
+                  data-domain="Fondamentaux réseau · outil pédagogique"
+                  data-environment="HTML · CSS · JavaScript · calcul local dans le navigateur"
+                  data-summary="Outil interactif permettant de calculer les paramètres d'un sous-réseau IPv4 à partir d'une adresse et d'un préfixe CIDR."
+                  data-context="Le dimensionnement d'un réseau nécessite de déterminer les adresses réseau, les masques, les broadcasts et les plages d'hôtes utilisables."
+                  data-goal="Mettre à disposition un calculateur pédagogique et formaliser une série d'exercices vérifiables sur l'adressage IPv4."
+                  data-tools="IPv4|CIDR|Masque|Broadcast|Wildcard|Préfixes /31 et /32"
+                  data-objectives="Présenter des cas de calcul documentés|Ajouter des exercices de subnetting et de VLSM|Vérifier les résultats sur des exemples de référence|Publier des captures et explications pas à pas"
+                  data-evidence="Le calculateur est disponible sur le site et effectue les calculs localement. La galerie de cas pratiques, les exercices VLSM et les preuves détaillées restent à enrichir. L'outil ne remplace pas la validation d'une configuration sur un réseau réel."
+                  data-next="Ajouter plusieurs scénarios d'adressage avec le raisonnement détaillé, puis confronter les résultats à des vérifications indépendantes."
+                  data-doc-link="documentation.html#ipv4">Ouvrir le dossier technique <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
               </div>
             </article>
             <article class="project-card" data-project-card data-category="security systems" data-reveal data-reveal-delay="160">
               <div class="project-preview project-preview-monitor">
                 <div class="project-preview-top"><span>LAB / 003</span><span class="project-type">SUPERVISION</span></div>
-                <div class="monitor-visual"><div class="monitor-header"><span>HOST AVAILABILITY</span><b>●</b></div><div class="monitor-chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 76 25 71 48 73 72 38 96 47 120 31 145 42 170 22 195 28 220 14 245 23 270 12 300 16" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></div><div class="monitor-metrics"><span>CPU <b>--%</b></span><span>RAM <b>--%</b></span><span>UPTIME <b>--</b></span></div></div>
-                <span class="preview-caption">ZABBIX · LINUX · SNMP</span>
+                <div class="monitor-visual"><div class="monitor-header"><span>HOST AVAILABILITY</span><b>●</b></div><div class="monitor-empty-state"><strong>AUCUNE MESURE COLLECTÉE</strong><span>VISUEL DE PRÉSENTATION · LAB NON VALIDÉ</span></div><div class="monitor-metrics"><span>CPU <b>--%</b></span><span>RAM <b>--%</b></span><span>UPTIME <b>--</b></span></div></div>
+                <span class="preview-caption">ZABBIX · HÔTES ET SERVICES À INTÉGRER</span>
               </div>
               <div class="project-card-content">
                 <div class="project-card-meta"><span class="project-status status-planned"><i></i> En préparation</span><span class="project-number">03</span></div>
                 <h3>Supervision centralisée avec Zabbix</h3>
                 <p>Préparer la surveillance de serveurs et services réseau dans un environnement de PME.</p>
                 <div class="project-tags"><span>Zabbix</span><span>Ubuntu Server</span><span>SNMP</span></div>
-                <button class="project-open" type="button" data-project-open data-title="Supervision centralisée avec Zabbix" data-status="En préparation" data-summary="Projet de laboratoire en préparation autour d'une solution open source de supervision de serveurs et services réseau." data-tools="Zabbix|Ubuntu Server|SNMP|Agent Zabbix" data-objectives="Installer le serveur Zabbix|Ajouter des hôtes Linux et Windows|Surveiller les services et ressources|Configurer des déclencheurs et notifications|Produire un rapport de supervision">Voir la fiche <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+                <button class="project-open" type="button" data-project-open
+                  data-title="Supervision centralisée avec Zabbix"
+                  data-status="En préparation" data-status-class="status-planned"
+                  data-domain="Systèmes · supervision & observabilité"
+                  data-environment="Ubuntu Server · Zabbix Server · Agents Linux/Windows (cible)"
+                  data-summary="Projet de laboratoire destiné à préparer la surveillance centralisée de serveurs et de services dans une infrastructure de PME."
+                  data-context="Une infrastructure nécessite une visibilité sur la disponibilité des hôtes, les ressources système et l'état des services pour détecter les incidents."
+                  data-goal="Préparer une plateforme Zabbix, intégrer des hôtes et définir des alertes compréhensibles et vérifiables."
+                  data-tools="Zabbix|Ubuntu Server|Zabbix Agent|SNMP (selon équipement)|Telegram (envisagé)"
+                  data-objectives="Stabiliser l'installation du serveur Zabbix|Configurer l'interface et la base de données|Enregistrer un premier hôte Linux|Ajouter un hôte Windows avec agent|Surveiller les ressources et les services|Tester un déclencheur et une notification"
+                  data-evidence="Le périmètre et les composants sont identifiés, mais aucune collecte de métriques, disponibilité d'hôte ou notification ne doit être considérée comme démontrée dans cette fiche tant que les tests et captures correspondants ne sont pas publiés."
+                  data-next="Stabiliser l'installation sur Ubuntu Server, vérifier l'accès à l'interface web et documenter l'enregistrement du premier hôte."
+                  data-doc-link="documentation.html#zabbix">Ouvrir le dossier technique <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
               </div>
             </article>
           </div>
@@ -664,14 +700,38 @@
 
     <dialog class="project-dialog" data-project-dialog aria-labelledby="project-dialog-title">
       <div class="project-dialog-inner">
-        <div class="dialog-topline"><span class="mini-label">PROJECT BRIEF</span><button class="dialog-close" type="button" data-dialog-close aria-label="Fermer la fiche projet"><svg class="icon"><use href="#i-close"/></svg></button></div>
-        <span class="project-status status-progress" data-dialog-status>En construction</span>
-        <h2 id="project-dialog-title" data-dialog-title>Fiche projet</h2>
+        <div class="dialog-topline"><span class="mini-label">DOSSIER TECHNIQUE · NETLAB</span><button class="dialog-close" type="button" data-dialog-close aria-label="Fermer le dossier projet"><svg class="icon"><use href="#i-close"/></svg></button></div>
+        <span class="project-status status-progress" data-dialog-status><i></i> En construction</span>
+        <h2 id="project-dialog-title" data-dialog-title>Dossier projet</h2>
         <p class="dialog-summary" data-dialog-summary></p>
-        <div class="dialog-tools" data-dialog-tools></div>
-        <h3>Objectifs et livrables à documenter</h3>
-        <ul class="dialog-objectives" data-dialog-objectives></ul>
-        <p class="dialog-footnote">Cette fiche décrit le périmètre prévu. Les résultats seront ajoutés après réalisation et validation des tests.</p>
+        <div class="dialog-overview">
+          <div><span>DOMAINE</span><strong data-dialog-domain></strong></div>
+          <div><span>ENVIRONNEMENT</span><strong data-dialog-environment></strong></div>
+        </div>
+        <section class="dialog-dossier-section">
+          <p class="mini-label">01 / CONTEXTE</p>
+          <p data-dialog-context></p>
+          <h3>Objectif technique</h3>
+          <p data-dialog-goal></p>
+        </section>
+        <section class="dialog-dossier-section">
+          <p class="mini-label">02 / ENVIRONNEMENT TECHNIQUE</p>
+          <div class="dialog-tools" data-dialog-tools></div>
+        </section>
+        <section class="dialog-dossier-section">
+          <p class="mini-label">03 / DÉMARCHE ET LIVRABLES</p>
+          <ol class="dialog-objectives" data-dialog-objectives></ol>
+        </section>
+        <section class="dialog-proof-section">
+          <p class="mini-label">04 / VALIDATION ET PREUVES</p>
+          <p data-dialog-evidence></p>
+        </section>
+        <section class="dialog-dossier-section dialog-next-step">
+          <p class="mini-label">05 / PROCHAINE ÉTAPE</p>
+          <p data-dialog-next></p>
+        </section>
+        <a class="button button-secondary dialog-doc-link" data-dialog-doc-link href="documentation.html" hidden>Consulter la documentation <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+        <p class="dialog-footnote">Les résultats ne seront annoncés comme validés qu'avec une configuration exécutée et des éléments de preuve correspondants.</p>
       </div>
     </dialog>
   </div>
