@@ -194,3 +194,12 @@ NETLAB/
 - L'aperçu Zabbix n'affiche aucune valeur de mesure et reste marqué « no data ».
 - Mise en page détaillée organisée en colonnes sur écran large et empilée sur mobile.
 - Les visuels sont construits en HTML/CSS et ne sont pas présentés comme des captures d'écran d'environnements réellement déployés.
+
+## Évolution V2.5 — dossiers projets partageables
+
+- Attribution d'un identifiant stable à chaque dossier projet : infrastructure PME, atelier IPv4/CIDR et supervision Zabbix.
+- Ouverture directe d'un dossier avec une URL à fragment, par exemple `#project-ipv4-cidr`.
+- Conservation du dossier au rechargement de la page et synchronisation avec les boutons Précédent / Suivant du navigateur.
+- Ajout d'une action « Partager le dossier » qui copie l'URL exacte de la fiche ouverte.
+- Fermeture de la fenêtre et nettoyage de l'URL lors d'une fermeture manuelle, sans casser la navigation historique.
+- Aucun service externe ni backend requis : le routage repose sur l'URL et JavaScript côté navigateur.
