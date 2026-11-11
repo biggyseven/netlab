@@ -23,6 +23,8 @@ class PageAudit(HTMLParser):
         self.resources: list[str] = []
         self.jsonld: list[dict] = []
         self._jsonld_chunks: list[str] | None = None
+        self._evidence_chunks: list[str] | None = None
+        self.evidence_catalog: dict | None = None
         self._in_title = False
         self.descriptions: list[str] = []
         self.titles: list[str] = []
@@ -72,12 +74,16 @@ class PageAudit(HTMLParser):
 
         if tag == "script" and values.get("type") == "application/ld+json":
             self._jsonld_chunks = []
+        if tag == "script" and values.get("type") == "application/json" and values.get("id") == "netlab-evidence-catalog":
+            self._evidence_chunks = []
 
     def handle_data(self, data: str) -> None:
         if self._in_title and data.strip():
             self.titles.append(data.strip())
         if self._jsonld_chunks is not None:
             self._jsonld_chunks.append(data)
+        if self._evidence_chunks is not None:
+            self._evidence_chunks.append(data)
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
@@ -93,6 +99,17 @@ class PageAudit(HTMLParser):
             except json.JSONDecodeError as exc:
                 ERRORS.append(f"{self.path}: JSON-LD invalide: {exc}")
             self._jsonld_chunks = None
+        if tag == "script" and self._evidence_chunks is not None:
+            raw = "".join(self._evidence_chunks).strip()
+            try:
+                parsed = json.loads(raw)
+                if isinstance(parsed, dict):
+                    self.evidence_catalog = parsed
+                else:
+                    ERRORS.append(f"{self.path}: le catalogue de preuves doit être un objet JSON.")
+            except json.JSONDecodeError as exc:
+                ERRORS.append(f"{self.path}: catalogue de preuves JSON invalide: {exc}")
+            self._evidence_chunks = None
 
 
 def load_page(path: Path) -> PageAudit:
@@ -227,6 +244,35 @@ def main() -> int:
             ERRORS.append("index.html: les clés de visuels des projets ne correspondent pas aux panneaux du dialogue.")
         if not any(item.get("@type") == "Person" for item in home.jsonld):
             ERRORS.append("index.html: données structurées Person absentes.")
+        if home.evidence_catalog is None:
+            ERRORS.append("index.html: catalogue de preuves absent ou invalide.")
+        else:
+            if set(home.evidence_catalog) != set(home.project_ids):
+                ERRORS.append("index.html: le catalogue de preuves doit couvrir exactement les trois projets.")
+            for project_id, entry in home.evidence_catalog.items():
+                if not isinstance(entry, dict):
+                    ERRORS.append(f"index.html: entrée de preuve invalide pour {project_id}.")
+                    continue
+                pending = entry.get("pending", [])
+                media = entry.get("media", [])
+                if not isinstance(pending, list) or not isinstance(media, list):
+                    ERRORS.append(f"index.html: listes pending/media invalides pour {project_id}.")
+                    continue
+                if not pending and not media:
+                    ERRORS.append(f"index.html: aucune preuve attendue ni publiée pour {project_id}.")
+                for item in pending:
+                    if not isinstance(item, dict) or not all(item.get(key) for key in ("category", "title", "detail")):
+                        ERRORS.append(f"index.html: élément à collecter incomplet pour {project_id}.")
+                for item in media:
+                    if not isinstance(item, dict) or not all(item.get(key) for key in ("src", "alt", "title", "caption", "category")):
+                        ERRORS.append(f"index.html: média incomplet pour {project_id}.")
+                        continue
+                    media_path = Path(item["src"])
+                    if media_path.is_absolute() or ".." in media_path.parts or media_path.suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp"}:
+                        ERRORS.append(f"index.html: chemin ou format de média non autorisé pour {project_id}: {item['src']}")
+                        continue
+                    if not (ROOT / media_path).is_file():
+                        ERRORS.append(f"index.html: fichier de preuve introuvable pour {project_id}: {item['src']}")
     if docs and not any(item.get("@type") == "WebPage" for item in docs.jsonld):
         ERRORS.append("documentation.html: données structurées WebPage absentes.")
 
@@ -250,6 +296,7 @@ def main() -> int:
     print(f" - {len(pages)} pages HTML contrôlées")
     print(" - liens et ressources locales vérifiés")
     print(" - identifiants, routes projets et visuels cohérents")
+    print(" - catalogue de preuves, médias locaux et éléments à collecter contrôlés")
     print(" - métadonnées Open Graph / Twitter et JSON-LD contrôlés")
     print(" - structure CSS et présence des scripts vérifiées")
     return 0
