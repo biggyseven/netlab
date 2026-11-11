@@ -528,7 +528,73 @@
             <p class="subnet-note" data-subnet-note>Préfixe /24 · 256 adresses au total · 254 hôtes utilisables dans un sous-réseau IPv4 classique.</p>
           </section>
 
-          <p class="lab-disclaimer">Schéma conceptuel de démonstration. La configuration et les tests seront documentés au fur et à mesure de leur réalisation.</p>
+          <section class="flow-simulator" data-flow-simulator aria-labelledby="flow-simulator-title">
+            <div class="flow-simulator-main">
+              <div class="flow-simulator-heading">
+                <p class="mini-label">OUTIL INTERACTIF · FILTRAGE</p>
+                <h3 id="flow-simulator-title">Simulateur de flux inter-VLAN</h3>
+                <p>Choisissez un réseau source, une destination et un service. Le simulateur évalue le flux selon une politique pédagogique définie pour ce laboratoire.</p>
+              </div>
+
+              <form class="flow-form" data-flow-form>
+                <div class="flow-fields">
+                  <div class="flow-field">
+                    <label for="flow-source">Réseau source</label>
+                    <select id="flow-source" name="source" data-flow-source>
+                      <option value="10">VLAN 10 · Administration</option>
+                      <option value="20" selected>VLAN 20 · Utilisateurs</option>
+                      <option value="30">VLAN 30 · Serveurs</option>
+                    </select>
+                  </div>
+                  <div class="flow-field">
+                    <label for="flow-destination">Réseau destination</label>
+                    <select id="flow-destination" name="destination" data-flow-destination>
+                      <option value="10">VLAN 10 · Administration</option>
+                      <option value="20">VLAN 20 · Utilisateurs</option>
+                      <option value="30" selected>VLAN 30 · Serveurs</option>
+                    </select>
+                  </div>
+                  <div class="flow-field flow-field-service">
+                    <label for="flow-service">Service / protocole</label>
+                    <select id="flow-service" name="service" data-flow-service>
+                      <option value="dns">DNS · TCP/UDP 53</option>
+                      <option value="https" selected>HTTPS · TCP 443</option>
+                      <option value="ssh">SSH · TCP 22</option>
+                      <option value="rdp">RDP · TCP 3389</option>
+                      <option value="icmp">ICMP · Echo</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="button button-primary flow-submit" type="submit">Analyser le flux <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+              </form>
+
+              <div class="flow-result" data-flow-result data-state="idle" role="status" aria-live="polite">
+                <span class="flow-result-symbol" aria-hidden="true"><svg class="icon"><use href="#i-activity"/></svg></span>
+                <div class="flow-result-copy">
+                  <span class="flow-result-kicker" data-flow-kicker>PRÊT POUR L'ANALYSE</span>
+                  <strong data-flow-verdict>En attente d'un test</strong>
+                  <p data-flow-explanation>Sélectionnez les paramètres puis lancez l'analyse pour afficher la décision de la politique type.</p>
+                </div>
+                <code class="flow-result-detail" data-flow-detail>VLAN 20 → VLAN 30 · HTTPS</code>
+              </div>
+            </div>
+
+            <aside class="flow-policy" aria-label="Règles de la politique pédagogique">
+              <div class="flow-policy-heading">
+                <span class="flow-policy-mark"><svg class="icon"><use href="#i-shield"/></svg></span>
+                <div><p class="mini-label">POLITIQUE DE DÉMONSTRATION</p><h4>Règles exemples</h4></div>
+              </div>
+              <ul class="flow-rules">
+                <li><strong>ADMIN → USERS</strong><span>SSH · RDP · ICMP</span></li>
+                <li><strong>ADMIN → SERVERS</strong><span>DNS · HTTPS · SSH · ICMP</span></li>
+                <li><strong>USERS → SERVERS</strong><span>DNS · HTTPS</span></li>
+                <li class="flow-rule-default"><strong>AUTRES NOUVEAUX FLUX</strong><span>Bloqués par défaut</span></li>
+              </ul>
+              <p class="flow-policy-note">Le trafic au sein d'un même VLAN reste local et ne traverse pas le routage inter-VLAN. Les réponses d'une session autorisée ne sont pas simulées séparément.</p>
+            </aside>
+          </section>
+
+          <p class="lab-disclaimer">Schéma et simulateur pédagogiques. Les règles affichées sont des exemples locaux, non appliqués à pfSense. La configuration réelle et ses tests seront documentés après leur réalisation.</p>
         </div>
       </section>
 
