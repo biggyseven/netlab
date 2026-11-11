@@ -183,33 +183,56 @@
   });
   filterProjects();
 
-  // Project detail dialog
+  // Project detail dossiers
   const projectDialog = document.querySelector("[data-project-dialog]");
   const dialogTitle = document.querySelector("[data-dialog-title]");
   const dialogStatus = document.querySelector("[data-dialog-status]");
   const dialogSummary = document.querySelector("[data-dialog-summary]");
+  const dialogDomain = document.querySelector("[data-dialog-domain]");
+  const dialogEnvironment = document.querySelector("[data-dialog-environment]");
+  const dialogContext = document.querySelector("[data-dialog-context]");
+  const dialogGoal = document.querySelector("[data-dialog-goal]");
+  const dialogEvidence = document.querySelector("[data-dialog-evidence]");
+  const dialogNext = document.querySelector("[data-dialog-next]");
   const dialogTools = document.querySelector("[data-dialog-tools]");
   const dialogObjectives = document.querySelector("[data-dialog-objectives]");
+  const dialogDocLink = document.querySelector("[data-dialog-doc-link]");
+  const renderDossierList = (container, values, tagName = "li") => {
+    if (!container) return;
+    container.replaceChildren();
+    values.split("|").map(value => value.trim()).filter(Boolean).forEach(value => {
+      const item = document.createElement(tagName);
+      item.textContent = value;
+      container.append(item);
+    });
+  };
+
   document.querySelectorAll("[data-project-open]").forEach(button => button.addEventListener("click", () => {
     if (!projectDialog) return;
-    if (dialogTitle) dialogTitle.textContent = button.dataset.title || "Fiche projet";
+    if (dialogTitle) dialogTitle.textContent = button.dataset.title || "Dossier projet";
     if (dialogStatus) {
-      dialogStatus.textContent = button.dataset.status || "État non précisé";
-      const planned = button.closest(".project-card")?.querySelector(".project-status")?.classList.contains("status-planned");
-      dialogStatus.className = "project-status " + (planned ? "status-planned" : "status-progress");
+      const allowedStatusClasses = ["status-progress", "status-planned", "status-ready"];
+      const statusClass = allowedStatusClasses.includes(button.dataset.statusClass) ? button.dataset.statusClass : "status-planned";
+      dialogStatus.className = "project-status " + statusClass;
+      dialogStatus.replaceChildren();
+      const dot = document.createElement("i");
+      dot.setAttribute("aria-hidden", "true");
+      const label = document.createTextNode(button.dataset.status || "État non précisé");
+      dialogStatus.append(dot, label);
     }
     if (dialogSummary) dialogSummary.textContent = button.dataset.summary || "";
-    if (dialogTools) {
-      dialogTools.replaceChildren();
-      (button.dataset.tools || "").split("|").filter(Boolean).forEach(value => {
-        const tag = document.createElement("span"); tag.textContent = value; dialogTools.append(tag);
-      });
-    }
-    if (dialogObjectives) {
-      dialogObjectives.replaceChildren();
-      (button.dataset.objectives || "").split("|").filter(Boolean).forEach(value => {
-        const item = document.createElement("li"); item.textContent = value; dialogObjectives.append(item);
-      });
+    if (dialogDomain) dialogDomain.textContent = button.dataset.domain || "Domaine à préciser";
+    if (dialogEnvironment) dialogEnvironment.textContent = button.dataset.environment || "Environnement à préciser";
+    if (dialogContext) dialogContext.textContent = button.dataset.context || "";
+    if (dialogGoal) dialogGoal.textContent = button.dataset.goal || "";
+    if (dialogEvidence) dialogEvidence.textContent = button.dataset.evidence || "Éléments de preuve à ajouter après réalisation.";
+    if (dialogNext) dialogNext.textContent = button.dataset.next || "Étape suivante à définir.";
+    if (dialogTools) renderDossierList(dialogTools, button.dataset.tools || "", "span");
+    if (dialogObjectives) renderDossierList(dialogObjectives, button.dataset.objectives || "");
+    if (dialogDocLink) {
+      const link = button.dataset.docLink || "";
+      dialogDocLink.hidden = !link;
+      if (link) dialogDocLink.setAttribute("href", link);
     }
     projectDialog.showModal();
   }));
