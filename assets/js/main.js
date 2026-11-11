@@ -208,7 +208,9 @@
   const evidenceLightboxTitle = document.querySelector("[data-evidence-lightbox-title]");
   const evidenceLightboxImage = document.querySelector("[data-evidence-lightbox-image]");
   const evidenceLightboxCaption = document.querySelector("[data-evidence-lightbox-caption]");
+  let lastEvidenceTrigger = null;
   const openEvidenceLightbox = (item, trigger) => {
+    lastEvidenceTrigger = trigger || null;
     if (!evidenceLightbox || !evidenceLightboxImage || !item?.src) return;
     evidenceLightboxTitle.textContent = item.title || "Capture technique";
     evidenceLightboxImage.src = item.src;
@@ -416,10 +418,10 @@
     if (event.target === evidenceLightbox) evidenceLightbox.close();
   });
   evidenceLightbox?.addEventListener("close", () => {
-    if (projectDialog?.open) {
-      const focusedProof = proofGallery?.querySelector(".proof-image-trigger:not(:disabled)");
-      focusedProof?.focus({ preventScroll: true });
+    if (projectDialog?.open && lastEvidenceTrigger?.isConnected && !lastEvidenceTrigger.disabled) {
+      lastEvidenceTrigger.focus({ preventScroll: true });
     }
+    lastEvidenceTrigger = null;
   });
   projectDialog?.addEventListener("click", event => { if (event.target === projectDialog) projectDialog.close(); });
 
