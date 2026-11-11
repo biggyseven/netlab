@@ -269,3 +269,10 @@ assets/
     ├── ipv4-cidr/
     └── zabbix-supervision/
 ```
+
+## Évolution V3.1 — point de contact professionnel
+
+- Le bloc Contact propose désormais un accès réel au profil GitHub public et au dépôt NETLAB.
+- Le texte précise que les coordonnées directes seront ajoutées après confirmation d'une adresse professionnelle publique ; aucun e-mail ni téléphone n'est inventé.
+- Les deux accès sont des liens externes ouverts dans un nouvel onglet avec les attributs de sécurité appropriés.
+- Mise en page adaptative pour écrans larges, tablettes et mobiles, avec états de focus visibles.
