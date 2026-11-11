@@ -3736,3 +3736,40 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .art-vlans span { font-size: 6px; }
 }
 
+/* V2.4.1 — complete branch stems in the project topology illustrations */
+.project-mini-topology .mini-branches span::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 1px;
+  height: 12px;
+  background: var(--topology-branch-line);
+}
+.art-branch-line {
+  position: relative;
+  border-left: 0;
+  border-right: 0;
+}
+.art-branch-line::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: 15px;
+  background: var(--topology-branch-line);
+}
+.art-vlans span {
+  position: relative;
+}
+.art-vlans span::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: 15px;
+  background: var(--topology-branch-line);
+}
+
