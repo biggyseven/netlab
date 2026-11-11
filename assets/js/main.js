@@ -269,72 +269,7 @@
 
 
 
-  // LAB 001 progress tracker, stored only in this browser.
-  const labTracker = document.querySelector("[data-lab-tracker]");
-  if (labTracker) {
-    const taskInputs = [...labTracker.querySelectorAll("[data-lab-task]")];
-    const progressBar = labTracker.querySelector("[data-lab-progress]");
-    const progressFill = labTracker.querySelector("[data-lab-progress-fill]");
-    const progressCount = labTracker.querySelector("[data-lab-progress-count]");
-    const progressStatus = labTracker.querySelector("[data-lab-progress-status]");
-    const resetButton = labTracker.querySelector("[data-lab-progress-reset]");
-    const storageKey = "netlab-lab001-progress-v1";
-
-    const readProgress = () => {
-      try {
-        const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
-        return stored && typeof stored === "object" && !Array.isArray(stored) ? stored : {};
-      } catch (_) {
-        return {};
-      }
-    };
-
-    const saveProgress = () => {
-      const state = {};
-      taskInputs.forEach(input => { state[input.dataset.labTask] = input.checked; });
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(state));
-        if (progressStatus) progressStatus.textContent = "Suivi enregistré dans ce navigateur.";
-      } catch (_) {
-        if (progressStatus) progressStatus.textContent = "Stockage indisponible : le suivi restera temporaire.";
-      }
-    };
-
-    const renderProgress = () => {
-      const completed = taskInputs.filter(input => input.checked).length;
-      const total = taskInputs.length;
-      if (progressCount) progressCount.textContent = completed + " / " + total;
-      if (progressBar) {
-        progressBar.setAttribute("aria-valuenow", String(completed));
-        progressBar.setAttribute("aria-valuetext", completed + " étape(s) marquée(s) sur " + total);
-      }
-      if (progressFill) progressFill.style.width = (total ? completed / total * 100 : 0) + "%";
-      if (progressStatus && completed === total) {
-        progressStatus.textContent = "Toutes les étapes sont marquées. Vérifie que les preuves de test sont conservées.";
-      } else if (progressStatus && completed === 0) {
-        progressStatus.textContent = "Aucune étape marquée pour le moment.";
-      } else if (progressStatus) {
-        progressStatus.textContent = completed + " étape(s) marquée(s) comme réalisée(s).";
-      }
-    };
-
-    const saved = readProgress();
-    taskInputs.forEach(input => {
-      input.checked = saved[input.dataset.labTask] === true;
-      input.addEventListener("change", () => {
-        saveProgress();
-        renderProgress();
-      });
-    });
-    resetButton?.addEventListener("click", () => {
-      taskInputs.forEach(input => { input.checked = false; });
-      saveProgress();
-      renderProgress();
-    });
-    renderProgress();
-  }
-
-    // Local educational simulator for example inter-VLAN firewall rules.
+  // Local educational simulator for example inter-VLAN firewall rules.
   const flowSimulator = document.querySelector("[data-flow-simulator]");
   if (flowSimulator) {
     const flowForm = flowSimulator.querySelector("[data-flow-form]");
@@ -430,26 +365,28 @@
           let stepState = "inactive";
           if (state === "allowed") stepState = "active";
           else if (state === "blocked") {
-            if (name === "source") stepState = "active";
+            if (name === "source" || name === "switch-entry") stepState = "active";
             if (name === "gateway") stepState = "blocked";
           } else if (state === "local") {
-            if (name === "source" || name === "switch" || name === "destination") stepState = "active";
+            if (name === "source" || name === "switch-entry" || name === "switch-exit" || name === "destination") stepState = "active";
             if (name === "gateway") stepState = "bypassed";
           }
           step.dataset.status = stepState;
         });
         flowPath.querySelectorAll("[data-flow-link]").forEach((link, index) => {
-          const active = state === "allowed" ||
-            (state === "blocked" && index === 0) ||
-            (state === "local" && index === 2);
-          link.dataset.status = active ? "active" : "inactive";
+          let linkState = "inactive";
+          if (state === "allowed") linkState = "active";
+          else if (state === "blocked" && index < 2) linkState = "active";
+          else if (state === "local" && (index === 0 || index === 3)) linkState = "active";
+          else if (state === "local" && (index === 1 || index === 2)) linkState = "bypassed";
+          link.dataset.status = linkState;
         });
       }
       if (flowPathCaption) {
         const captions = {
-          allowed: "Chemin accepté par la politique d'exemple : source → pfSense → switch → destination.",
-          blocked: "Arrêt simulé au niveau du filtrage pfSense : le segment de destination n'est pas atteint.",
-          local: "Même VLAN : commutation locale, la passerelle pfSense est contournée."
+          allowed: "Chemin conceptuel autorisé : VLAN source → switch L2 → trunk 802.1Q / pfSense → switch L2 → VLAN destination.",
+          blocked: "Le nouveau flux atteint le filtrage pfSense via le switch L2, puis s'arrête : la destination n'est pas atteinte.",
+          local: "Même VLAN : le trafic est commuté localement vers le destinataire sans passer par pfSense."
         };
         flowPathCaption.textContent = captions[state] || "Le chemin s'actualisera après l'analyse du flux.";
       }
