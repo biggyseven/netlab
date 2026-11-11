@@ -2611,3 +2611,232 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
     top: 0;
   }
 }
+
+
+/* NETLAB V1.9 — wide and ultrawide desktop layout */
+@media (min-width: 1440px) {
+  .container {
+    width: min(92vw, 1440px);
+  }
+  .section-pad {
+    padding-block: clamp(112px, 5.2vw, 132px);
+  }
+  .section-heading {
+    max-width: 1900px;
+    margin-inline: auto;
+  }
+  .hero-grid {
+    max-width: 1900px;
+    margin-inline: auto;
+  }
+  .hero-signal-strip {
+    max-width: 1900px;
+  }
+  .profile-grid,
+  .skills-grid,
+  .projects-grid,
+  .project-toolbar,
+  .journal-grid,
+  .method-grid,
+  .subnet-tool {
+    max-width: 1900px;
+    margin-inline: auto;
+  }
+  .featured-lab {
+    max-width: 1980px;
+    margin-inline: auto;
+  }
+  .contact-panel {
+    max-width: 1900px;
+    margin-inline: auto;
+  }
+  .docs-layout {
+    max-width: 1900px;
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 1920px) {
+  .container {
+    width: min(90vw, 1760px);
+  }
+  .section-pad {
+    padding-block: clamp(120px, 5.5vw, 142px);
+  }
+  .section-heading {
+    max-width: 2050px;
+  }
+  .hero-grid {
+    max-width: 2050px;
+    gap: clamp(48px, 4vw, 92px);
+  }
+  .hero-signal-strip {
+    max-width: 2050px;
+    gap: 18px;
+    margin-top: 36px;
+  }
+  .hero-signal-card {
+    padding: 20px 22px;
+    min-height: 112px;
+  }
+  .hero-copy h1 {
+    font-size: clamp(62px, 3.7vw, 78px);
+  }
+  .hero-description {
+    max-width: 660px;
+    font-size: 15px;
+  }
+  .hero-visual {
+    min-height: 535px;
+    padding: 24px 26px 18px;
+  }
+  .hero-visual .network-art {
+    height: 390px;
+  }
+  .profile-grid,
+  .skills-grid,
+  .projects-grid,
+  .project-toolbar,
+  .journal-grid,
+  .method-grid,
+  .subnet-tool {
+    max-width: 2050px;
+  }
+  .featured-lab {
+    max-width: 2140px;
+  }
+  .contact-panel {
+    max-width: 2050px;
+  }
+  .docs-layout {
+    max-width: 1900px;
+  }
+  .section-lead {
+    max-width: 480px;
+    font-size: 13px;
+  }
+  .project-card h3 {
+    font-size: 18px;
+  }
+  .project-card-content > p,
+  .skill-card > p,
+  .journal-card > p,
+  .method-step p {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container {
+    width: min(88vw, 2280px);
+  }
+  .section-heading {
+    max-width: 2240px;
+  }
+  .hero-grid {
+    max-width: 2320px;
+    gap: clamp(72px, 4.5vw, 130px);
+  }
+  .hero-signal-strip {
+    max-width: 2320px;
+  }
+  .profile-grid,
+  .skills-grid {
+    max-width: 2240px;
+  }
+  .projects-grid,
+  .project-toolbar,
+  .journal-grid {
+    max-width: 2080px;
+  }
+  .method-grid,
+  .subnet-tool {
+    max-width: 2080px;
+  }
+  .featured-lab {
+    max-width: 2320px;
+  }
+  .lab-visual {
+    min-height: 610px;
+  }
+  .lab-visual .topology-pme {
+    max-width: 760px;
+  }
+  .lab-visual .topo-core {
+    width: min(100%, 270px);
+  }
+  .lab-visual .topo-core .topo-node {
+    width: min(100%, 180px);
+    min-height: 72px;
+  }
+  .lab-visual .topo-core .topo-internet {
+    width: min(100%, 122px);
+    min-height: 54px;
+  }
+  .lab-visual .topo-trunk-link {
+    height: 46px;
+    flex-basis: 46px;
+  }
+  .lab-visual .topo-vlan-button {
+    max-width: 208px;
+    min-height: 118px;
+    padding: 14px 10px;
+  }
+  .lab-visual .topo-vlan-button > span {
+    font-size: 10px;
+  }
+  .lab-visual .topo-vlan-button small {
+    font-size: 8px;
+  }
+  .docs-layout {
+    max-width: 2020px;
+  }
+  .contact-panel {
+    max-width: 2080px;
+  }
+  .section-heading h2 {
+    font-size: clamp(46px, 2.1vw, 60px);
+  }
+  .section-lead {
+    max-width: 520px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 3200px) {
+  .container {
+    width: min(86vw, 2520px);
+  }
+  .section-heading {
+    max-width: 2420px;
+  }
+  .hero-grid {
+    max-width: 2520px;
+  }
+  .hero-signal-strip {
+    max-width: 2520px;
+  }
+  .profile-grid,
+  .skills-grid {
+    max-width: 2420px;
+  }
+  .projects-grid,
+  .project-toolbar,
+  .journal-grid,
+  .method-grid,
+  .subnet-tool {
+    max-width: 2180px;
+  }
+  .featured-lab {
+    max-width: 2520px;
+  }
+  .lab-visual .topology-pme {
+    max-width: 820px;
+  }
+  .docs-layout {
+    max-width: 2100px;
+  }
+  .contact-panel {
+    max-width: 2180px;
+  }
+}
