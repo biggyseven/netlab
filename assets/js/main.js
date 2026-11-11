@@ -210,8 +210,13 @@
     });
   };
 
-  document.querySelectorAll("[data-project-open]").forEach(button => button.addEventListener("click", () => {
-    if (!projectDialog) return;
+  const projectButtons = [...document.querySelectorAll("[data-project-open]")];
+  const projectHash = button => "#project-" + button.dataset.projectId;
+  let activeProjectButton = null;
+
+  const renderProject = button => {
+    if (!projectDialog || !button) return;
+    activeProjectButton = button;
     if (dialogTitle) dialogTitle.textContent = button.dataset.title || "Dossier projet";
     const visualKey = ["network", "ipv4", "zabbix"].includes(button.dataset.visual) ? button.dataset.visual : "network";
     const visualLabels = {
@@ -219,7 +224,7 @@
       ipv4: "Exemple pédagogique d'adressage IPv4",
       zabbix: "Périmètre de supervision envisagé, sans métriques collectées"
     };
-    if (dialogIndex) dialogIndex.textContent = "PROJET / " + String([...document.querySelectorAll("[data-project-open]")].indexOf(button) + 1).padStart(2, "0");
+    if (dialogIndex) dialogIndex.textContent = "PROJET / " + String(projectButtons.indexOf(button) + 1).padStart(2, "0");
     if (dialogVisual) {
       dialogVisual.dataset.visual = visualKey;
       dialogVisual.setAttribute("aria-label", visualLabels[visualKey]);
@@ -249,10 +254,68 @@
       dialogDocLink.hidden = !link;
       if (link) dialogDocLink.setAttribute("href", link);
     }
-    projectDialog.showModal();
+    if (!projectDialog.open) projectDialog.showModal();
+  };
+
+  projectButtons.forEach(button => button.addEventListener("click", () => {
+    if (!button.dataset.projectId) return;
+    const hash = projectHash(button);
+    if (window.location.hash !== hash) window.history.pushState({ netlabProject: true }, "", hash);
+    renderProject(button);
   }));
+
+  const syncProjectDialog = () => {
+    const matchingProject = projectButtons.find(button => button.dataset.projectId && window.location.hash === projectHash(button));
+    if (matchingProject) renderProject(matchingProject);
+    else if (projectDialog?.open) projectDialog.close();
+  };
+
+  window.addEventListener("popstate", syncProjectDialog);
+  window.addEventListener("hashchange", syncProjectDialog);
+
+  projectDialog?.addEventListener("close", () => {
+    const isProjectRoute = projectButtons.some(button => button.dataset.projectId && window.location.hash === projectHash(button));
+    if (isProjectRoute) window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search);
+  });
+
   document.querySelector("[data-dialog-close]")?.addEventListener("click", () => projectDialog?.close());
   projectDialog?.addEventListener("click", event => { if (event.target === projectDialog) projectDialog.close(); });
+
+  const copyProjectLinkButton = document.querySelector("[data-copy-project-link]");
+  copyProjectLinkButton?.addEventListener("click", async () => {
+    if (!activeProjectButton?.dataset.projectId) return;
+    const label = copyProjectLinkButton.querySelector("[data-copy-project-link-label]");
+    const originalLabel = label?.textContent || "Partager le dossier";
+    const shareUrl = new URL(window.location.href);
+    shareUrl.hash = projectHash(activeProjectButton);
+    const fallbackCopy = text => {
+      const field = document.createElement("textarea");
+      field.value = text;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.append(field);
+      field.select();
+      const copied = document.execCommand("copy");
+      field.remove();
+      if (!copied) throw new Error("Copie indisponible");
+    };
+    try {
+      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(shareUrl.href);
+      else fallbackCopy(shareUrl.href);
+      if (label) label.textContent = "Lien copié";
+      copyProjectLinkButton.setAttribute("aria-label", "Lien du dossier copié");
+    } catch (_) {
+      if (label) label.textContent = "Copie indisponible";
+      copyProjectLinkButton.setAttribute("aria-label", "Copie indisponible");
+    }
+    window.setTimeout(() => {
+      if (label) label.textContent = originalLabel;
+      copyProjectLinkButton.setAttribute("aria-label", "Copier le lien de ce dossier");
+    }, 1800);
+  });
+
+  syncProjectDialog();
 
   // Interactive role descriptions for the conceptual topology
   const topologyInfo = {
