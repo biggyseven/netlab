@@ -23,6 +23,7 @@ class PageAudit(HTMLParser):
         self.resources: list[str] = []
         self.jsonld: list[dict] = []
         self._jsonld_chunks: list[str] | None = None
+        self._in_title = False
         self.descriptions: list[str] = []
         self.titles: list[str] = []
         self.og_properties: set[str] = set()
@@ -42,6 +43,8 @@ class PageAudit(HTMLParser):
 
         if tag == "html":
             self.language = values.get("lang") or ""
+        if tag == "title":
+            self._in_title = True
 
         if "href" in values and values["href"]:
             self.links.append(values["href"] or "")
@@ -51,9 +54,9 @@ class PageAudit(HTMLParser):
         if tag == "meta":
             if values.get("name") == "description" and values.get("content"):
                 self.descriptions.append(values["content"] or "")
-            if values.get("property", "").startswith("og:"):
+            if (values.get("property") or "").startswith("og:"):
                 self.og_properties.add(values["property"] or "")
-            if values.get("name", "").startswith("twitter:"):
+            if (values.get("name") or "").startswith("twitter:"):
                 self.twitter_names.add(values["name"] or "")
 
         if "data-project-open" in values:
@@ -71,10 +74,14 @@ class PageAudit(HTMLParser):
             self._jsonld_chunks = []
 
     def handle_data(self, data: str) -> None:
+        if self._in_title and data.strip():
+            self.titles.append(data.strip())
         if self._jsonld_chunks is not None:
             self._jsonld_chunks.append(data)
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "title":
+            self._in_title = False
         if tag == "script" and self._jsonld_chunks is not None:
             raw = "".join(self._jsonld_chunks).strip()
             try:
