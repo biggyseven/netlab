@@ -2405,3 +2405,18 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .project-reset,
   .topo-vlan-button { transition: none !important; }
 }
+
+/* V1.7.1 — compact connector and VLAN inspector alignment */
+.topo-connection-note {
+  margin: -2px 0 3px;
+  padding: 4px 7px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface-2);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: .07em;
+}
+.topology-legend { width: 100%; }
+.vlan-inspector { width: 100%; }
