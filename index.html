@@ -28,6 +28,7 @@
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3A5 5 0 0 0 11 21.07l1.72-1.72"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
@@ -339,7 +340,7 @@
                 <h3>Infrastructure réseau sécurisée pour une PME</h3>
                 <p>Concevoir une architecture segmentée avec pare-feu, services Linux et supervision.</p>
                 <div class="project-tags"><span>GNS3</span><span>pfSense</span><span>VLAN</span><span>Zabbix</span></div>
-                <button class="project-open" type="button" data-project-open
+                <button class="project-open" type="button" data-project-open data-project-id="infrastructure-pme"
                   data-visual="network" data-title="Infrastructure réseau sécurisée pour une PME"
                   data-status="En construction" data-status-class="status-progress"
                   data-domain="Architecture réseau & sécurité"
@@ -365,7 +366,7 @@
                 <h3>Atelier de calcul IPv4 & CIDR</h3>
                 <p>Calculateur CIDR disponible. Les exercices détaillés et les preuves pédagogiques restent à enrichir.</p>
                 <div class="project-tags"><span>IPv4</span><span>CIDR</span><span>VLSM</span></div>
-                <button class="project-open" type="button" data-project-open
+                <button class="project-open" type="button" data-project-open data-project-id="ipv4-cidr"
                   data-visual="ipv4" data-title="Atelier de calcul IPv4 & CIDR"
                   data-status="Outil disponible · preuves à enrichir" data-status-class="status-ready"
                   data-domain="Fondamentaux réseau · outil pédagogique"
@@ -391,7 +392,7 @@
                 <h3>Supervision centralisée avec Zabbix</h3>
                 <p>Préparer la surveillance de serveurs et services réseau dans un environnement de PME.</p>
                 <div class="project-tags"><span>Zabbix</span><span>Ubuntu Server</span><span>SNMP</span></div>
-                <button class="project-open" type="button" data-project-open
+                <button class="project-open" type="button" data-project-open data-project-id="zabbix-supervision"
                   data-visual="zabbix" data-title="Supervision centralisée avec Zabbix"
                   data-status="En préparation" data-status-class="status-planned"
                   data-domain="Systèmes · supervision & observabilité"
@@ -705,7 +706,12 @@
       <div class="project-dialog-inner">
         <div class="dialog-topline">
           <span class="mini-label">DOSSIER TECHNIQUE <i></i> NETLAB / PROJETS</span>
-          <button class="dialog-close" type="button" data-dialog-close aria-label="Fermer le dossier projet"><svg class="icon"><use href="#i-close"/></svg></button>
+          <div class="dialog-actions">
+            <button class="dialog-copy-link" type="button" data-copy-project-link aria-label="Copier le lien de ce dossier">
+              <svg class="icon"><use href="#i-link"/></svg><span data-copy-project-link-label>Partager le dossier</span>
+            </button>
+            <button class="dialog-close" type="button" data-dialog-close aria-label="Fermer le dossier projet"><svg class="icon"><use href="#i-close"/></svg></button>
+          </div>
         </div>
 
         <div class="dialog-hero">
