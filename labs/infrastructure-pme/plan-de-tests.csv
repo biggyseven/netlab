@@ -1,9 +1,11 @@
 ID;Source;Destination / cible;Vérification;Méthode indicative;Résultat attendu;Résultat observé;État
-T01;Poste VLAN 10;Passerelle 192.168.10.1;Adresse et passerelle du segment;ipconfig /all puis ping 192.168.10.1;Adresse du bon sous-réseau et passerelle joignable;À renseigner;NON EXÉCUTÉ
-T02;Poste VLAN 20;Passerelle 192.168.20.1;Adresse et passerelle du segment;ipconfig /all puis ping 192.168.20.1;Adresse du bon sous-réseau et passerelle joignable;À renseigner;NON EXÉCUTÉ
+T01;Poste VLAN 10;Passerelle 192.168.10.1;Adresse et passerelle du segment;show ip puis ping 192.168.10.1 (VPCS);Adresse du bon sous-réseau et passerelle joignable;À renseigner;NON EXÉCUTÉ
+T02;Poste VLAN 20;Passerelle 192.168.20.1;Adresse et passerelle du segment;show ip puis ping 192.168.20.1 (VPCS);Adresse du bon sous-réseau et passerelle joignable;À renseigner;NON EXÉCUTÉ
 T03;Hôte VLAN 30;Passerelle 192.168.30.1;Adresse et passerelle du segment;ip addr puis ping -c 4 192.168.30.1;Adresse du bon sous-réseau et passerelle joignable;À renseigner;NON EXÉCUTÉ
-T04;Poste VLAN 20;Hôte connu VLAN 10;Vérifier le refus inter-VLAN;Test TCP vers un service réellement actif ou journal pfSense;Connexion refusée conformément à la règle;À renseigner;NON EXÉCUTÉ
-T05;Poste VLAN 20;Service applicatif VLAN 30;Vérifier uniquement le port explicitement autorisé;Test TCP vers ALIAS_APP_SERVERS et PORT_APPLICATION;Connexion autorisée sur le seul service prévu;À renseigner;NON EXÉCUTÉ
-T06;Poste VLAN 20;Résolveur puis site HTTPS externe;Vérifier DNS et sortie Web;nslookup example.com puis curl -I https://example.com;Résolution DNS et réponse HTTPS si la sortie est autorisée;À renseigner;NON EXÉCUTÉ
-T07;Hôte VLAN 30;Hôte connu VLAN 10 ou 20;Vérifier le filtrage initié depuis les serveurs;Test TCP vers un service réellement actif ou journal pfSense;Connexion refusée conformément à la politique;À renseigner;NON EXÉCUTÉ
+T04;Client TCP VLAN 20 (à ajouter pour test applicatif);Hôte connu VLAN 10;Vérifier le refus inter-VLAN;Depuis un client Linux/Windows en VLAN 20 : nc -vz 192.168.10.10 PORT ; consulter le journal pfSense;Connexion refusée conformément à la règle;À renseigner;NON EXÉCUTÉ
+T05;Client TCP VLAN 20 (à ajouter pour test applicatif);Service applicatif VLAN 30;Vérifier uniquement le port explicitement autorisé;Depuis un client Linux/Windows en VLAN 20 : nc -vz 192.168.30.10 PORT_APPLICATION;Connexion autorisée sur le seul service prévu;À renseigner;NON EXÉCUTÉ
+T06;Poste VLAN 20;Résolveur puis site HTTPS externe;Vérifier DNS et sortie Web;Depuis Ubuntu ou client Linux : nslookup example.com puis curl -I https://example.com;Résolution DNS et réponse HTTPS si la sortie est autorisée;À renseigner;NON EXÉCUTÉ
+T07;Ubuntu-SRV VLAN 30;Hôte connu VLAN 10 ou 20;Vérifier le filtrage initié depuis les serveurs;Test TCP vers un service réellement actif ou journal pfSense;Connexion refusée conformément à la politique;À renseigner;NON EXÉCUTÉ
 T08;Deux hôtes du même VLAN;Adresse de l'autre hôte du même VLAN;Contrôler la commutation locale;Ping et table MAC du switch;Communication locale sans routage inter-VLAN par pfSense;À renseigner;NON EXÉCUTÉ
+
+NOTE;VPCS suffit pour les tests IP/ping ; ajouter temporairement un client Linux/Windows en VLAN 20 pour exécuter les tests TCP avec nc ou Test-NetConnection.
