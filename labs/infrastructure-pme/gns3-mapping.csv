@@ -6,3 +6,4 @@ SW-LAB001;Port trunk;À relever;pfSense;Parent trunk;Trunk;Configurer Dot1Q ou t
 SW-LAB001;Port client admin;À relever;VPCS-ADMIN;Ethernet;10;Access VLAN 10
 SW-LAB001;Port client utilisateur;À relever;VPCS-USER;Ethernet;20;Access VLAN 20
 SW-LAB001;Port serveur;À relever;Ubuntu-SRV;Ethernet;30;Access VLAN 30
+SW-LAB001;Port VPCS-USER2 (optionnel);À relever;VPCS-USER2;Ethernet;20;Second hôte temporaire pour test de commutation locale
