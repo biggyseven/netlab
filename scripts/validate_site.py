@@ -18,6 +18,10 @@ LAB_PACK_FILES = (
     "labs/infrastructure-pme/switch-cisco-ios.cfg",
     "labs/infrastructure-pme/matrice-pfsense.csv",
     "labs/infrastructure-pme/plan-de-tests.csv",
+    "labs/infrastructure-pme/procedure-gns3.md",
+    "labs/infrastructure-pme/pfsense-vlan-runbook.md",
+    "labs/infrastructure-pme/gns3-mapping.csv",
+    "labs/infrastructure-pme/hotes-et-ports.csv",
 )
 ERRORS: list[str] = []
 
@@ -376,7 +380,7 @@ def main() -> int:
 
     if docs:
         docs_html = (ROOT / "documentation.html").read_text(encoding="utf-8")
-        for marker in ("docs-download-grid", "topologie-lab001.svg", "plan-adressage.csv", "switch-cisco-ios.cfg", "matrice-pfsense.csv", "plan-de-tests.csv"):
+        for marker in ("docs-download-grid", "topologie-lab001.svg", "plan-adressage.csv", "switch-cisco-ios.cfg", "matrice-pfsense.csv", "plan-de-tests.csv", "procedure-gns3.md", "pfsense-vlan-runbook.md", "gns3-mapping.csv", "hotes-et-ports.csv"):
             if marker not in docs_html:
                 ERRORS.append(f"documentation.html: lien de livrable LAB 001 absent ({marker}).")
 
@@ -402,7 +406,7 @@ def main() -> int:
     print(" - identifiants, routes projets et visuels cohérents")
     print(" - catalogue de preuves, médias locaux et éléments à collecter contrôlés")
     print(" - parcours des trois études de cas et états des étapes contrôlés")
-    print(" - livrables du pack LAB 001 et statut non exécuté des tests contrôlés")
+    print(" - pack LAB 001, runbooks GNS3/pfSense et relevé des hôtes contrôlés")
     print(" - aperçu agrandi, fermeture accessible et structure de la lightbox contrôlés")
     print(" - métadonnées Open Graph / Twitter et JSON-LD contrôlés")
     print(" - structure CSS et présence des scripts vérifiées")
