@@ -303,3 +303,13 @@ assets/
 - Plan d'adressage CSV, base de configuration Cisco IOS, matrice de flux pfSense et plan de huit tests.
 - Téléchargements directement intégrés à la fiche Infrastructure PME de la documentation.
 - Les fichiers sont des modèles de préparation : interfaces et règles à adapter, tests marqués « NON EXÉCUTÉ » jusqu'à validation réelle dans GNS3.
+
+
+## Évolution V3.5 — cahier de montage et runbooks LAB 001
+
+- Ajout d'une procédure de montage GNS3 avec rôles des nœuds, câblage logique, port trunk et choix du switch.
+- Ajout d'un runbook pfSense : identification sûre de l'interface parent, création et assignation VLAN, passerelles, DHCP/DNS, règles par interface et retour arrière.
+- Ajout d'une feuille de relevé des interfaces réellement détectées et d'un plan d'adressage des hôtes.
+- Clarification des outils de test : VPCS pour IP/ping, client Linux/Windows temporaire pour les tests TCP.
+- Liens de téléchargement intégrés à la fiche Infrastructure PME ; les noms des interfaces restent à relever dans le vrai laboratoire.
+- Références officielles Netgate et GNS3 ajoutées au runbook.
