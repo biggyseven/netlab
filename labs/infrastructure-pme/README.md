@@ -23,8 +23,12 @@ Ces sous-réseaux sont un plan de laboratoire proposé, pas des adresses relevé
 - `topologie-lab001.svg` : schéma logique vectoriel, modifiable.
 - `plan-adressage.csv` : VLAN, sous-réseaux et passerelles prévus.
 - `switch-cisco-ios.cfg` : configuration de départ pour un switch compatible Cisco IOS.
-- `matrice-pfSense.csv` : politique de flux proposée à traduire manuellement en règles pfSense.
+- `matrice-pfsense.csv` : politique de flux proposée à traduire manuellement en règles pfSense.
 - `plan-de-tests.csv` : contrôles à exécuter et résultats attendus, avec champs de résultat encore vides.
+- `procedure-gns3.md` : montage des nœuds, câblage, ports du switch et jalons de preuve.
+- `pfsense-vlan-runbook.md` : création/assignation des VLAN, adressage, DHCP/DNS, filtrage et retour arrière.
+- `gns3-mapping.csv` : relevé des interfaces réelles après identification dans GNS3.
+- `hotes-et-ports.csv` : IP des passerelles, clients, serveur et pools DHCP proposés.
 
 ## Ordre conseillé de réalisation
 
