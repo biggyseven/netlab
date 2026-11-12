@@ -4232,3 +4232,9 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
   .docs-download-grid { grid-template-columns: minmax(0, 1fr); }
   .docs-download-card { min-height: 136px; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-download-card { transition: none; }
+  .docs-download-card:hover,
+  .docs-download-card:focus-visible { transform: none; }
+}
