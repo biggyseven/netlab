@@ -25,6 +25,8 @@ class PageAudit(HTMLParser):
         self._jsonld_chunks: list[str] | None = None
         self._evidence_chunks: list[str] | None = None
         self.evidence_catalog: dict | None = None
+        self._case_study_chunks: list[str] | None = None
+        self.case_study_catalog: dict | None = None
         self._in_title = False
         self.descriptions: list[str] = []
         self.titles: list[str] = []
@@ -76,6 +78,8 @@ class PageAudit(HTMLParser):
             self._jsonld_chunks = []
         if tag == "script" and values.get("type") == "application/json" and values.get("id") == "netlab-evidence-catalog":
             self._evidence_chunks = []
+        if tag == "script" and values.get("type") == "application/json" and values.get("id") == "netlab-case-studies":
+            self._case_study_chunks = []
 
     def handle_data(self, data: str) -> None:
         if self._in_title and data.strip():
@@ -84,6 +88,8 @@ class PageAudit(HTMLParser):
             self._jsonld_chunks.append(data)
         if self._evidence_chunks is not None:
             self._evidence_chunks.append(data)
+        if self._case_study_chunks is not None:
+            self._case_study_chunks.append(data)
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
@@ -110,6 +116,17 @@ class PageAudit(HTMLParser):
             except json.JSONDecodeError as exc:
                 ERRORS.append(f"{self.path}: catalogue de preuves JSON invalide: {exc}")
             self._evidence_chunks = None
+        if tag == "script" and self._case_study_chunks is not None:
+            raw = "".join(self._case_study_chunks).strip()
+            try:
+                parsed = json.loads(raw)
+                if isinstance(parsed, dict):
+                    self.case_study_catalog = parsed
+                else:
+                    ERRORS.append(f"{self.path}: le catalogue d'études de cas doit être un objet JSON.")
+            except json.JSONDecodeError as exc:
+                ERRORS.append(f"{self.path}: catalogue d'études de cas JSON invalide: {exc}")
+            self._case_study_chunks = None
 
 
 def load_page(path: Path) -> PageAudit:
@@ -246,7 +263,35 @@ def main() -> int:
             ERRORS.append("index.html: données structurées Person absentes.")
         if home.evidence_catalog is None:
             ERRORS.append("index.html: catalogue de preuves absent ou invalide.")
+        if home.case_study_catalog is None:
+            ERRORS.append("index.html: catalogue d'études de cas absent ou invalide.")
+        else:
+            if set(home.case_study_catalog) != set(home.project_ids):
+                ERRORS.append("index.html: le catalogue d'études de cas doit couvrir exactement les trois projets.")
+            allowed_states = {"available", "described", "prepared", "planned", "verify"}
+            for project_id, case in home.case_study_catalog.items():
+                if not isinstance(case, dict) or not case.get("stateLabel") or not case.get("summary"):
+                    ERRORS.append(f"index.html: résumé d'étude de cas incomplet pour {project_id}.")
+                    continue
+                stages = case.get("stages")
+                if not isinstance(stages, list) or len(stages) < 3:
+                    ERRORS.append(f"index.html: au moins trois étapes sont attendues pour {project_id}.")
+                    continue
+                for stage in stages:
+                    required = ("state", "title", "detail", "deliverable")
+                    if not isinstance(stage, dict) or not all(stage.get(key) for key in required):
+                        ERRORS.append(f"index.html: étape incomplète dans l'étude de cas {project_id}.")
+                        continue
+                    if stage["state"] not in allowed_states:
+                        ERRORS.append(f"index.html: état non autorisé dans l'étude de cas {project_id}: {stage['state']}.")
         html_source = (ROOT / "index.html").read_text(encoding="utf-8")
+        for marker in (
+            'data-case-study-timeline',
+            'data-case-study-summary',
+            'data-case-study-state',
+        ):
+            if marker not in html_source:
+                ERRORS.append(f"index.html: parcours d'étude de cas incomplet ({marker}).")
         for marker in (
             'data-evidence-lightbox',
             'data-evidence-lightbox-image',
@@ -308,6 +353,7 @@ def main() -> int:
     print(" - liens et ressources locales vérifiés")
     print(" - identifiants, routes projets et visuels cohérents")
     print(" - catalogue de preuves, médias locaux et éléments à collecter contrôlés")
+    print(" - parcours des trois études de cas et états des étapes contrôlés")
     print(" - aperçu agrandi, fermeture accessible et structure de la lightbox contrôlés")
     print(" - métadonnées Open Graph / Twitter et JSON-LD contrôlés")
     print(" - structure CSS et présence des scripts vérifiées")
