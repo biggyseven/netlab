@@ -168,7 +168,7 @@ ping -c 4 192.168.10.1</code></pre></div>
             <div class="docs-sheet-top"><span class="docs-sheet-index">FICHE / 002 · INFRASTRUCTURE</span><span class="docs-status docs-status-progress"><i></i> À RÉALISER DANS GNS3</span></div>
             <h2>Construire un réseau PME segmenté</h2>
             <p class="docs-sheet-lead">Mettre en place une passerelle sécurisée, transporter plusieurs VLAN sur un trunk 802.1Q et contrôler les communications entre zones.</p>
-            <div class="docs-facts"><div><span>Environnement</span><strong>GNS3 · pfSense · switch manageable</strong></div><div><span>Segments</span><strong>Administration · Utilisateurs · Serveurs</strong></div><div><span>État</span><strong>Topologie conceptuelle · configuration à prouver</strong></div></div>
+            <div class="docs-facts"><div><span>Environnement</span><strong>GNS3 · pfSense · switch manageable</strong></div><div><span>Segments</span><strong>Administration · Utilisateurs · Serveurs</strong></div><div><span>État</span><strong>Pack LAB 001 prêt à adapter · tests à exécuter</strong></div></div>
 
             <section class="docs-section">
               <h3><span>01</span> Plan d'adressage proposé</h3>
@@ -267,8 +267,52 @@ nslookup example.com</code></pre></div>
               <p class="docs-caption">Un ping bloqué ne suffit pas à prouver la segmentation. Vérifier les règles, les journaux pfSense et le test du service autorisé.</p>
             </section>
 
+            <section class="docs-section docs-lab-pack" aria-labelledby="pme-pack-title">
+              <h3 id="pme-pack-title"><span>06</span> Livrables concrets · LAB 001</h3>
+              <p>Le dossier de conception est maintenant accompagné de fichiers directement exploitables pour préparer la maquette GNS3. Télécharge les modèles, adapte les interfaces à tes équipements et renseigne les résultats après exécution.</p>
+              <div class="docs-download-grid">
+                <a class="docs-download-card" href="labs/infrastructure-pme/topologie-lab001.svg" download>
+                  <span class="docs-download-kicker">SVG · SCHÉMA SOURCE</span>
+                  <strong>Topologie logique</strong>
+                  <small>WAN, pfSense, trunk 802.1Q, switch L2 et trois VLAN avec leurs sous-réseaux.</small>
+                  <span class="docs-download-action">Télécharger le schéma <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/plan-adressage.csv" download>
+                  <span class="docs-download-kicker">CSV · PLAN IP</span>
+                  <strong>Plan d'adressage</strong>
+                  <small>VLAN 10, 20 et 30, réseaux /24 et passerelles prévues.</small>
+                  <span class="docs-download-action">Télécharger le plan <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/switch-cisco-ios.cfg" download>
+                  <span class="docs-download-kicker">CFG · CISCO IOS</span>
+                  <strong>Base de configuration switch</strong>
+                  <small>Création des VLAN, trunk vers pfSense et ports d'accès illustratifs.</small>
+                  <span class="docs-download-action">Télécharger la configuration <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/matrice-pfsense.csv" download>
+                  <span class="docs-download-kicker">CSV · SÉCURITÉ</span>
+                  <strong>Matrice de flux pfSense</strong>
+                  <small>Ordre logique des autorisations ciblées et des refus inter-zones.</small>
+                  <span class="docs-download-action">Télécharger la matrice <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/plan-de-tests.csv" download>
+                  <span class="docs-download-kicker">CSV · VALIDATION</span>
+                  <strong>Plan de tests réseau</strong>
+                  <small>Huit contrôles préparés, résultats observés à renseigner après les essais.</small>
+                  <span class="docs-download-action">Télécharger les tests <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/README.md" download>
+                  <span class="docs-download-kicker">README · MODE D'EMPLOI</span>
+                  <strong>Guide du pack LAB 001</strong>
+                  <small>Hypothèses, ordre de réalisation et précautions techniques.</small>
+                  <span class="docs-download-action">Télécharger le guide <span aria-hidden="true">↓</span></span>
+                </a>
+              </div>
+              <div class="docs-note"><strong>Statut transparent :</strong> ces fichiers sont des modèles de conception, pas des preuves de déploiement. La configuration doit être adaptée ; tous les tests sont encore non exécutés.</div>
+            </section>
+
             <section class="docs-section">
-              <h3><span>06</span> Captures à intégrer au portfolio</h3>
+              <h3><span>07</span> Captures à intégrer au portfolio</h3>
               <ul class="docs-checklist"><li>Vue GNS3 avec chaque liaison visible et chaque interface identifiée.</li><li>Résumé des VLAN et du trunk côté switch.</li><li>Interfaces VLAN et règles pfSense sans information sensible.</li><li>Test autorisé réussi et test interdit bloqué, avec journaux correspondants.</li></ul>
               <div class="docs-note"><strong>État des résultats :</strong> les tests sont à exécuter dans GNS3. Aucun résultat de connectivité n'est déclaré validé à ce stade.</div>
             </section>
