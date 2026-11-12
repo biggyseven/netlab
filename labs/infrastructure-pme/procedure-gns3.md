@@ -14,6 +14,7 @@ Créer les nœuds et liaisons dans cet ordre :
 | VPCS-ADMIN | Client de test VLAN 10 | Port access VLAN 10 |
 | VPCS-USER | Client de test VLAN 20 | Port access VLAN 20 |
 | Ubuntu-SRV | Hôte serveur VLAN 30 | Port access VLAN 30 |
+| Client Linux/Windows (temporaire) | Tests TCP applicatifs | Port access VLAN 20 ; à démarrer uniquement pour les tests TCP |
 
 Utiliser le switch Ethernet intégré de GNS3 pour un premier essai simple, ou une appliance de commutation compatible avec la configuration Cisco IOS pour travailler avec le fichier `switch-cisco-ios.cfg`. Les fonctions dépendent du type et de l'image du switch. Le switch intégré se configure par port dans son panneau de configuration ; il ne reçoit pas une configuration IOS à coller dans une console.
 
