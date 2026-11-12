@@ -99,6 +99,8 @@ Créer les règles dans cet ordre :
 3. Si SSH est activé sur Ubuntu-SRV, autoriser TCP 22 de `ADMIN_10 net` vers `192.168.30.10`.
 4. Ajouter uniquement les autres flux de gestion qui ont une raison documentée.
 
+Pour valider le filtrage d'un service, un hôte TCP temporaire doit être présent dans le VLAN cible. VPCS-ADMIN sert au test de passerelle et au ping, pas à héberger un service TCP.
+
 Ne pas publier l'interface d'administration pfSense sur WAN ou sur le VLAN Utilisateurs.
 
 ### USERS_20
@@ -152,7 +154,7 @@ Les connexions d'administration initiées depuis ADMIN_10 vers Ubuntu-SRV sont c
 | 7 | Clients vers DNS pfSense | Résolution réussie si Resolver actif |
 | 8 | Clients vers HTTPS Internet | Réponse HTTP(S) si WAN, DNS et règles sont corrects |
 
-Les lignes du fichier `plan-de-tests.csv` restent à l'état NON EXÉCUTÉ jusqu'aux contrôles réels. Un ping seul ne prouve pas qu'un service applicatif est autorisé ou bloqué.
+Les lignes du fichier `plan-de-tests.csv` restent à l'état NON EXÉCUTÉ jusqu'aux contrôles réels. T04 et T07 utilisent ping plus les journaux pfSense pour prouver le blocage ICMP ; T05 vérifie un vrai établissement TCP depuis un client Linux/Windows temporaire. Après T05, arrêter le listener et retirer la règle de test. Un ping seul ne prouve pas qu'un service applicatif est autorisé ou bloqué.
 
 ## 8. Retour arrière
 
