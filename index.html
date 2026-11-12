@@ -821,6 +821,119 @@
     }
     </script>
 
+    <script id="netlab-case-studies" type="application/json">
+    {
+      "infrastructure-pme": {
+        "stateLabel": "Conception documentée · laboratoire à construire",
+        "summary": "Le dossier décrit l'architecture cible WAN → pfSense → switch L2 et les VLAN 10/20/30. Cette conception reste une maquette : la topologie GNS3, le trunk, les règles pfSense et les tests de flux doivent encore être exécutés et vérifiés.",
+        "stages": [
+          {
+            "state": "described",
+            "title": "Cadrage de l'architecture",
+            "detail": "Le périmètre PME, la séparation des zones et le rôle du pare-feu central sont décrits dans le dossier technique. Le schéma publié reste conceptuel.",
+            "deliverable": "Schéma logique et objectifs du laboratoire."
+          },
+          {
+            "state": "planned",
+            "title": "Construction de la topologie GNS3",
+            "detail": "Créer les équipements, les relier, identifier les interfaces et vérifier l'état de chaque lien avant de poursuivre.",
+            "deliverable": "Projet GNS3 ouvert avec topologie et interfaces identifiées."
+          },
+          {
+            "state": "planned",
+            "title": "Segmentation VLAN et trunk 802.1Q",
+            "detail": "Créer les VLAN 10, 20 et 30, affecter les ports d'accès et établir le trunk vers l'équipement de routage.",
+            "deliverable": "Configuration VLAN/trunk et vérification des ports."
+          },
+          {
+            "state": "planned",
+            "title": "Routage et règles pfSense",
+            "detail": "Configurer les interfaces ou sous-interfaces prévues, les passerelles et les règles selon le principe du moindre privilège.",
+            "deliverable": "Captures des interfaces et règles appliquées, après masquage des données sensibles."
+          },
+          {
+            "state": "verify",
+            "title": "Tests des flux autorisés et bloqués",
+            "detail": "Tester la connectivité de chaque segment, les services autorisés et les accès qui doivent être refusés. Compléter les tests par les journaux utiles.",
+            "deliverable": "Matrice de tests avec résultats réellement observés."
+          },
+          {
+            "state": "planned",
+            "title": "Compte rendu et preuves",
+            "detail": "Documenter les écarts, les corrections, les limites constatées et les captures qui permettent de reproduire les vérifications.",
+            "deliverable": "Dossier final avec captures, commandes et résultats."
+          }
+        ]
+      },
+      "ipv4-cidr": {
+        "stateLabel": "Outil disponible · exercices à enrichir",
+        "summary": "Le calculateur IPv4/CIDR est intégré au portfolio et réalise ses calculs dans le navigateur. Les préfixes /31 et /32 disposent d'un traitement dédié. Les études de cas VLSM guidées et les captures explicatives restent à compléter.",
+        "stages": [
+          {
+            "state": "available",
+            "title": "Calculateur IPv4/CIDR",
+            "detail": "L'outil calcule le réseau, le masque, le broadcast, le wildcard, les plages d'adresses et les nombres d'adresses/hôtes utilisables.",
+            "deliverable": "Calculateur disponible dans la section Laboratoire."
+          },
+          {
+            "state": "available",
+            "title": "Traitement des préfixes /31 et /32",
+            "detail": "Les cas point à point /31 et route hôte /32 sont pris en compte séparément des sous-réseaux classiques.",
+            "deliverable": "Logique dédiée intégrée à l'outil JavaScript."
+          },
+          {
+            "state": "planned",
+            "title": "Exercices progressifs et VLSM",
+            "detail": "Ajouter des scénarios guidés, avec le raisonnement du découpage, les besoins en hôtes et le contrôle des plages obtenues.",
+            "deliverable": "Série d'exercices corrigés et vérifiables."
+          },
+          {
+            "state": "planned",
+            "title": "Vérification et captures pédagogiques",
+            "detail": "Confronter les cas représentatifs à des calculs indépendants et publier des captures annotées du raisonnement et des résultats.",
+            "deliverable": "Jeu de cas de référence et captures associées."
+          }
+        ]
+      },
+      "zabbix-supervision": {
+        "stateLabel": "Préparation documentée · déploiement à valider",
+        "summary": "Le périmètre de supervision, les hôtes cibles et les flux réseau sont préparés dans la documentation. L'installation du serveur, l'enregistrement des agents, la collecte et les notifications ne sont pas encore déclarés opérationnels.",
+        "stages": [
+          {
+            "state": "prepared",
+            "title": "Définition du périmètre de supervision",
+            "detail": "Les cibles Linux et Windows, les équipements SNMP envisagés et les contrôles attendus sont identifiés.",
+            "deliverable": "Périmètre fonctionnel et flux/ports à autoriser."
+          },
+          {
+            "state": "planned",
+            "title": "Installation du serveur Zabbix",
+            "detail": "Stabiliser l'installation sur Ubuntu Server, choisir les versions compatibles et vérifier les services et l'interface Web.",
+            "deliverable": "Serveur accessible, services démarrés et versions consignées."
+          },
+          {
+            "state": "planned",
+            "title": "Enregistrement des agents",
+            "detail": "Intégrer un premier hôte Linux puis un hôte Windows, configurer les agents et vérifier leur disponibilité depuis le serveur.",
+            "deliverable": "Hôtes enregistrés et agents joignables."
+          },
+          {
+            "state": "verify",
+            "title": "Collecte des métriques et déclencheurs",
+            "detail": "Contrôler la réception de données récentes, créer un événement de test et confirmer que le déclencheur suit le comportement attendu.",
+            "deliverable": "Écrans Latest data et historique d'un déclencheur testé."
+          },
+          {
+            "state": "planned",
+            "title": "Notification et compte rendu",
+            "detail": "Tester le canal de notification retenu, vérifier la réception et documenter la configuration sans publier de secrets.",
+            "deliverable": "Preuve de notification reçue et procédure reproductible."
+          }
+        ]
+      }
+    }
+    </script>
+
     <dialog class="project-dialog" data-project-dialog aria-labelledby="project-dialog-title">
       <div class="project-dialog-inner">
         <div class="dialog-topline">
@@ -919,8 +1032,25 @@
           </section>
         </div>
 
+        <section class="dialog-case-study" aria-labelledby="dialog-case-study-title">
+          <div class="case-study-heading">
+            <div>
+              <p class="mini-label" id="dialog-case-study-title">05 / PARCOURS DE L'ÉTUDE DE CAS</p>
+              <h3>Étapes, livrables et état d'avancement</h3>
+            </div>
+            <span class="case-study-step-count" data-case-study-count>0 étape</span>
+          </div>
+          <div class="case-study-current">
+            <span class="case-study-current-label">ÉTAT ACTUEL DU DOSSIER</span>
+            <strong data-case-study-state></strong>
+            <p data-case-study-summary></p>
+          </div>
+          <ol class="case-study-timeline" data-case-study-timeline aria-live="polite"></ol>
+          <p class="case-study-note">Les étapes indiquées comme disponibles ou préparées décrivent uniquement ce qui existe dans le portfolio. Les essais à venir ne sont pas comptés comme des résultats obtenus.</p>
+        </section>
+
         <section class="dialog-next-step">
-          <p class="mini-label">05 / PROCHAINE ÉTAPE</p>
+          <p class="mini-label">06 / PROCHAINE ÉTAPE</p>
           <p data-dialog-next></p>
         </section>
         <a class="button button-secondary dialog-doc-link" data-dialog-doc-link href="documentation.html" hidden>Consulter la documentation <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
