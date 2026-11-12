@@ -4159,3 +4159,76 @@ h2 { margin-bottom: 0; font-size: clamp(31px, 4vw, 46px); line-height: 1.16; let
 @media (min-width: 1080px) {
   .case-study-timeline { max-width: 920px; }
 }
+
+
+/* LAB 001 — downloadable technical deliverables */
+.docs-download-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+.docs-download-card {
+  display: flex;
+  min-width: 0;
+  min-height: 154px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text) !important;
+  text-decoration: none !important;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.docs-download-card:hover,
+.docs-download-card:focus-visible {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  transform: translateY(-2px);
+  outline: none;
+}
+.docs-download-card:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.docs-download-kicker {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .09em;
+}
+.docs-download-card strong {
+  margin-top: 10px;
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.docs-download-card small {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 9px;
+  line-height: 1.7;
+}
+.docs-download-action {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 13px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 700;
+}
+.docs-download-action span {
+  font-size: 15px;
+  line-height: 1;
+}
+@media (max-width: 560px) {
+  .docs-download-grid { grid-template-columns: minmax(0, 1fr); }
+  .docs-download-card { min-height: 136px; }
+}
