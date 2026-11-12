@@ -15,6 +15,7 @@ Créer les nœuds et liaisons dans cet ordre :
 | VPCS-USER | Client de test VLAN 20 | Port access VLAN 20 |
 | Ubuntu-SRV | Hôte serveur VLAN 30 | Port access VLAN 30 |
 | Client Linux/Windows (temporaire) | Tests TCP applicatifs | Port access VLAN 20 ; à démarrer uniquement pour les tests TCP |
+| VPCS-USER2 (optionnel) | Test de commutation locale | Second port access VLAN 20 |
 
 Utiliser le switch Ethernet intégré de GNS3 pour un premier essai simple, ou une appliance de commutation compatible avec la configuration Cisco IOS pour travailler avec le fichier `switch-cisco-ios.cfg`. Les fonctions dépendent du type et de l'image du switch. Le switch intégré se configure par port dans son panneau de configuration ; il ne reçoit pas une configuration IOS à coller dans une console.
 
@@ -22,7 +23,7 @@ Utiliser le switch Ethernet intégré de GNS3 pour un premier essai simple, ou u
 
 1. Relier le nœud NAT au port WAN de pfSense.
 2. Relier une interface physique distincte de pfSense au port trunk du switch.
-3. Relier VPCS-ADMIN, VPCS-USER et Ubuntu-SRV à trois ports d'accès distincts.
+3. Relier VPCS-ADMIN, VPCS-USER et Ubuntu-SRV à trois ports d'accès distincts. Ajouter VPCS-USER2 sur un autre port access VLAN 20 uniquement pour le test de commutation locale.
 4. Ne pas relier directement les clients au même port trunk.
 5. Renseigner les noms de nœuds et les interfaces effectivement affichés dans GNS3 dans `gns3-mapping.csv`.
 
