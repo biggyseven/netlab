@@ -11,6 +11,14 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE_NAMES = ("index.html", "documentation.html")
+LAB_PACK_FILES = (
+    "labs/infrastructure-pme/README.md",
+    "labs/infrastructure-pme/topologie-lab001.svg",
+    "labs/infrastructure-pme/plan-adressage.csv",
+    "labs/infrastructure-pme/switch-cisco-ios.cfg",
+    "labs/infrastructure-pme/matrice-pfsense.csv",
+    "labs/infrastructure-pme/plan-de-tests.csv",
+)
 ERRORS: list[str] = []
 
 
@@ -332,6 +340,46 @@ def main() -> int:
     if docs and not any(item.get("@type") == "WebPage" for item in docs.jsonld):
         ERRORS.append("documentation.html: données structurées WebPage absentes.")
 
+    # The LAB 001 pack is a set of preparation templates, not claimed execution evidence.
+    for relative in LAB_PACK_FILES:
+        if not (ROOT / relative).is_file():
+            ERRORS.append(f"Livrable LAB 001 absent: {relative}")
+
+    lab_root = ROOT / "labs/infrastructure-pme"
+    if lab_root.is_dir():
+        svg_path = lab_root / "topologie-lab001.svg"
+        if svg_path.is_file() and "<svg" not in svg_path.read_text(encoding="utf-8"):
+            ERRORS.append("LAB 001: schéma SVG invalide ou vide.")
+        switch_path = lab_root / "switch-cisco-ios.cfg"
+        if switch_path.is_file():
+            switch_text = switch_path.read_text(encoding="utf-8")
+            for expected in ("vlan 10", "vlan 20", "vlan 30", "switchport trunk allowed vlan 10,20,30"):
+                if expected not in switch_text:
+                    ERRORS.append(f"LAB 001: configuration switch incomplète ({expected}).")
+        policy_path = lab_root / "matrice-pfsense.csv"
+        if policy_path.is_file():
+            policy_text = policy_path.read_text(encoding="utf-8")
+            for expected in ("ALIAS_RFC1918", "REFUS PAR DÉFAUT", "BLOQUER"):
+                if expected not in policy_text:
+                    ERRORS.append(f"LAB 001: matrice pfSense incomplète ({expected}).")
+        tests_path = lab_root / "plan-de-tests.csv"
+        if tests_path.is_file():
+            tests_text = tests_path.read_text(encoding="utf-8")
+            if tests_text.count("NON EXÉCUTÉ") < 8:
+                ERRORS.append("LAB 001: les huit tests doivent rester explicitement non exécutés avant validation.")
+        address_path = lab_root / "plan-adressage.csv"
+        if address_path.is_file():
+            address_text = address_path.read_text(encoding="utf-8")
+            for subnet in ("192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"):
+                if subnet not in address_text:
+                    ERRORS.append(f"LAB 001: plan d'adressage incomplet ({subnet}).")
+
+    if docs:
+        docs_html = (ROOT / "documentation.html").read_text(encoding="utf-8")
+        for marker in ("docs-download-grid", "topologie-lab001.svg", "plan-adressage.csv", "switch-cisco-ios.cfg", "matrice-pfsense.csv", "plan-de-tests.csv"):
+            if marker not in docs_html:
+                ERRORS.append(f"documentation.html: lien de livrable LAB 001 absent ({marker}).")
+
     css_path = ROOT / "assets/css/styles.css"
     if css_path.is_file():
         check_css_braces(css_path)
@@ -354,6 +402,7 @@ def main() -> int:
     print(" - identifiants, routes projets et visuels cohérents")
     print(" - catalogue de preuves, médias locaux et éléments à collecter contrôlés")
     print(" - parcours des trois études de cas et états des étapes contrôlés")
+    print(" - livrables du pack LAB 001 et statut non exécuté des tests contrôlés")
     print(" - aperçu agrandi, fermeture accessible et structure de la lightbox contrôlés")
     print(" - métadonnées Open Graph / Twitter et JSON-LD contrôlés")
     print(" - structure CSS et présence des scripts vérifiées")
