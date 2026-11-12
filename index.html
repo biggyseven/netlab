@@ -1,30 +1,66 @@
 <!doctype html>
-<html lang="fr" data-theme="dark">
+<html lang="fr" data-theme="noc">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="NETLAB — Portfolio Réseaux & Télécommunications. Compétences, laboratoires et progression technique.">
-  <meta name="theme-color" content="#08111f">
-  <title>NETLAB — Réseaux & Télécommunications</title>
+  <meta name="description" content="Portfolio technique de Kite Kadji Guillaume Aaron, administrateur réseaux junior à Douala. Projets, compétences, laboratoires GNS3 et documentation réseaux.">
+  <meta name="author" content="Kite Kadji Guillaume Aaron">
+  <meta name="theme-color" content="#0B1420">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CM">
+  <meta property="og:site_name" content="NETLAB">
+  <meta property="og:title" content="Kite Kadji Guillaume Aaron | NETLAB – Administrateur réseaux junior">
+  <meta property="og:description" content="Portfolio technique de Kite Kadji Guillaume Aaron, administrateur réseaux junior à Douala. Projets, compétences, laboratoires GNS3 et documentation réseaux.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Kite Kadji Guillaume Aaron | NETLAB – Administrateur réseaux junior">
+  <meta name="twitter:description" content="Portfolio technique de Kite Kadji Guillaume Aaron, administrateur réseaux junior à Douala. Projets, compétences, laboratoires GNS3 et documentation réseaux.">
+  <title>Kite Kadji Guillaume Aaron | NETLAB – Administrateur réseaux junior</title>
   <link rel="icon" type="image/svg+xml" href="assets/icons/netlab-mark.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Kite Kadji Guillaume Aaron",
+    "jobTitle": "Administrateur réseaux junior",
+    "description": "Portfolio technique de Kite Kadji Guillaume Aaron, administrateur réseaux junior à Douala. Projets, compétences, laboratoires GNS3 et documentation réseaux.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Douala",
+      "addressCountry": "CM"
+    },
+    "knowsAbout": [
+      "Réseaux informatiques",
+      "Adressage IPv4 et subnetting",
+      "Switching et routage",
+      "Segmentation VLAN",
+      "Administration Linux",
+      "Sécurité réseau",
+      "Supervision réseau"
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>
     (() => {
+      const supportedThemes = ["noc", "blueprint", "observability", "classic-dark", "classic-light"];
+      const legacyThemes = { dark: "classic-dark", light: "classic-light" };
       try {
         const saved = localStorage.getItem("netlab-theme");
-        const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-        document.documentElement.dataset.theme = saved || (prefersLight ? "light" : "dark");
+        const migrated = legacyThemes[saved] || saved;
+        document.documentElement.dataset.theme = supportedThemes.includes(migrated) ? migrated : "noc";
       } catch (_) {
-        document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.theme = "noc";
       }
     })();
   </script>
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/network-tools.js" defer></script>
 </head>
 <body>
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3A5 5 0 0 0 11 21.07l1.72-1.72"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
@@ -33,12 +69,15 @@
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></symbol>
     <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/><path d="M7 7h.01M7 17h.01M11 7h6m-6 10h6"/></symbol>
     <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="m7 9 3 3-3 3m6 0h4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></symbol>
     <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
     <symbol id="i-graduation" viewBox="0 0 24 24"><path d="m2 10 10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5m4-2v7"/></symbol>
     <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5Z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
     <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15m6-12v15"/></symbol>
     <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v5m6-5v5M9 18v5m6-5v5M1 9h5m-5 6h5m12-6h5m-5 6h5M10 10h4v4h-4z"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18a3 3 0 0 0 3-3A8.5 8.5 0 0 0 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
   </svg>
 
   <div class="page-shell">
@@ -66,16 +105,50 @@
         <nav class="primary-nav" id="primary-nav" data-nav>
           <a href="#profil">Profil</a>
           <a href="#competences">Compétences</a>
+          <a href="#projets">Projets</a>
           <a href="#laboratoire">Laboratoire</a>
+          <a href="documentation.html">Documentation</a>
           <a href="#methode">Méthode</a>
         </nav>
 
         <div class="header-actions">
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Basculer le thème">
-            <svg class="icon theme-icon-sun"><use href="#i-sun"/></svg>
-            <svg class="icon theme-icon-moon"><use href="#i-moon"/></svg>
-            <span data-theme-label>Mode sombre</span>
-          </button>
+          <div class="theme-picker" data-theme-picker>
+            <button class="theme-toggle theme-picker-trigger" type="button" data-theme-trigger aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu" aria-label="Choisir un thème. Thème actuel : NOC Signal">
+              <svg class="icon"><use href="#i-palette"/></svg>
+              <span data-theme-label>NOC Signal</span>
+              <svg class="icon theme-picker-chevron"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="theme-menu" id="theme-menu" data-theme-menu hidden role="group" aria-label="Thèmes visuels NETLAB">
+              <p class="theme-menu-heading">IDENTITÉS NETLAB</p>
+              <button class="theme-option" type="button" data-theme-option="noc" aria-pressed="true">
+                <span class="theme-swatch theme-swatch-noc" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="theme-option-copy"><strong>NOC Signal</strong><small>Supervision · cyan et vert</small></span>
+                <svg class="icon theme-option-check"><use href="#i-check"/></svg>
+              </button>
+              <button class="theme-option" type="button" data-theme-option="blueprint" aria-pressed="false">
+                <span class="theme-swatch theme-swatch-blueprint" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="theme-option-copy"><strong>Blueprint Engineering</strong><small>Plans · bleu et turquoise</small></span>
+                <svg class="icon theme-option-check"><use href="#i-check"/></svg>
+              </button>
+              <button class="theme-option" type="button" data-theme-option="observability" aria-pressed="false">
+                <span class="theme-swatch theme-swatch-observability" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="theme-option-copy"><strong>Observability Graphite</strong><small>Données · violet et bleu</small></span>
+                <svg class="icon theme-option-check"><use href="#i-check"/></svg>
+              </button>
+              <div class="theme-menu-divider"></div>
+              <p class="theme-menu-heading">MODES CLASSIQUES</p>
+              <button class="theme-option theme-option-compact" type="button" data-theme-option="classic-dark" aria-pressed="false">
+                <span class="theme-swatch theme-swatch-classic-dark" aria-hidden="true"></span>
+                <span class="theme-option-copy"><strong>Classique sombre</strong><small>Ancienne palette NETLAB</small></span>
+                <svg class="icon theme-option-check"><use href="#i-check"/></svg>
+              </button>
+              <button class="theme-option theme-option-compact" type="button" data-theme-option="classic-light" aria-pressed="false">
+                <span class="theme-swatch theme-swatch-classic-light" aria-hidden="true"></span>
+                <span class="theme-option-copy"><strong>Classique clair</strong><small>Ancienne palette lumineuse</small></span>
+                <svg class="icon theme-option-check"><use href="#i-check"/></svg>
+              </button>
+            </div>
+          </div>
           <a class="button button-small button-primary header-contact" href="#contact">Me contacter <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
         </div>
       </div>
@@ -85,20 +158,24 @@
       <section class="hero-section section-pad">
         <div class="container hero-grid">
           <div class="hero-copy" data-reveal>
-            <div class="eyebrow"><span class="eyebrow-dot"></span> PORTFOLIO PERSONNEL · RÉSEAUX & TÉLÉCOMS</div>
-            <p class="hero-kicker">Comprendre l'infrastructure. Maîtriser la connexion.</p>
-            <h1>Construire des réseaux <span>fiables et utiles.</span></h1>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> ADMINISTRATION RÉSEAUX & SYSTÈMES · DOUALA, CAMEROUN</div>
+            <p class="hero-kicker">KITE KADJI GUILLAUME AARON</p>
+            <h1>Administrateur réseaux junior. <span>Concevoir. Configurer. Documenter.</span></h1>
             <p class="hero-description">
-              Je suis diplômé en Réseaux et Télécommunications. Je développe mes compétences
-              en administration systèmes et réseaux à travers des laboratoires, des tests
-              et une documentation technique rigoureuse.
+              Diplômé en Réseaux et Télécommunications, avec une formation en réseaux et sécurité,
+              je développe mes compétences en administration systèmes et réseaux. Ce portfolio
+              présente mon parcours, mes projets et les travaux techniques que je peux démontrer.
             </p>
             <div class="hero-actions">
-              <a class="button button-primary" href="#laboratoire">Explorer mes laboratoires <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
-              <a class="button button-secondary" href="#competences">Voir mes compétences</a>
+              <a class="button button-primary" href="#projets">Explorer les projets <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+              <a class="button button-secondary" href="#profil">Voir mon parcours</a>
+            </div>
+            <div class="hero-credentials" aria-label="Formation académique">
+              <span><svg class="icon"><use href="#i-graduation"/></svg> Licence Réseaux & Télécommunications</span>
+              <span><svg class="icon"><use href="#i-check"/></svg> BTS Réseaux et Sécurité</span>
             </div>
             <div class="hero-meta">
-              <span><i class="status-pulse"></i> En apprentissage actif</span>
+              <span><i class="status-pulse"></i> Profil junior · pratique en progression</span>
               <span class="meta-separator"></span>
               <span>Douala, Cameroun</span>
             </div>
@@ -106,16 +183,13 @@
 
           <div class="hero-visual" data-reveal data-reveal-delay="120">
             <div class="visual-topline">
-              <span class="mini-label">NETWORK OVERVIEW</span>
-              <span class="live-indicator"><i></i> LAB PERSONNEL</span>
+              <span class="mini-label">CARTOGRAPHIE DU LABORATOIRE</span>
+              <span class="live-indicator"><i></i> ARCHITECTURE CONCEPTUELLE</span>
             </div>
-            <div class="network-art" role="img" aria-label="Illustration abstraite d'un réseau reliant routeur, commutateur, serveur et postes clients">
+            <div class="network-art" role="group" aria-label="Topologie conceptuelle interactive : sélectionner un équipement pour découvrir son rôle">
               <div class="network-glow"></div>
-              <svg class="network-lines" viewBox="0 0 620 430" fill="none" aria-hidden="true">
-                <path d="M310 90 310 165M310 165 145 250M310 165 475 250M145 250 145 335M475 250 475 335M310 165 310 335" class="connection connection-main"/>
-                <path d="M310 90 145 250M310 90 475 250M145 250 310 335M475 250 310 335" class="connection connection-secondary"/>
-                <circle cx="310" cy="165" r="5"/><circle cx="145" cy="250" r="5"/><circle cx="475" cy="250" r="5"/>
-                <circle cx="310" cy="335" r="5"/><circle cx="145" cy="335" r="5"/><circle cx="475" cy="335" r="5"/>
+              <svg class="network-lines" viewBox="0 0 620 430" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                <path d="M310 90V165 M310 165H145V250 M310 165H475V250 M145 250V335 M475 250V335" class="connection connection-main"/>
               </svg>
               <div class="network-node node-router">
                 <span class="node-icon"><svg class="icon"><use href="#i-network"/></svg></span>
@@ -143,20 +217,45 @@
               </div>
               <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
             </div>
+            <div class="topology-inspector" aria-live="polite">
+              <span class="inspector-index">NODE / 01</span>
+              <div><strong data-topology-title>Routeur</strong><p data-topology-role>Relie des réseaux IP différents et choisit la prochaine destination des paquets.</p></div>
+            </div>
             <div class="visual-footer">
               <span><b>01</b> Topologie conceptuelle</span>
               <span>LAN · VLAN · SERVICES</span>
             </div>
           </div>
         </div>
-        <div class="hero-bottom-line" aria-hidden="true"></div>
-      </section>
 
-      <section class="intro-strip">
-        <div class="container intro-strip-inner">
-          <p>Un portfolio qui documente le chemin entre <strong>la théorie</strong> et <strong>la pratique.</strong></p>
-          <div class="intro-tags"><span>NETWORKING</span><span>SYSADMIN</span><span>TELECOMS</span></div>
+        <div class="container hero-signal-strip" aria-label="Accès aux contenus principaux du portfolio">
+          <a class="hero-signal-card signal-card-ready" href="#projets">
+            <div class="signal-card-meta"><span class="signal-index">01 / PORTFOLIO</span><span class="signal-status signal-status-ready"><i></i> 03 FICHES</span></div>
+            <div class="signal-card-body">
+              <span class="signal-icon"><svg class="icon"><use href="#i-layers"/></svg></span>
+              <span class="signal-card-copy"><strong>Projets techniques</strong><small>Études, conceptions et travaux présentés selon leur état réel.</small></span>
+              <svg class="icon signal-card-arrow"><use href="#i-arrow-up-right"/></svg>
+            </div>
+          </a>
+          <a class="hero-signal-card signal-card-progress" href="#laboratoire">
+            <div class="signal-card-meta"><span class="signal-index">02 / PRATIQUE</span><span class="signal-status signal-status-progress"><i></i> EN CONSTRUCTION</span></div>
+            <div class="signal-card-body">
+              <span class="signal-icon"><svg class="icon"><use href="#i-network"/></svg></span>
+              <span class="signal-card-copy"><strong>Laboratoires réseau</strong><small>GNS3, pfSense, segmentation VLAN et services Linux.</small></span>
+              <svg class="icon signal-card-arrow"><use href="#i-arrow-up-right"/></svg>
+            </div>
+          </a>
+          <a class="hero-signal-card signal-card-planned" href="documentation.html">
+            <div class="signal-card-meta"><span class="signal-index">03 / RESSOURCES</span><span class="signal-status signal-status-planned"><i></i> 03 FICHES</span></div>
+            <div class="signal-card-body">
+              <span class="signal-icon"><svg class="icon"><use href="#i-terminal"/></svg></span>
+              <span class="signal-card-copy"><strong>Documentation technique</strong><small>Fiches de référence, procédures et commandes.</small></span>
+              <svg class="icon signal-card-arrow"><use href="#i-arrow-up-right"/></svg>
+            </div>
+          </a>
         </div>
+
+        <div class="hero-bottom-line" aria-hidden="true"></div>
       </section>
 
       <section class="section-pad profile-section" id="profil">
@@ -210,13 +309,15 @@
               <p>Comprendre l'adressage et diagnostiquer la connectivité.</p>
               <div class="skill-tags"><span>TCP/IP</span><span>IPv4</span><span>Subnetting</span><span>DHCP</span><span>DNS</span><span>ICMP</span></div>
               <div class="skill-state"><i class="state-dot state-learning"></i> Bases à consolider</div>
+              <a class="skill-evidence-link" href="#project-ipv4-cidr">Explorer l'outil IPv4 / CIDR <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
             </article>
             <article class="skill-card" data-reveal data-reveal-delay="70">
               <div class="skill-card-head"><span class="skill-icon"><svg class="icon"><use href="#i-layers"/></svg></span><span class="skill-number">02</span></div>
               <h3>Switching & Routing</h3>
               <p>Segmenter un réseau et comprendre la circulation entre sous-réseaux.</p>
               <div class="skill-tags"><span>Switching</span><span>VLAN</span><span>Trunk</span><span>Routage</span><span>NAT</span></div>
-              <div class="skill-state"><i class="state-dot state-practice"></i> En pratique</div>
+              <div class="skill-state"><i class="state-dot state-learning"></i> Conception en cours · GNS3 à valider</div>
+              <a class="skill-evidence-link" href="#laboratoire">Voir la maquette VLAN <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
             </article>
             <article class="skill-card" data-reveal data-reveal-delay="140">
               <div class="skill-card-head"><span class="skill-icon"><svg class="icon"><use href="#i-server"/></svg></span><span class="skill-number">03</span></div>
@@ -224,16 +325,132 @@
               <p>Administrer des environnements de test et des services essentiels.</p>
               <div class="skill-tags"><span>Linux</span><span>Windows</span><span>SSH</span><span>VMware</span><span>Ubuntu Server</span></div>
               <div class="skill-state"><i class="state-dot state-learning"></i> En consolidation</div>
+              <a class="skill-evidence-link" href="documentation.html#zabbix">Consulter la préparation Zabbix <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
             </article>
             <article class="skill-card" data-reveal data-reveal-delay="210">
               <div class="skill-card-head"><span class="skill-icon"><svg class="icon"><use href="#i-shield"/></svg></span><span class="skill-number">04</span></div>
               <h3>Sécurité & supervision</h3>
               <p>Protéger les échanges et observer l'état d'une infrastructure.</p>
               <div class="skill-tags"><span>pfSense</span><span>Firewall</span><span>Wireshark</span><span>Zabbix</span><span>SNMP</span></div>
-              <div class="skill-state"><i class="state-dot state-practice"></i> Laboratoires en cours</div>
+              <div class="skill-state"><i class="state-dot state-learning"></i> Étude préparatoire · déploiement à valider</div>
+              <a class="skill-evidence-link" href="documentation.html#pme">Voir le dossier réseau & sécurité <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
             </article>
           </div>
-          <div class="skills-footnote"><svg class="icon"><use href="#i-check"/></svg> Chaque compétence évoluera avec des exercices, des captures et des comptes rendus consultables.</div>
+          <div class="skills-footnote"><span class="skills-footnote-label">À NOTER</span> Les liens mènent aux ressources disponibles. Une maquette ou une procédure ne constitue pas une validation de déploiement.</div>
+        </div>
+      </section>
+
+      <section class="section-pad projects-section" id="projets">
+        <div class="container">
+          <div class="section-heading" data-reveal>
+            <div><p class="section-index">03 / PROJETS</p><h2>Du travail concret.<br><span>Des preuves, pas des promesses.</span></h2></div>
+            <p class="section-lead">Les projets sont présentés selon leur état réel. Les pistes et laboratoires en préparation ne sont pas affichés comme des réalisations terminées.</p>
+          </div>
+          <div class="project-toolbar" data-reveal>
+            <div class="project-toolbar-main">
+              <div class="project-filters" role="group" aria-label="Filtrer les projets par domaine">
+                <button type="button" class="project-filter is-active" data-project-filter="all" aria-pressed="true">Tous</button>
+                <button type="button" class="project-filter" data-project-filter="network" aria-pressed="false">Réseaux</button>
+                <button type="button" class="project-filter" data-project-filter="security" aria-pressed="false">Sécurité</button>
+                <button type="button" class="project-filter" data-project-filter="systems" aria-pressed="false">Systèmes</button>
+              </div>
+              <label class="project-search">
+                <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+                <input type="search" data-project-search placeholder="Rechercher un projet ou un outil…" autocomplete="off" aria-label="Rechercher dans les projets">
+              </label>
+            </div>
+            <p class="project-count" aria-live="polite"><strong data-project-count>03</strong><span data-project-total> / 03 PROJETS</span></p>
+          </div>
+          <div class="projects-grid" id="projects-grid">
+            <article class="project-card" data-project-card data-category="network security systems" data-reveal>
+              <div class="project-preview project-preview-network">
+                <div class="project-preview-top"><span>LAB / 001</span><span class="project-type">INFRASTRUCTURE</span></div>
+                <div class="project-mini-topology" aria-label="Schéma conceptuel WAN, pfSense, switch L2 et trois VLAN">
+                  <div class="mini-core"><span class="mini-node">WAN</span><i></i><span class="mini-node">pfSense</span><i></i><span class="mini-node">SWITCH L2</span></div>
+                  <div class="mini-branches"><span>VLAN 10</span><span>VLAN 20</span><span>VLAN 30</span></div>
+                </div>
+                <span class="preview-caption">RÉSEAU PME · SEGMENTATION</span>
+              </div>
+              <div class="project-card-content">
+                <div class="project-card-meta"><span class="project-status status-progress"><i></i> En construction</span><span class="project-number">01</span></div>
+                <h3>Infrastructure réseau sécurisée pour une PME</h3>
+                <p>Concevoir une architecture segmentée avec pare-feu, services Linux et supervision.</p>
+                <div class="project-tags"><span>GNS3</span><span>pfSense</span><span>VLAN</span><span>Zabbix</span></div>
+                <button class="project-open" type="button" data-project-open data-project-id="infrastructure-pme"
+                  data-visual="network" data-title="Infrastructure réseau sécurisée pour une PME"
+                  data-status="En construction" data-status-class="status-progress"
+                  data-domain="Architecture réseau & sécurité"
+                  data-environment="GNS3 · pfSense · Switch L2 · Ubuntu Server · VMware"
+                  data-summary="Laboratoire de conception visant à segmenter un réseau de PME, contrôler les communications entre zones et préparer la supervision."
+                  data-context="Une petite entreprise doit séparer les postes d'administration, les utilisateurs et les serveurs afin de limiter les accès et de mieux organiser son réseau."
+                  data-goal="Concevoir puis mettre en œuvre une architecture segmentée avec un point de routage et de filtrage centralisé."
+                  data-tools="GNS3|pfSense|Switch L2|VLAN 802.1Q|Ubuntu Server|Zabbix (phase ultérieure)"
+                  data-objectives="Finaliser le plan d'adressage et les passerelles|Construire la topologie et créer les VLAN 10, 20 et 30|Valider le trunk et le routage inter-VLAN|Appliquer des règles de filtrage minimales|Tester les flux autorisés et refusés|Préparer l'installation de la supervision"
+                  data-evidence="Le schéma actuellement publié est conceptuel. La topologie GNS3, les règles pfSense et les tests de connectivité ne sont pas encore présentés comme validés. Les captures et résultats seront ajoutés après exécution."
+                  data-next="Construire LAB 001 dans GNS3, vérifier d'abord la connectivité des liens et des VLAN, puis tester les passerelles et les règles une par une."
+                  data-doc-link="documentation.html#pme">Ouvrir le dossier technique <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+              </div>
+            </article>
+            <article class="project-card" data-project-card data-category="network" data-reveal data-reveal-delay="80">
+              <div class="project-preview project-preview-ip">
+                <div class="project-preview-top"><span>ATELIER / 002</span><span class="project-type">FONDAMENTAUX</span></div>
+                <div class="ip-visual"><div class="ip-address">192.168.<b>10</b>.0/24</div><div class="subnet-bars"><i></i><i></i><i></i><i></i></div><div class="subnet-labels"><span>NETWORK</span><span>HOSTS</span><span>MASK</span></div><div class="ip-equation">IP <b>+</b> MASK <b>=</b> SUBNET</div></div>
+                <span class="preview-caption">IPv4 · CIDR · VLSM</span>
+              </div>
+              <div class="project-card-content">
+                <div class="project-card-meta"><span class="project-status status-ready"><i></i> Outil disponible</span><span class="project-number">02</span></div>
+                <h3>Atelier de calcul IPv4 & CIDR</h3>
+                <p>Calculateur CIDR disponible. Les exercices détaillés et les preuves pédagogiques restent à enrichir.</p>
+                <div class="project-tags"><span>IPv4</span><span>CIDR</span><span>VLSM</span></div>
+                <button class="project-open" type="button" data-project-open data-project-id="ipv4-cidr"
+                  data-visual="ipv4" data-title="Atelier de calcul IPv4 & CIDR"
+                  data-status="Outil disponible · preuves à enrichir" data-status-class="status-ready"
+                  data-domain="Fondamentaux réseau · outil pédagogique"
+                  data-environment="HTML · CSS · JavaScript · calcul local dans le navigateur"
+                  data-summary="Outil interactif permettant de calculer les paramètres d'un sous-réseau IPv4 à partir d'une adresse et d'un préfixe CIDR."
+                  data-context="Le dimensionnement d'un réseau nécessite de déterminer les adresses réseau, les masques, les broadcasts et les plages d'hôtes utilisables."
+                  data-goal="Mettre à disposition un calculateur pédagogique et formaliser une série d'exercices vérifiables sur l'adressage IPv4."
+                  data-tools="IPv4|CIDR|Masque|Broadcast|Wildcard|Préfixes /31 et /32"
+                  data-objectives="Présenter des cas de calcul documentés|Ajouter des exercices de subnetting et de VLSM|Vérifier les résultats sur des exemples de référence|Publier des captures et explications pas à pas"
+                  data-evidence="Le calculateur est disponible sur le site et effectue les calculs localement. La galerie de cas pratiques, les exercices VLSM et les preuves détaillées restent à enrichir. L'outil ne remplace pas la validation d'une configuration sur un réseau réel."
+                  data-next="Ajouter plusieurs scénarios d'adressage avec le raisonnement détaillé, puis confronter les résultats à des vérifications indépendantes."
+                  data-doc-link="documentation.html#ipv4">Ouvrir le dossier technique <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+              </div>
+            </article>
+            <article class="project-card" data-project-card data-category="security systems" data-reveal data-reveal-delay="160">
+              <div class="project-preview project-preview-monitor">
+                <div class="project-preview-top"><span>LAB / 003</span><span class="project-type">SUPERVISION</span></div>
+                <div class="monitor-visual"><div class="monitor-header"><span>SUPERVISION ENVISAGÉE</span><b>--</b></div><div class="monitor-empty-state"><strong>AUCUNE MESURE COLLECTÉE</strong><span>VISUEL DE PRÉSENTATION · LAB NON VALIDÉ</span></div><div class="monitor-metrics"><span>CPU <b>--%</b></span><span>RAM <b>--%</b></span><span>UPTIME <b>--</b></span></div></div>
+                <span class="preview-caption">ZABBIX · HÔTES ET SERVICES À INTÉGRER</span>
+              </div>
+              <div class="project-card-content">
+                <div class="project-card-meta"><span class="project-status status-planned"><i></i> En préparation</span><span class="project-number">03</span></div>
+                <h3>Supervision centralisée avec Zabbix</h3>
+                <p>Préparer la surveillance de serveurs et services réseau dans un environnement de PME.</p>
+                <div class="project-tags"><span>Zabbix</span><span>Ubuntu Server</span><span>SNMP</span></div>
+                <button class="project-open" type="button" data-project-open data-project-id="zabbix-supervision"
+                  data-visual="zabbix" data-title="Supervision centralisée avec Zabbix"
+                  data-status="En préparation" data-status-class="status-planned"
+                  data-domain="Systèmes · supervision & observabilité"
+                  data-environment="Ubuntu Server · Zabbix Server · Agents Linux/Windows (cible)"
+                  data-summary="Projet de laboratoire destiné à préparer la surveillance centralisée de serveurs et de services dans une infrastructure de PME."
+                  data-context="Une infrastructure nécessite une visibilité sur la disponibilité des hôtes, les ressources système et l'état des services pour détecter les incidents."
+                  data-goal="Préparer une plateforme Zabbix, intégrer des hôtes et définir des alertes compréhensibles et vérifiables."
+                  data-tools="Zabbix|Ubuntu Server|Zabbix Agent|SNMP (selon équipement)|Telegram (envisagé)"
+                  data-objectives="Stabiliser l'installation du serveur Zabbix|Configurer l'interface et la base de données|Enregistrer un premier hôte Linux|Ajouter un hôte Windows avec agent|Surveiller les ressources et les services|Tester un déclencheur et une notification"
+                  data-evidence="Le périmètre et les composants sont identifiés, mais aucune collecte de métriques, disponibilité d'hôte ou notification ne doit être considérée comme démontrée dans cette fiche tant que les tests et captures correspondants ne sont pas publiés."
+                  data-next="Stabiliser l'installation sur Ubuntu Server, vérifier l'accès à l'interface web et documenter l'enregistrement du premier hôte."
+                  data-doc-link="documentation.html#zabbix">Ouvrir le dossier technique <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+              </div>
+            </article>
+          </div>
+          <div class="projects-empty" data-project-empty role="status" hidden>
+            <span class="projects-empty-icon"><svg class="icon"><use href="#i-search"/></svg></span>
+            <strong>Aucun projet trouvé</strong>
+            <p>Essaie un autre mot-clé ou retire les filtres actifs.</p>
+            <button class="project-reset" type="button" data-project-reset>Effacer les filtres</button>
+          </div>
+          <p class="projects-note"><svg class="icon"><use href="#i-check"/></svg> Les statuts distinguent les réalisations en cours des ateliers et projets encore à documenter.</p>
         </div>
       </section>
 
@@ -241,7 +458,7 @@
         <div class="container">
           <div class="section-heading" data-reveal>
             <div>
-              <p class="section-index">03 / LABORATOIRE</p>
+              <p class="section-index">04 / LABORATOIRE</p>
               <h2>Apprendre en <span>construisant.</span></h2>
             </div>
             <p class="section-lead">Des environnements simulés pour manipuler, tester et comprendre les mécanismes d'un réseau d'entreprise.</p>
@@ -253,41 +470,210 @@
               <h3>Infrastructure réseau sécurisée pour une PME</h3>
               <p class="lab-description">Concevoir un réseau segmenté, contrôler les flux avec un pare-feu et préparer la supervision des services essentiels.</p>
               <div class="tech-stack"><span>GNS3</span><span>pfSense</span><span>Ubuntu Server</span><span>Zabbix</span><span>VMware</span></div>
-              <div class="lab-objectives">
-                <div><svg class="icon"><use href="#i-check"/></svg><span>Définir un plan d'adressage IP</span></div>
-                <div><svg class="icon"><use href="#i-check"/></svg><span>Créer des segments VLAN</span></div>
-                <div><svg class="icon"><use href="#i-check"/></svg><span>Appliquer des règles de filtrage</span></div>
-                <div><svg class="icon"><use href="#i-check"/></svg><span>Préparer la supervision réseau</span></div>
+              <div class="lab-facts" aria-label="Périmètre architectural prévu">
+                <div><strong>03</strong><span>segments VLAN</span></div>
+                <div><strong>802.1Q</strong><span>trunk envisagé</span></div>
+                <div><strong>pfSense</strong><span>filtrage inter-réseaux</span></div>
               </div>
-              <a class="text-link" href="#contact">Suivre l'évolution du laboratoire <svg class="icon"><use href="#i-arrow-right"/></svg></a>
+              <div class="lab-objectives-block">
+                <div class="lab-objectives-heading"><span>OBJECTIFS DU LABORATOIRE</span><small>À RÉALISER</small></div>
+                <div class="lab-objectives">
+                  <div><svg class="icon"><use href="#i-arrow-right"/></svg><span>Définir un plan d'adressage IP</span></div>
+                  <div><svg class="icon"><use href="#i-arrow-right"/></svg><span>Créer les segments VLAN 10, 20 et 30</span></div>
+                  <div><svg class="icon"><use href="#i-arrow-right"/></svg><span>Appliquer et tester les règles de filtrage</span></div>
+                  <div><svg class="icon"><use href="#i-arrow-right"/></svg><span>Préparer la supervision réseau</span></div>
+                </div>
+              </div>
+
+              <a class="text-link" href="documentation.html#pme">Consulter la fiche technique <svg class="icon"><use href="#i-arrow-right"/></svg></a>
             </div>
-            <div class="lab-visual" aria-label="Schéma simplifié de l'infrastructure du laboratoire">
-              <div class="lab-visual-header"><span>TOPOLOGIE LOGIQUE</span><span>SIMULATION</span></div>
-              <div class="topology">
-                <div class="topo-node topo-internet"><span>WAN</span><small>Internet</small></div>
-                <div class="topo-link topo-link-vertical"></div>
-                <div class="topo-node topo-firewall"><svg class="icon"><use href="#i-shield"/></svg><span>pfSense</span><small>Firewall / NAT</small></div>
-                <div class="topo-link topo-link-branch"></div>
-                <div class="topo-node topo-switch"><svg class="icon"><use href="#i-layers"/></svg><span>Switch L2</span><small>VLAN 10 / 20 / 30</small></div>
-                <div class="topo-branches">
+            <div class="lab-visual" role="group" aria-label="Topologie logique conceptuelle interactive : sélectionnez un VLAN pour afficher son rôle et son sous-réseau">
+              <div class="lab-visual-header"><span>TOPOLOGIE LOGIQUE</span><span>MAQUETTE · NON TESTÉE</span></div>
+              <div class="topology topology-pme">
+                <div class="topo-core">
+                  <div class="topo-node topo-internet"><span>WAN</span><small>Internet</small></div>
+                  <div class="topo-link topo-link-vertical" aria-hidden="true"></div>
+                  <div class="topo-node topo-firewall"><svg class="icon"><use href="#i-shield"/></svg><span>pfSense</span><small>Passerelle / Firewall</small></div>
+                  <div class="topo-trunk-link" aria-label="Liaison trunk 802.1Q envisagée entre pfSense et le switch">
+                    <span>TRUNK 802.1Q ENVISAGÉ</span>
+                  </div>
+                  <div class="topo-node topo-switch"><svg class="icon"><use href="#i-layers"/></svg><span>Switch L2</span><small>Distribution des VLAN</small></div>
+                </div>
+
+                <div class="topo-branch-bus" aria-hidden="true"></div>
+
+                <div class="topo-branches" aria-label="Segments réseau prévus">
                   <div class="topo-branch">
-                    <div class="topo-link"></div>
-                    <div class="topo-node topo-small"><svg class="icon"><use href="#i-cpu"/></svg><span>ADMIN</span><small>192.168.10.0/24</small></div>
+                    <span class="topo-branch-drop" aria-hidden="true"></span>
+                    <button class="topo-node topo-small topo-vlan-button" type="button" data-vlan-node data-title="VLAN 10 · Administration" data-subnet="192.168.10.0/24" data-role="Segment destiné aux postes d'administration et aux opérations de gestion du laboratoire." aria-pressed="true"><svg class="icon"><use href="#i-cpu"/></svg><span>VLAN 10 · ADMIN</span><small>192.168.10.0/24</small></button>
                   </div>
                   <div class="topo-branch">
-                    <div class="topo-link"></div>
-                    <div class="topo-node topo-small"><svg class="icon"><use href="#i-cpu"/></svg><span>USERS</span><small>192.168.20.0/24</small></div>
+                    <span class="topo-branch-drop" aria-hidden="true"></span>
+                    <button class="topo-node topo-small topo-vlan-button" type="button" data-vlan-node data-title="VLAN 20 · Utilisateurs" data-subnet="192.168.20.0/24" data-role="Segment prévu pour les postes utilisateurs. Les accès aux autres réseaux seront définis par les règles de filtrage." aria-pressed="false"><svg class="icon"><use href="#i-cpu"/></svg><span>VLAN 20 · USERS</span><small>192.168.20.0/24</small></button>
                   </div>
                   <div class="topo-branch">
-                    <div class="topo-link"></div>
-                    <div class="topo-node topo-small"><svg class="icon"><use href="#i-server"/></svg><span>SERVERS</span><small>192.168.30.0/24</small></div>
+                    <span class="topo-branch-drop" aria-hidden="true"></span>
+                    <button class="topo-node topo-small topo-vlan-button" type="button" data-vlan-node data-title="VLAN 30 · Serveurs" data-subnet="192.168.30.0/24" data-role="Segment réservé aux serveurs et services internes, avec des accès à limiter selon les besoins." aria-pressed="false"><svg class="icon"><use href="#i-server"/></svg><span>VLAN 30 · SERVERS</span><small>192.168.30.0/24</small></button>
                   </div>
                 </div>
               </div>
-              <div class="topology-legend"><span><i class="legend-cyan"></i> Liaison réseau</span><span><i class="legend-blue"></i> Équipement</span></div>
+              <div class="topology-legend"><span><i class="legend-cyan"></i> Liaison conceptuelle</span><span><i class="legend-blue"></i> Équipement</span><span><i class="legend-vlan"></i> VLAN sélectionnable</span></div>
+              <div class="vlan-inspector" aria-live="polite">
+                <div class="vlan-inspector-heading">
+                  <span>SEGMENT SÉLECTIONNÉ</span>
+                  <strong data-vlan-title>VLAN 10 · Administration</strong>
+                </div>
+                <p data-vlan-role>Segment destiné aux postes d'administration et aux opérations de gestion du laboratoire.</p>
+                <span class="vlan-subnet" data-vlan-subnet>SOUS-RÉSEAU PRÉVU · 192.168.10.0/24</span>
+              </div>
             </div>
           </article>
-          <p class="lab-disclaimer">Schéma conceptuel de démonstration. La configuration et les tests seront documentés au fur et à mesure de leur réalisation.</p>
+
+          <section class="subnet-tool" aria-labelledby="subnet-tool-title" data-subnet-tool>
+            <div class="subnet-tool-intro">
+              <div class="subnet-tool-heading">
+                <p class="mini-label">OUTIL INTERACTIF · IPv4</p>
+                <h3 id="subnet-tool-title">Calculateur de sous-réseau</h3>
+                <p>Entrez une adresse IPv4 avec son préfixe CIDR pour obtenir immédiatement les paramètres du sous-réseau.</p>
+              </div>
+              <form class="subnet-form" data-subnet-form novalidate>
+                <label for="subnet-cidr">Adresse IPv4 / préfixe</label>
+                <div class="subnet-input-row">
+                  <input id="subnet-cidr" name="subnet" type="text" value="192.168.10.25/24" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="subnet-help subnet-error">
+                  <button class="button button-primary" type="submit">Calculer <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+                </div>
+                <p class="subnet-help" id="subnet-help">Exemple : 192.168.10.25/24 · Préfixe accepté : /0 à /32.</p>
+                <p class="subnet-error" id="subnet-error" data-subnet-error role="alert" hidden></p>
+              </form>
+            </div>
+
+            <div class="subnet-results" data-subnet-results aria-live="polite" aria-label="Résultats du calcul">
+              <article class="subnet-metric subnet-metric-primary">
+                <span>Adresse réseau</span>
+                <strong data-subnet-network>192.168.10.0</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Masque de sous-réseau</span>
+                <strong data-subnet-mask>255.255.255.0</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Adresse de broadcast</span>
+                <strong data-subnet-broadcast>192.168.10.255</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Wildcard</span>
+                <strong data-subnet-wildcard>0.0.0.255</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Première adresse utilisable</span>
+                <strong data-subnet-first>192.168.10.1</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Dernière adresse utilisable</span>
+                <strong data-subnet-last>192.168.10.254</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Nombre total d’adresses</span>
+                <strong data-subnet-total>256</strong>
+              </article>
+              <article class="subnet-metric">
+                <span>Hôtes utilisables</span>
+                <strong data-subnet-usable>254</strong>
+              </article>
+            </div>
+            <p class="subnet-note" data-subnet-note>Préfixe /24 · 256 adresses au total · 254 hôtes utilisables dans un sous-réseau IPv4 classique.</p>
+          </section>
+
+          <section class="flow-simulator" data-flow-simulator aria-labelledby="flow-simulator-title">
+            <div class="flow-simulator-main">
+              <div class="flow-simulator-heading">
+                <p class="mini-label">OUTIL INTERACTIF · FILTRAGE</p>
+                <h3 id="flow-simulator-title">Simulateur de flux inter-VLAN</h3>
+                <p>Choisissez un réseau source, une destination et un service. Le simulateur évalue le flux selon une politique pédagogique définie pour ce laboratoire.</p>
+              </div>
+
+              <form class="flow-form" data-flow-form>
+                <div class="flow-fields">
+                  <div class="flow-field">
+                    <label for="flow-source">Réseau source</label>
+                    <select id="flow-source" name="source" data-flow-source>
+                      <option value="10">VLAN 10 · Administration</option>
+                      <option value="20" selected>VLAN 20 · Utilisateurs</option>
+                      <option value="30">VLAN 30 · Serveurs</option>
+                    </select>
+                  </div>
+                  <div class="flow-field">
+                    <label for="flow-destination">Réseau destination</label>
+                    <select id="flow-destination" name="destination" data-flow-destination>
+                      <option value="10">VLAN 10 · Administration</option>
+                      <option value="20">VLAN 20 · Utilisateurs</option>
+                      <option value="30" selected>VLAN 30 · Serveurs</option>
+                    </select>
+                  </div>
+                  <div class="flow-field flow-field-service">
+                    <label for="flow-service">Service / protocole</label>
+                    <select id="flow-service" name="service" data-flow-service>
+                      <option value="dns">DNS · TCP/UDP 53</option>
+                      <option value="https" selected>HTTPS · TCP 443</option>
+                      <option value="ssh">SSH · TCP 22</option>
+                      <option value="rdp">RDP · TCP 3389</option>
+                      <option value="icmp">ICMP · Echo</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="button button-primary flow-submit" type="submit">Analyser le flux <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+              </form>
+
+              <div class="flow-path" data-flow-path data-state="idle" aria-label="Chemin logique conceptuel d'un flux entre deux VLAN">
+                <div class="flow-path-step" data-flow-step="source">
+                  <span>ORIGINE</span><strong data-flow-source-label>VLAN 20 · USERS</strong><small data-flow-source-subnet>192.168.20.0/24</small>
+                </div>
+                <span class="flow-path-link" data-flow-link aria-hidden="true"></span>
+                <div class="flow-path-step" data-flow-step="switch-entry">
+                  <span>ENTRÉE LAN</span><strong>Switch L2</strong><small>VLAN source</small>
+                </div>
+                <span class="flow-path-link" data-flow-link aria-hidden="true"></span>
+                <div class="flow-path-step" data-flow-step="gateway">
+                  <span>TRUNK 802.1Q</span><strong>pfSense</strong><small>Routage & filtrage</small>
+                </div>
+                <span class="flow-path-link" data-flow-link aria-hidden="true"></span>
+                <div class="flow-path-step" data-flow-step="switch-exit">
+                  <span>SORTIE LAN</span><strong>Switch L2</strong><small>VLAN destination</small>
+                </div>
+                <span class="flow-path-link" data-flow-link aria-hidden="true"></span>
+                <div class="flow-path-step" data-flow-step="destination">
+                  <span>DESTINATION</span><strong data-flow-destination-label>VLAN 30 · SERVERS</strong><small data-flow-destination-subnet>192.168.30.0/24</small>
+                </div>
+              </div>
+              <p class="flow-path-caption" data-flow-path-caption>Le chemin s'actualisera après l'analyse du flux.</p>
+
+              <div class="flow-result" data-flow-result data-state="idle" role="status" aria-live="polite">
+                <span class="flow-result-symbol" aria-hidden="true"><svg class="icon"><use href="#i-activity"/></svg></span>
+                <div class="flow-result-copy">
+                  <span class="flow-result-kicker" data-flow-kicker>PRÊT POUR L'ANALYSE</span>
+                  <strong data-flow-verdict>En attente d'un test</strong>
+                  <p data-flow-explanation>Sélectionnez les paramètres puis lancez l'analyse pour afficher la décision de la politique type.</p>
+                </div>
+                <code class="flow-result-detail" data-flow-detail>VLAN 20 → VLAN 30 · HTTPS</code>
+              </div>
+            </div>
+
+            <aside class="flow-policy" aria-label="Règles de la politique pédagogique">
+              <div class="flow-policy-heading">
+                <span class="flow-policy-mark"><svg class="icon"><use href="#i-shield"/></svg></span>
+                <div><p class="mini-label">POLITIQUE DE DÉMONSTRATION</p><h4>Règles exemples</h4></div>
+              </div>
+              <ul class="flow-rules">
+                <li><strong>ADMIN → USERS</strong><span>SSH · RDP · ICMP</span></li>
+                <li><strong>ADMIN → SERVERS</strong><span>DNS · HTTPS · SSH · ICMP</span></li>
+                <li><strong>USERS → SERVERS</strong><span>DNS · HTTPS</span></li>
+                <li class="flow-rule-default"><strong>AUTRES NOUVEAUX FLUX</strong><span>Bloqués par défaut</span></li>
+              </ul>
+              <p class="flow-policy-note">Le trafic au sein d'un même VLAN reste local et ne traverse pas le routage inter-VLAN. Les réponses d'une session autorisée ne sont pas simulées séparément.</p>
+            </aside>
+          </section>
+
+          <p class="lab-disclaimer">Schéma et simulateur pédagogiques. Les règles affichées sont des exemples locaux, non appliqués à pfSense. La configuration réelle et ses tests seront documentés après leur réalisation.</p>
         </div>
       </section>
 
@@ -295,7 +681,7 @@
         <div class="container">
           <div class="section-heading" data-reveal>
             <div>
-              <p class="section-index">04 / MÉTHODE</p>
+              <p class="section-index">05 / MÉTHODE</p>
               <h2>Une démarche simple.<br><span>Des preuves à chaque étape.</span></h2>
             </div>
             <p class="section-lead">Chaque laboratoire suit un processus reproductible, comme une intervention technique en entreprise.</p>
@@ -327,14 +713,17 @@
         <div class="container">
           <div class="contact-panel" data-reveal>
             <div>
-              <p class="section-index">05 / CONTACT</p>
+              <p class="section-index">06 / CONTACT</p>
               <h2>Parlons réseaux,<br><span>projets et opportunités.</span></h2>
-              <p>Cette première version pose les bases du portfolio. Les coordonnées et le formulaire seront connectés depuis l'espace d'administration dans une prochaine étape.</p>
+              <p>Pour une opportunité de stage, une collaboration ou un échange technique, retrouve les projets et le code sur mon profil GitHub public. Les coordonnées directes seront ajoutées dès qu'une adresse professionnelle publique aura été confirmée.</p>
             </div>
             <div class="contact-side">
               <span class="contact-orbit"><svg class="icon"><use href="#i-network"/></svg></span>
-              <span class="contact-side-label">NETLAB · PORTFOLIO EN ÉVOLUTION</span>
-              <a class="button button-primary" href="#top">Retour en haut <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+              <span class="contact-side-label">DOUALA, CAMEROUN · ADMINISTRATEUR RÉSEAUX JUNIOR</span>
+              <div class="contact-actions">
+                <a class="button button-primary" href="https://github.com/biggyseven" target="_blank" rel="noopener noreferrer">Voir le profil GitHub <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+                <a class="button button-secondary" href="https://github.com/biggyseven/netlab" target="_blank" rel="noopener noreferrer">Explorer le dépôt NETLAB <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+              </div>
             </div>
           </div>
         </div>
@@ -348,9 +737,345 @@
           <span class="brand-copy"><strong>NETLAB</strong><small>Understand. Build. Secure. Connect.</small></span>
         </a>
         <p>Portfolio Réseaux & Télécommunications</p>
-        <span class="footer-copy">© <span data-year></span> NETLAB. Première version.</span>
+        <span class="footer-copy">© <span data-year></span> NETLAB · Portfolio technique.</span>
       </div>
     </footer>
+
+    <script id="netlab-evidence-catalog" type="application/json">
+    {
+      "infrastructure-pme": {
+        "media": [],
+        "pending": [
+          {
+            "category": "Architecture",
+            "title": "Topologie GNS3 complète",
+            "detail": "Vue d'ensemble du laboratoire avec équipements, interfaces et liaisons réellement configurés."
+          },
+          {
+            "category": "Commutation",
+            "title": "VLAN et trunk",
+            "detail": "Sortie de commande ou configuration montrant les VLAN et le trunk effectivement actifs."
+          },
+          {
+            "category": "Sécurité",
+            "title": "Interfaces et règles pfSense",
+            "detail": "Interfaces et règles appliquées, après masquage des informations sensibles."
+          },
+          {
+            "category": "Tests",
+            "title": "Flux autorisés et bloqués",
+            "detail": "Résultats datés des tests, accompagnés si possible des journaux correspondants."
+          }
+        ]
+      },
+      "ipv4-cidr": {
+        "media": [],
+        "pending": [
+          {
+            "category": "Cas /24",
+            "title": "Calcul d'un sous-réseau classique",
+            "detail": "Adresse de départ, préfixe, réseau, broadcast, masque et plage d'hôtes visibles."
+          },
+          {
+            "category": "Cas /31",
+            "title": "Liaison point à point",
+            "detail": "Cas /31 expliqué, avec le traitement spécifique des deux adresses."
+          },
+          {
+            "category": "Cas /32",
+            "title": "Route hôte",
+            "detail": "Cas /32 illustrant une seule adresse et son usage."
+          },
+          {
+            "category": "Validation",
+            "title": "Entrée invalide ou limite",
+            "detail": "Comportement du calculateur face à une adresse ou un préfixe incorrect."
+          }
+        ]
+      },
+      "zabbix-supervision": {
+        "media": [],
+        "pending": [
+          {
+            "category": "Inventaire",
+            "title": "Hôtes enregistrés",
+            "detail": "Liste réelle des hôtes disponibles dans Zabbix, avec adresses sensibles masquées."
+          },
+          {
+            "category": "Collecte",
+            "title": "Latest data",
+            "detail": "Valeurs CPU, mémoire ou disponibilité avec horodatage visible."
+          },
+          {
+            "category": "Agents",
+            "title": "Agents Linux et Windows",
+            "detail": "État réel des agents et dernière communication avec le serveur."
+          },
+          {
+            "category": "Alertes",
+            "title": "Déclencheur et notification",
+            "detail": "Événement de test et notification reçue, sans token ni identifiant privé."
+          }
+        ]
+      }
+    }
+    </script>
+
+    <script id="netlab-case-studies" type="application/json">
+    {
+      "infrastructure-pme": {
+        "stateLabel": "Conception documentée · laboratoire à construire",
+        "summary": "Le dossier décrit l'architecture cible WAN → pfSense → switch L2 et les VLAN 10/20/30. Cette conception reste une maquette : la topologie GNS3, le trunk, les règles pfSense et les tests de flux doivent encore être exécutés et vérifiés.",
+        "stages": [
+          {
+            "state": "described",
+            "title": "Cadrage de l'architecture",
+            "detail": "Le périmètre PME, la séparation des zones et le rôle du pare-feu central sont décrits dans le dossier technique. Le schéma publié reste conceptuel.",
+            "deliverable": "Schéma logique et objectifs du laboratoire."
+          },
+          {
+            "state": "planned",
+            "title": "Construction de la topologie GNS3",
+            "detail": "Créer les équipements, les relier, identifier les interfaces et vérifier l'état de chaque lien avant de poursuivre.",
+            "deliverable": "Projet GNS3 ouvert avec topologie et interfaces identifiées."
+          },
+          {
+            "state": "planned",
+            "title": "Segmentation VLAN et trunk 802.1Q",
+            "detail": "Créer les VLAN 10, 20 et 30, affecter les ports d'accès et établir le trunk vers l'équipement de routage.",
+            "deliverable": "Configuration VLAN/trunk et vérification des ports."
+          },
+          {
+            "state": "planned",
+            "title": "Routage et règles pfSense",
+            "detail": "Configurer les interfaces ou sous-interfaces prévues, les passerelles et les règles selon le principe du moindre privilège.",
+            "deliverable": "Captures des interfaces et règles appliquées, après masquage des données sensibles."
+          },
+          {
+            "state": "verify",
+            "title": "Tests des flux autorisés et bloqués",
+            "detail": "Tester la connectivité de chaque segment, les services autorisés et les accès qui doivent être refusés. Compléter les tests par les journaux utiles.",
+            "deliverable": "Matrice de tests avec résultats réellement observés."
+          },
+          {
+            "state": "planned",
+            "title": "Compte rendu et preuves",
+            "detail": "Documenter les écarts, les corrections, les limites constatées et les captures qui permettent de reproduire les vérifications.",
+            "deliverable": "Dossier final avec captures, commandes et résultats."
+          }
+        ]
+      },
+      "ipv4-cidr": {
+        "stateLabel": "Outil disponible · exercices à enrichir",
+        "summary": "Le calculateur IPv4/CIDR est intégré au portfolio et réalise ses calculs dans le navigateur. Les préfixes /31 et /32 disposent d'un traitement dédié. Les études de cas VLSM guidées et les captures explicatives restent à compléter.",
+        "stages": [
+          {
+            "state": "available",
+            "title": "Calculateur IPv4/CIDR",
+            "detail": "L'outil calcule le réseau, le masque, le broadcast, le wildcard, les plages d'adresses et les nombres d'adresses/hôtes utilisables.",
+            "deliverable": "Calculateur disponible dans la section Laboratoire."
+          },
+          {
+            "state": "available",
+            "title": "Traitement des préfixes /31 et /32",
+            "detail": "Les cas point à point /31 et route hôte /32 sont pris en compte séparément des sous-réseaux classiques.",
+            "deliverable": "Logique dédiée intégrée à l'outil JavaScript."
+          },
+          {
+            "state": "planned",
+            "title": "Exercices progressifs et VLSM",
+            "detail": "Ajouter des scénarios guidés, avec le raisonnement du découpage, les besoins en hôtes et le contrôle des plages obtenues.",
+            "deliverable": "Série d'exercices corrigés et vérifiables."
+          },
+          {
+            "state": "planned",
+            "title": "Vérification et captures pédagogiques",
+            "detail": "Confronter les cas représentatifs à des calculs indépendants et publier des captures annotées du raisonnement et des résultats.",
+            "deliverable": "Jeu de cas de référence et captures associées."
+          }
+        ]
+      },
+      "zabbix-supervision": {
+        "stateLabel": "Préparation documentée · déploiement à valider",
+        "summary": "Le périmètre de supervision, les hôtes cibles et les flux réseau sont préparés dans la documentation. L'installation du serveur, l'enregistrement des agents, la collecte et les notifications ne sont pas encore déclarés opérationnels.",
+        "stages": [
+          {
+            "state": "prepared",
+            "title": "Définition du périmètre de supervision",
+            "detail": "Les cibles Linux et Windows, les équipements SNMP envisagés et les contrôles attendus sont identifiés.",
+            "deliverable": "Périmètre fonctionnel et flux/ports à autoriser."
+          },
+          {
+            "state": "planned",
+            "title": "Installation du serveur Zabbix",
+            "detail": "Stabiliser l'installation sur Ubuntu Server, choisir les versions compatibles et vérifier les services et l'interface Web.",
+            "deliverable": "Serveur accessible, services démarrés et versions consignées."
+          },
+          {
+            "state": "planned",
+            "title": "Enregistrement des agents",
+            "detail": "Intégrer un premier hôte Linux puis un hôte Windows, configurer les agents et vérifier leur disponibilité depuis le serveur.",
+            "deliverable": "Hôtes enregistrés et agents joignables."
+          },
+          {
+            "state": "verify",
+            "title": "Collecte des métriques et déclencheurs",
+            "detail": "Contrôler la réception de données récentes, créer un événement de test et confirmer que le déclencheur suit le comportement attendu.",
+            "deliverable": "Écrans Latest data et historique d'un déclencheur testé."
+          },
+          {
+            "state": "planned",
+            "title": "Notification et compte rendu",
+            "detail": "Tester le canal de notification retenu, vérifier la réception et documenter la configuration sans publier de secrets.",
+            "deliverable": "Preuve de notification reçue et procédure reproductible."
+          }
+        ]
+      }
+    }
+    </script>
+
+    <dialog class="project-dialog" data-project-dialog aria-labelledby="project-dialog-title">
+      <div class="project-dialog-inner">
+        <div class="dialog-topline">
+          <span class="mini-label">DOSSIER TECHNIQUE <i></i> NETLAB / PROJETS</span>
+          <div class="dialog-actions">
+            <button class="dialog-copy-link" type="button" data-copy-project-link aria-label="Copier le lien de ce dossier">
+              <svg class="icon"><use href="#i-link"/></svg><span data-copy-project-link-label>Partager le dossier</span>
+            </button>
+            <button class="dialog-close" type="button" data-dialog-close aria-label="Fermer le dossier projet"><svg class="icon"><use href="#i-close"/></svg></button>
+          </div>
+        </div>
+
+        <div class="dialog-hero">
+          <div class="dialog-hero-copy">
+            <p class="dialog-project-index" data-dialog-index>PROJET / 01</p>
+            <span class="project-status status-progress" data-dialog-status><i></i> En construction</span>
+            <h2 id="project-dialog-title" data-dialog-title>Dossier projet</h2>
+            <p class="dialog-summary" data-dialog-summary></p>
+            <div class="dialog-overview">
+              <div><span>DOMAINE</span><strong data-dialog-domain></strong></div>
+              <div><span>ENVIRONNEMENT</span><strong data-dialog-environment></strong></div>
+            </div>
+          </div>
+
+          <div class="dialog-visual" data-dialog-visual data-visual="network" role="img" aria-label="Aperçu conceptuel de l'infrastructure PME">
+            <div class="dialog-art dialog-art-network" data-dialog-art="network">
+              <div class="art-topline"><span>ARCHITECTURE LOGIQUE</span><span>CONCEPT</span></div>
+              <div class="art-network-core">
+                <span class="art-node">WAN / INTERNET</span>
+                <i></i>
+                <span class="art-node art-node-firewall">pfSense <small>ROUTAGE · FILTRAGE</small></span>
+                <i></i>
+                <span class="art-node">SWITCH L2</span>
+                <div class="art-branch-line"></div>
+                <div class="art-vlans">
+                  <span><b>10</b> ADMIN</span>
+                  <span><b>20</b> USERS</span>
+                  <span><b>30</b> SERVERS</span>
+                </div>
+              </div>
+              <p class="art-footnote">TRUNK 802.1Q ENVISAGÉ · NON TESTÉ</p>
+            </div>
+
+            <div class="dialog-art dialog-art-ipv4" data-dialog-art="ipv4" hidden>
+              <div class="art-topline"><span>LECTURE D'ADRESSAGE</span><span>EXEMPLE</span></div>
+              <div class="art-ip-address">192.168.10.25<span>/24</span></div>
+              <div class="art-ip-octets"><b>192</b><b>168</b><b>10</b><b>25</b></div>
+              <div class="art-ip-meta">
+                <div><span>RÉSEAU</span><strong>192.168.10.0</strong></div>
+                <div><span>BROADCAST</span><strong>192.168.10.255</strong></div>
+                <div><span>MASQUE</span><strong>255.255.255.0</strong></div>
+                <div><span>HÔTES CLASSIQUES</span><strong>254</strong></div>
+              </div>
+              <p class="art-footnote">CAS PÉDAGOGIQUE · /24</p>
+            </div>
+
+            <div class="dialog-art dialog-art-zabbix" data-dialog-art="zabbix" hidden>
+              <div class="art-topline"><span>SUPERVISION ENVISAGÉE</span><span>NO DATA</span></div>
+              <div class="art-host-list">
+                <div><span class="art-host-icon">L</span><strong>Ubuntu Server</strong><small>HÔTE À INTÉGRER</small><b>--</b></div>
+                <div><span class="art-host-icon">W</span><strong>Windows</strong><small>AGENT À CONFIGURER</small><b>--</b></div>
+                <div><span class="art-host-icon">N</span><strong>Équipement réseau</strong><small>SNMP À ÉTUDIER</small><b>--</b></div>
+              </div>
+              <div class="art-no-data"><span></span> AUCUNE MÉTRIQUE COLLECTÉE</div>
+              <p class="art-footnote">VISUEL DE PRÉSENTATION · PAS DE MESURE RÉELLE</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dialog-dossier-grid">
+          <section class="dialog-dossier-section">
+            <p class="mini-label">01 / CONTEXTE</p>
+            <p data-dialog-context></p>
+            <h3>Objectif technique</h3>
+            <p data-dialog-goal></p>
+          </section>
+          <section class="dialog-dossier-section">
+            <p class="mini-label">02 / ENVIRONNEMENT TECHNIQUE</p>
+            <div class="dialog-tools" data-dialog-tools></div>
+          </section>
+          <section class="dialog-dossier-section dialog-deliverables">
+            <p class="mini-label">03 / DÉMARCHE ET LIVRABLES</p>
+            <ol class="dialog-objectives" data-dialog-objectives></ol>
+          </section>
+          <section class="dialog-proof-section" aria-labelledby="dialog-proof-title">
+            <div class="dialog-proof-heading">
+              <p class="mini-label" id="dialog-proof-title">04 / GALERIE DE PREUVES</p>
+              <span class="proof-count" data-proof-count>0 média publié</span>
+            </div>
+            <p data-dialog-evidence></p>
+            <div class="proof-gallery" data-proof-gallery aria-live="polite"></div>
+            <div class="proof-pending-wrap" data-proof-pending-wrap hidden>
+              <p class="mini-label">ÉLÉMENTS À COLLECTER</p>
+              <ul class="proof-pending-list" data-proof-pending></ul>
+            </div>
+          </section>
+        </div>
+
+        <section class="dialog-case-study" aria-labelledby="dialog-case-study-title">
+          <div class="case-study-heading">
+            <div>
+              <p class="mini-label" id="dialog-case-study-title">05 / PARCOURS DE L'ÉTUDE DE CAS</p>
+              <h3>Étapes, livrables et état d'avancement</h3>
+            </div>
+            <span class="case-study-step-count" data-case-study-count>0 étape</span>
+          </div>
+          <div class="case-study-current">
+            <span class="case-study-current-label">ÉTAT ACTUEL DU DOSSIER</span>
+            <strong data-case-study-state></strong>
+            <p data-case-study-summary></p>
+          </div>
+          <ol class="case-study-timeline" data-case-study-timeline aria-live="polite"></ol>
+          <p class="case-study-note">Les étapes indiquées comme disponibles ou préparées décrivent uniquement ce qui existe dans le portfolio. Les essais à venir ne sont pas comptés comme des résultats obtenus.</p>
+        </section>
+
+        <section class="dialog-next-step">
+          <p class="mini-label">06 / PROCHAINE ÉTAPE</p>
+          <p data-dialog-next></p>
+        </section>
+        <a class="button button-secondary dialog-doc-link" data-dialog-doc-link href="documentation.html" hidden>Consulter la documentation <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+        <p class="dialog-footnote">Les résultats ne seront annoncés comme validés qu'avec une configuration exécutée et des éléments de preuve correspondants.</p>
+      </div>
+    </dialog>
+
+    <dialog class="evidence-lightbox" data-evidence-lightbox aria-labelledby="evidence-lightbox-title">
+      <div class="evidence-lightbox-inner">
+        <div class="evidence-lightbox-toolbar">
+          <div>
+            <p class="mini-label">PREUVE TECHNIQUE</p>
+            <h2 id="evidence-lightbox-title" data-evidence-lightbox-title>Capture technique</h2>
+          </div>
+          <button class="dialog-close evidence-lightbox-close" type="button" data-evidence-lightbox-close aria-label="Fermer l'aperçu agrandi">
+            <svg class="icon"><use href="#i-close"/></svg>
+          </button>
+        </div>
+        <figure class="evidence-lightbox-figure">
+          <img data-evidence-lightbox-image alt="">
+          <figcaption data-evidence-lightbox-caption></figcaption>
+        </figure>
+        <p class="evidence-lightbox-hint">Appuie sur Échap ou utilise le bouton de fermeture pour revenir au dossier.</p>
+      </div>
+    </dialog>
   </div>
 </body>
 </html>

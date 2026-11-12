@@ -1,0 +1,16 @@
+Ordre sur l'interface;Interface entrante;Source;Destination;Protocole / port;Action proposée;Condition / commentaire
+1;VLAN_ADMIN;192.168.10.0/24;Ce pare-feu;ICMP echo-request;AUTORISER;Diagnostic de la passerelle locale, facultatif en production
+2;VLAN_USERS;192.168.20.0/24;Ce pare-feu;ICMP echo-request;AUTORISER;Diagnostic de la passerelle locale, facultatif en production
+3;VLAN_SERVERS;192.168.30.0/24;Ce pare-feu;ICMP echo-request;AUTORISER;Diagnostic de la passerelle locale, facultatif en production
+4;VLAN_ADMIN;ALIAS_ADMIN_HOSTS;ALIAS_SERVERS_MGMT;TCP 22,443;AUTORISER;Gestion SSH/HTTPS uniquement vers les cibles explicitement déclarées
+5;VLAN_ADMIN;192.168.10.0/24;192.168.20.0/24;Tous;BLOQUER;Empêche les accès non nécessaires vers le segment utilisateurs
+6;VLAN_USERS;192.168.20.0/24;192.168.10.0/24;Tous;BLOQUER;Les utilisateurs ne doivent pas accéder au réseau administration
+7;VLAN_USERS;ALIAS_USERS;ALIAS_APP_SERVERS;TCP PORT_APPLICATION;AUTORISER SI NÉCESSAIRE;Créer cette règle seulement après définition du serveur et du port applicatif réel
+8;VLAN_USERS;192.168.20.0/24;Résolveur DNS défini;TCP/UDP 53;AUTORISER SI UTILISÉ;Placer avant le refus des réseaux privés et limiter au résolveur réellement choisi
+9;VLAN_USERS;192.168.20.0/24;ALIAS_RFC1918;Tous;BLOQUER;Après les autorisations applicatives précises et DNS, avant la sortie Internet
+10;VLAN_USERS;192.168.20.0/24;Internet hors réseaux privés;TCP 80,443;AUTORISER;Sortie Web si elle est requise par le laboratoire
+11;VLAN_SERVERS;192.168.30.0/24;192.168.10.0/24;Tous;BLOQUER;Pas d'initiation libre du segment serveurs vers l'administration
+12;VLAN_SERVERS;192.168.30.0/24;192.168.20.0/24;Tous;BLOQUER;Pas d'initiation libre du segment serveurs vers les utilisateurs
+13;VLAN_SERVERS;192.168.30.0/24;Résolveur DNS défini;TCP/UDP 53;AUTORISER SI UTILISÉ;N'autoriser que le résolveur réellement configuré
+14;VLAN_SERVERS;192.168.30.0/24;Internet hors réseaux privés;TCP 80,443;AUTORISER SI NÉCESSAIRE;Limiter les sorties aux besoins de mises à jour documentés
+15;Toutes interfaces VLAN;Toute source;Toute destination non autorisée;Tous;REFUS PAR DÉFAUT;Le refus implicite pfSense reste le dernier filet de sécurité

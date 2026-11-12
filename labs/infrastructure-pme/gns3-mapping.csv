@@ -1,0 +1,9 @@
+Nœud GNS3;Rôle;Interface côté nœud;Connexion à;Port côté voisin;VLAN;État / remarque
+NAT;WAN amont;À relever;pfSense;Interface WAN à identifier;Non tagué;À câbler
+pfSense;WAN;À relever;NAT;Port disponible;Non tagué;À identifier via MAC et état de lien
+pfSense;Parent trunk;À relever;SW-LAB001;Port trunk à choisir;802.1Q 10,20,30;Interface physique parent à identifier
+SW-LAB001;Port trunk;À relever;pfSense;Parent trunk;Trunk;Configurer Dot1Q ou trunk IOS selon modèle
+SW-LAB001;Port client admin;À relever;VPCS-ADMIN;Ethernet;10;Access VLAN 10
+SW-LAB001;Port client utilisateur;À relever;VPCS-USER;Ethernet;20;Access VLAN 20
+SW-LAB001;Port serveur;À relever;Ubuntu-SRV;Ethernet;30;Access VLAN 30
+SW-LAB001;Port VPCS-USER2 (optionnel);À relever;VPCS-USER2;Ethernet;20;Second hôte temporaire pour test de commutation locale
