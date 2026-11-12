@@ -285,3 +285,12 @@ assets/
 - Retour du focus vers la galerie après fermeture.
 - Si un fichier référencé ne charge pas, la carte affiche un état indisponible au lieu d'une image cassée.
 - Le validateur vérifie la présence des éléments essentiels de la visionneuse.
+
+## Évolution V3.3 — études de cas et parcours technique
+
+- Chaque dossier projet dispose d'un parcours d'étapes adapté à son contenu : conception, configuration, vérification et compte rendu.
+- Chaque étape distingue les états « Disponible », « Décrit · non déployé », « Préparé », « À réaliser » et « À tester ».
+- Les livrables attendus sont explicités pour rendre les dossiers plus utiles à un lecteur technique ou à un recruteur.
+- Le bilan actuel de chaque projet précise ce qui existe et ce qui reste à valider.
+- Aucun historique daté fictif n'est affiché : les étapes ne reçoivent une date qu'après consignation d'une réalisation réelle.
+- Le validateur vérifie la couverture des trois projets, les états autorisés, les résumés et la complétude des étapes.
