@@ -204,6 +204,17 @@
   const proofGallery = document.querySelector("[data-proof-gallery]");
   const proofPendingWrap = document.querySelector("[data-proof-pending-wrap]");
   const proofPending = document.querySelector("[data-proof-pending]");
+  const caseStudyState = document.querySelector("[data-case-study-state]");
+  const caseStudySummary = document.querySelector("[data-case-study-summary]");
+  const caseStudyCount = document.querySelector("[data-case-study-count]");
+  const caseStudyTimeline = document.querySelector("[data-case-study-timeline]");
+  let caseStudyCatalog = {};
+  try {
+    const caseStudyNode = document.querySelector("#netlab-case-studies");
+    caseStudyCatalog = JSON.parse(caseStudyNode?.textContent || "{}");
+  } catch (_) {
+    caseStudyCatalog = {};
+  }
   const evidenceLightbox = document.querySelector("[data-evidence-lightbox]");
   const evidenceLightboxTitle = document.querySelector("[data-evidence-lightbox-title]");
   const evidenceLightboxImage = document.querySelector("[data-evidence-lightbox-image]");
@@ -335,6 +346,59 @@
     }
   };
 
+  const renderCaseStudy = projectId => {
+    if (!caseStudyTimeline) return;
+    const entry = caseStudyCatalog[projectId] || {};
+    const stages = Array.isArray(entry.stages) ? entry.stages : [];
+    const stateLabels = {
+      available: "Disponible",
+      described: "Décrit · non déployé",
+      prepared: "Préparé",
+      planned: "À réaliser",
+      verify: "À tester"
+    };
+    if (caseStudyState) caseStudyState.textContent = entry.stateLabel || "État à préciser";
+    if (caseStudySummary) caseStudySummary.textContent = entry.summary || "Aucun bilan de projet disponible.";
+    if (caseStudyCount) {
+      caseStudyCount.textContent = stages.length + (stages.length > 1 ? " étapes" : " étape");
+    }
+    caseStudyTimeline.replaceChildren();
+    stages.forEach((stage, index) => {
+      const state = Object.prototype.hasOwnProperty.call(stateLabels, stage.state) ? stage.state : "planned";
+      const item = document.createElement("li");
+      item.className = "case-study-step case-study-step-" + state;
+
+      const marker = document.createElement("span");
+      marker.className = "case-study-marker";
+      marker.setAttribute("aria-hidden", "true");
+      marker.textContent = String(index + 1).padStart(2, "0");
+
+      const content = document.createElement("div");
+      content.className = "case-study-step-content";
+      const header = document.createElement("div");
+      header.className = "case-study-step-header";
+      const title = document.createElement("strong");
+      title.textContent = stage.title || "Étape à préciser";
+      const badge = document.createElement("span");
+      badge.className = "case-study-step-status";
+      badge.textContent = stateLabels[state];
+      header.append(title, badge);
+
+      const detail = document.createElement("p");
+      detail.textContent = stage.detail || "";
+      const deliverable = document.createElement("p");
+      deliverable.className = "case-study-deliverable";
+      const deliverableLabel = document.createElement("span");
+      deliverableLabel.textContent = "LIVRABLE";
+      const deliverableText = document.createElement("strong");
+      deliverableText.textContent = stage.deliverable || "À définir";
+      deliverable.append(deliverableLabel, deliverableText);
+      content.append(header, detail, deliverable);
+      item.append(marker, content);
+      caseStudyTimeline.append(item);
+    });
+  };
+
   const projectButtons = [...document.querySelectorAll("[data-project-open]")];
   const projectHash = button => "#project-" + button.dataset.projectId;
   let activeProjectButton = null;
@@ -373,6 +437,7 @@
     if (dialogGoal) dialogGoal.textContent = button.dataset.goal || "";
     if (dialogEvidence) dialogEvidence.textContent = button.dataset.evidence || "Éléments de preuve à ajouter après réalisation.";
     renderEvidenceGallery(button.dataset.projectId || "");
+    renderCaseStudy(button.dataset.projectId || "");
     if (dialogNext) dialogNext.textContent = button.dataset.next || "Étape suivante à définir.";
     if (dialogTools) renderDossierList(dialogTools, button.dataset.tools || "", "span");
     if (dialogObjectives) renderDossierList(dialogObjectives, button.dataset.objectives || "");
