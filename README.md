@@ -294,3 +294,12 @@ assets/
 - Le bilan actuel de chaque projet précise ce qui existe et ce qui reste à valider.
 - Aucun historique daté fictif n'est affiché : les étapes ne reçoivent une date qu'après consignation d'une réalisation réelle.
 - Le validateur vérifie la couverture des trois projets, les états autorisés, les résumés et la complétude des étapes.
+
+
+## Évolution V3.4 — pack technique LAB 001
+
+- Ajout d'un dossier de travail concret pour l'infrastructure PME segmentée.
+- Schéma logique source SVG : WAN, pfSense, trunk 802.1Q, switch L2 et VLAN 10/20/30.
+- Plan d'adressage CSV, base de configuration Cisco IOS, matrice de flux pfSense et plan de huit tests.
+- Téléchargements directement intégrés à la fiche Infrastructure PME de la documentation.
+- Les fichiers sont des modèles de préparation : interfaces et règles à adapter, tests marqués « NON EXÉCUTÉ » jusqu'à validation réelle dans GNS3.
