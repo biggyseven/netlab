@@ -37,6 +37,8 @@ Ces sous-réseaux sont un plan de laboratoire proposé, pas des adresses relevé
 7. Exécuter chaque ligne du plan de tests et consigner les résultats observés avant de publier une capture.
 
 ## Précautions techniques
+- Les règles doivent être créées sur leur interface pfSense entrante respective ; l'ordre de la matrice est à respecter à l'intérieur de chaque interface.
+- Les autorisations ICMP vers « Ce pare-feu » ne servent qu'au diagnostic des passerelles et peuvent être retirées ensuite.
 
 - Le switch L2 ne route pas entre les VLAN. Le routage inter-VLAN est assuré par pfSense.
 - Le trafic entre deux hôtes du même VLAN reste commuté localement et ne passe normalement pas par pfSense.
