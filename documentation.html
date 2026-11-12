@@ -269,7 +269,7 @@ nslookup example.com</code></pre></div>
 
             <section class="docs-section docs-lab-pack" aria-labelledby="pme-pack-title">
               <h3 id="pme-pack-title"><span>06</span> Livrables concrets · LAB 001</h3>
-              <p>Le dossier de conception est maintenant accompagné de fichiers directement exploitables pour préparer la maquette GNS3. Télécharge les modèles, adapte les interfaces à tes équipements et renseigne les résultats après exécution.</p>
+              <p>Le dossier de conception est maintenant accompagné d'un véritable cahier de montage : topologie, adressage, câblage, configuration switch, procédure pfSense, matrice de flux et plan de tests. Les ports réels seront renseignés au montage dans GNS3.</p>
               <div class="docs-download-grid">
                 <a class="docs-download-card" href="labs/infrastructure-pme/topologie-lab001.svg" download>
                   <span class="docs-download-kicker">SVG · SCHÉMA SOURCE</span>
@@ -306,6 +306,30 @@ nslookup example.com</code></pre></div>
                   <strong>Guide du pack LAB 001</strong>
                   <small>Hypothèses, ordre de réalisation et précautions techniques.</small>
                   <span class="docs-download-action">Télécharger le guide <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/procedure-gns3.md" download>
+                  <span class="docs-download-kicker">RUNBOOK · GNS3</span>
+                  <strong>Monter la topologie</strong>
+                  <small>Nœuds, câblage, rôles du switch, progression et preuves à collecter.</small>
+                  <span class="docs-download-action">Télécharger la procédure <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/pfsense-vlan-runbook.md" download>
+                  <span class="docs-download-kicker">RUNBOOK · PFSENSE</span>
+                  <strong>Configurer les VLAN et le filtrage</strong>
+                  <small>Interfaces parent, tags, passerelles, DNS, règles par interface et tests.</small>
+                  <span class="docs-download-action">Télécharger le runbook <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/gns3-mapping.csv" download>
+                  <span class="docs-download-kicker">CSV · CÂBLAGE</span>
+                  <strong>Mapping des interfaces GNS3</strong>
+                  <small>Table de relevé des vrais ports pfSense et switch, à compléter au montage.</small>
+                  <span class="docs-download-action">Télécharger le mapping <span aria-hidden="true">↓</span></span>
+                </a>
+                <a class="docs-download-card" href="labs/infrastructure-pme/hotes-et-ports.csv" download>
+                  <span class="docs-download-kicker">CSV · HÔTES</span>
+                  <strong>Adresses des équipements et clients</strong>
+                  <small>Passerelles, clients de test, serveur Ubuntu et plages DHCP proposées.</small>
+                  <span class="docs-download-action">Télécharger le plan des hôtes <span aria-hidden="true">↓</span></span>
                 </a>
               </div>
               <div class="docs-note"><strong>Statut transparent :</strong> ces fichiers sont des modèles de conception, pas des preuves de déploiement. La configuration doit être adaptée ; tous les tests sont encore non exécutés.</div>
